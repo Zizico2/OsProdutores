@@ -1,25 +1,24 @@
 
 import TheProducers.*;
-
 import java.util.Scanner;
 
 public class Main {
 
     private enum Message{
 
-        MSG1  (""),
-        MSG2 (""),
-        INVALID_ACCOUNT (""),
-        FILE_UPLOADED (""),
-        ACCOUNT_NOT_EXIST (""),
-        FILE_ALREADY_EXISTS (""),
-        TOO_BIG (""),
-        FILE_SHARED (""),
-        FILE_NOT_EXIST (""),
-        UNAUTHORIZED_SHARING (""),
-        SHARING_ALREADY_EXISTS (""),
-        UNKNOWN  ("Unknown command!"),
-        EXITING ("Exiting...");
+        PROMPT      ("> "),
+        MSG2        (""),
+        MSG3        (""),
+        MSG4        (""),
+        MSG5        (""),
+        MSG6        (""),
+        MSG7        (""),
+        MSG8        (""),
+        MSG9        (""),
+        MSG10       (""),
+        MSG11       (""),
+        UNKNOWN     ("Opcao inexistente."),
+        EXITING     ("Ate a proxima");
 
 
         private final String msg;
@@ -63,6 +62,7 @@ public class Main {
     }
 
     private static Command getCommand(Scanner input) {
+        System.out.print(Message.PROMPT.msg);
         String cmd = input.nextLine().toUpperCase();
         for(Command Cmd: Command.values())
             if(cmd.equals(Cmd.cmd))
@@ -76,71 +76,70 @@ public class Main {
         while(!cmd.equals(Command.EXIT)){
             cmd = getCommand(in);
 
-                switch(cmd){
-                    case REGISTER:
-                        register(in, tP);
-                        break;
+            switch(cmd){
+                case REGISTER:
+                    register(in, tP);
+                    break;
 
-                    case STAFF:
-                        staff(in, tP);
-                        break;
+                case STAFF:
+                    staff(in, tP);
+                    break;
 
-                    case SCENERY:
-                        scenery(in, tP);
-                        break;
+                case SCENERY:
+                    scenery(in, tP);
+                    break;
 
-                    case SCENERIES:
-                        sceneries(tP);
-                        break;
+                case SCENERIES:
+                    sceneries(tP);
+                    break;
 
-                    case SCHEDULE:
-                        schedule(in, tP);
-                        break;
+                case SCHEDULE:
+                    schedule(in, tP);
+                    break;
 
-                    case MOPE:
-                        mope(tP);
-                        break;
+                case MOPE:
+                    mope(tP);
+                    break;
 
-                    case RECONCILE:
-                        reconcile(in,tP);
-                        break;
+                case RECONCILE:
+                    reconcile(in,tP);
+                    break;
 
-                    case PERFORMED:
-                        performed(in,tP);
-                        break;
+                case PERFORMED:
+                    performed(in,tP);
+                    break;
 
-                    case PLANNED:
-                        planned(in,tP);
-                        break;
+                case PLANNED:
+                    planned(in,tP);
+                    break;
 
-                    case SITE:
-                        site(in,tP);
-                        break;
+                case SITE:
+                    site(in,tP);
+                    break;
 
-                    case COLLABORATOR:
-                        collaborator(in,tP);
-                        break;
+                case COLLABORATOR:
+                    collaborator(in,tP);
+                    break;
 
-                    case RECORD:
-                        record(in,tP);
-                        break;
+                case RECORD:
+                    record(in,tP);
+                    break;
 
-                    case POUTANCES:
-                        poutances(in,tP);
-                        break;
+                case POUTANCES:
+                    poutances(in,tP);
+                    break;
 
-                    case HELP:
-                        help();
-                        break;
+                case HELP:
+                    help();
+                    break;
 
-                    case EXIT:
-                        System.out.println(Message.EXITING.msg);
-                        break;
+                case EXIT:
+                    System.out.println(Message.EXITING.msg);
+                    break;
 
-                    case UNKNOWN:
-                        System.out.println(Message.UNKNOWN.msg);
-                }
-                System.out.println();
+                case UNKNOWN:
+                    System.out.println(Message.UNKNOWN.msg);
+            }
         }
     }
 
@@ -185,6 +184,10 @@ public class Main {
 
     private static void help(){
         for(Command C : Command.values())
-            System.out.println(C.description);
+            if(C.cmd.equals(Command.EXIT.cmd))
+                System.out.print(C.description);
+
+            else
+                System.out.println(C.description);
     }
 }
