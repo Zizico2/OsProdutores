@@ -7,19 +7,19 @@ public class Main {
 
     private enum Message{
 
-        MSG1  (""),
-        MSG2 (""),
-        INVALID_ACCOUNT (""),
-        FILE_UPLOADED (""),
-        ACCOUNT_NOT_EXIST (""),
-        FILE_ALREADY_EXISTS (""),
-        TOO_BIG (""),
-        FILE_SHARED (""),
-        FILE_NOT_EXIST (""),
-        UNAUTHORIZED_SHARING (""),
-        SHARING_ALREADY_EXISTS (""),
-        UNKNOWN  ("Unknown command!"),
-        EXITING ("Exiting...");
+        PROMPT      ("> "),
+        MSG2        (""),
+        MSG3        (""),
+        MSG4        (""),
+        MSG5        (""),
+        MSG6        (""),
+        MSG7        (""),
+        MSG8        (""),
+        MSG9        (""),
+        MSG10       (""),
+        MSG11       (""),
+        UNKNOWN     ("Opcao inexistente."),
+        EXITING     ("Ate a proxima");
 
 
         private final String msg;
