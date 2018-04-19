@@ -6,7 +6,6 @@ public interface Collaborator extends SeniorProducer, JuniorProducer, Technician
 
     int getPayPerHour();
     String getName();
-
 }
 
 

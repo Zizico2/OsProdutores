@@ -1,6 +1,10 @@
 package Staff;
 
-public class VedetteClass extends CollaboratorClass {
+import Iterator.Iterator;
+
+public class VedetteClass extends CollaboratorClass implements Vedette {
+
+    Iterator<Collaborator> blacklist;
 
     public VedetteClass(String name, int payPerHour) {
         super(name, payPerHour);

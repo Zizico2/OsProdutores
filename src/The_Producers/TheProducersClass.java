@@ -27,6 +27,7 @@ public class TheProducersClass implements TheProducers {
                 break;
             case VEDETTE_ACTOR:
                 Actor va = new VedetteClass(name, payPerHour);
+                ((Vedette) va).getName();
                 staff.add((Vedette) va);
                 break;
             case NORMAL_ACTOR:
@@ -54,8 +55,9 @@ public class TheProducersClass implements TheProducers {
 
     public int getType(String type){
         switch(type){
-            case ""
+            case "":
         }
+    return 0;
     }
 
 
