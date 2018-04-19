@@ -1,4 +1,4 @@
-package Collaborators;
+package Staff;
 
 public class CollaboratorClass implements Collaborator {
     
