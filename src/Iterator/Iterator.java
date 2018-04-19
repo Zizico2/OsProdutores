@@ -26,7 +26,7 @@ public interface Iterator<Elem> {
      */
     void add(Elem object);
 
-    void remove(Elem object);
+   // void remove(Elem object);
 
     void initialize();
 }

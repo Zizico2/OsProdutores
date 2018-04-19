@@ -1,5 +1,5 @@
-
-import The_Producers.*;
+import The_Producers.TheProducers;
+import The_Producers.TheProducersClass;
 
 import java.util.Scanner;
 
@@ -58,7 +58,13 @@ public class Main {
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
         TheProducers tP = new TheProducersClass();
+        TheProducersClass tPc = new TheProducersClass();
+
+        tPc.test();
+
         executeCommand(input,tP);
+
+
         input.close();
     }
 

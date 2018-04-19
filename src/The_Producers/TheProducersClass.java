@@ -36,7 +36,7 @@ public class TheProducersClass implements TheProducers {
                 break;
             case VEDETTE_DIRECTOR:
                 Director Vd = new VedetteClass(name, payPerHour);
-                staff.add((Collaborator) Vd);
+                staff.add((Vedette) Vd);
                 break;
             case NORMAL_DIRECTOR:
                 Director Nd = new CollaboratorClass(name, payPerHour);
@@ -60,5 +60,25 @@ public class TheProducersClass implements TheProducers {
     return 0;
     }
 
+    
+    public void test(){
+
+        Actor va = new VedetteClass("name", 2);
+        staff.add((Vedette) va);
+
+        ((Vedette) va).getName();
+        
+        staff.initialize();
+
+        if (staff.next() instanceof Actor)
+            System.out.println("Actor");
+
+        if (staff.next() instanceof Vedette)
+            System.out.println("Vedette");
+
+        if (staff.next() instanceof Collaborator)
+            System.out.println("Collaborator");
+
+    }
 
 }
