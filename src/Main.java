@@ -1,5 +1,6 @@
 
-import TheProducers.*;
+import The_Producers.*;
+
 import java.util.Scanner;
 
 public class Main {
@@ -62,7 +63,6 @@ public class Main {
     }
 
     private static Command getCommand(Scanner input) {
-        System.out.print(Message.PROMPT.msg);
         String cmd = input.nextLine().toUpperCase();
         for(Command Cmd: Command.values())
             if(cmd.equals(Cmd.cmd))
@@ -76,70 +76,71 @@ public class Main {
         while(!cmd.equals(Command.EXIT)){
             cmd = getCommand(in);
 
-            switch(cmd){
-                case REGISTER:
-                    register(in, tP);
-                    break;
+                switch(cmd){
+                    case REGISTER:
+                        register(in, tP);
+                        break;
 
-                case STAFF:
-                    staff(in, tP);
-                    break;
+                    case STAFF:
+                        staff(in, tP);
+                        break;
 
-                case SCENERY:
-                    scenery(in, tP);
-                    break;
+                    case SCENERY:
+                        scenery(in, tP);
+                        break;
 
-                case SCENERIES:
-                    sceneries(tP);
-                    break;
+                    case SCENERIES:
+                        sceneries(tP);
+                        break;
 
-                case SCHEDULE:
-                    schedule(in, tP);
-                    break;
+                    case SCHEDULE:
+                        schedule(in, tP);
+                        break;
 
-                case MOPE:
-                    mope(tP);
-                    break;
+                    case MOPE:
+                        mope(tP);
+                        break;
 
-                case RECONCILE:
-                    reconcile(in,tP);
-                    break;
+                    case RECONCILE:
+                        reconcile(in,tP);
+                        break;
 
-                case PERFORMED:
-                    performed(in,tP);
-                    break;
+                    case PERFORMED:
+                        performed(in,tP);
+                        break;
 
-                case PLANNED:
-                    planned(in,tP);
-                    break;
+                    case PLANNED:
+                        planned(in,tP);
+                        break;
 
-                case SITE:
-                    site(in,tP);
-                    break;
+                    case SITE:
+                        site(in,tP);
+                        break;
 
-                case COLLABORATOR:
-                    collaborator(in,tP);
-                    break;
+                    case COLLABORATOR:
+                        collaborator(in,tP);
+                        break;
 
-                case RECORD:
-                    record(in,tP);
-                    break;
+                    case RECORD:
+                        record(in,tP);
+                        break;
 
-                case POUTANCES:
-                    poutances(in,tP);
-                    break;
+                    case POUTANCES:
+                        poutances(in,tP);
+                        break;
 
-                case HELP:
-                    help();
-                    break;
+                    case HELP:
+                        help();
+                        break;
 
-                case EXIT:
-                    System.out.println(Message.EXITING.msg);
-                    break;
+                    case EXIT:
+                        System.out.println(Message.EXITING.msg);
+                        break;
 
-                case UNKNOWN:
-                    System.out.println(Message.UNKNOWN.msg);
-            }
+                    case UNKNOWN:
+                        System.out.println(Message.UNKNOWN.msg);
+                }
+                System.out.println();
         }
     }
 
@@ -184,10 +185,6 @@ public class Main {
 
     private static void help(){
         for(Command C : Command.values())
-            if(C.cmd.equals(Command.EXIT.cmd))
-                System.out.print(C.description);
-
-            else
-                System.out.println(C.description);
+            System.out.println(C.description);
     }
 }

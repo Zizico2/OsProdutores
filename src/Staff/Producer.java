@@ -1,4 +1,4 @@
-package Collaborators;
+package Staff;
 
 public class Producer {
 
