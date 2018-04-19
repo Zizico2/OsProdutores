@@ -8,7 +8,7 @@ public class Main {
     private enum Message{
 
         PROMPT      ("> "),
-        MSG2        (""),
+        REGISTRY_COMPLETE       ("Colaborador registado com sucesso!"),
         MSG3        (""),
         MSG4        (""),
         MSG5        (""),
@@ -178,6 +178,16 @@ public class Main {
     }
 
     private static void register(Scanner in, TheProducers tP) {
+        String type = in.next().trim();
+
+        if(in.hasNextInt())
+            type = type + in.next().trim();
+
+        int PayPerHour = in.nextInt();
+
+
+
+
     }
 
     private static void staff(Scanner in, TheProducers tP) {

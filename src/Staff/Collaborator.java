@@ -1,7 +1,12 @@
 package Staff;
 
-public interface Collaborator {
+import Staff.Tag_Interfaces.*;
+
+public interface Collaborator extends SeniorProducer, JuniorProducer, Technician, Director, Actor {
+
+    int getPayPerHour();
+    String getName();
+
 }
 
-interface Vedette extends Collaborator{
-}
+

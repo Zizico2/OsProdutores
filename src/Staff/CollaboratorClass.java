@@ -1,9 +1,19 @@
 package Staff;
 
 public class CollaboratorClass implements Collaborator {
-    
-}
+    int payPerHour;
+    String name;
 
-class VedetteClass extends CollaboratorClass implements Vedette{
-    
+    public CollaboratorClass (String name, int payPerHour){
+        this.name = name;
+        this.payPerHour = payPerHour;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public int getPayPerHour(){
+        return payPerHour;
+    }
 }
