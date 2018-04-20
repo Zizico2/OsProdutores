@@ -1,4 +1,6 @@
-import Staff.StaffMember;
+import Staff.*;
+import Staff.StaffMembers.*;
+import Staff.StaffMembers.Vedette.*;
 import The_Producers.StaffType;
 import The_Producers.TheProducers;
 import The_Producers.TheProducersClass;
@@ -60,6 +62,8 @@ public class Main {
     }
 
     public static void main(String[] args){
+        StaffMember s = new VedetteActorClass("",2);
+
         Scanner input = new Scanner(System.in);
         TheProducers tP = new TheProducersClass();
         executeCommand(input,tP);

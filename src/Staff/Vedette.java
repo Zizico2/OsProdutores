@@ -1,6 +1,6 @@
 package Staff;
 
-public interface Vedette extends StaffMember{
+public interface Vedette {
 
     void mope(String name);
 }
