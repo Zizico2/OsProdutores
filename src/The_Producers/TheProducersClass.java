@@ -1,13 +1,16 @@
 package The_Producers;
 
 import Iterator.*;
-import Staff.*;
+import Staff.Tags.Actor;
+import Staff.Tags.Director;
+import Staff.StaffMembers.JuniorProducerClass;
+import Staff.StaffMembers.SeniorProducerClass;
 import Staff.Tag_Interfaces.*;
 
 public class TheProducersClass implements TheProducers {
 
-    Iterator<Recording> calendar;
-    Iterator<Collaborator> staff;
+    private Iterator<Recording> calendar;
+    private Iterator<Collaborator> staff;
 
     public TheProducersClass(){
         staff = new IteratorClass<Collaborator>();
@@ -16,38 +19,38 @@ public class TheProducersClass implements TheProducers {
 
     @Override
     public void add(String name, int payPerHour, CollaboratorType type) {
-        Object aux = null;
+        Collaborator aux = null;
 
         switch (type) {
             case SENIOR_PRODUCER:
-                SeniorProducer s = new CollaboratorClass(name, payPerHour);
-                aux = s;
+                SeniorProducerClass s = new CollaboratorClass(name, payPerHour);
+                aux = (Collaborator) s;
                 break;
             case JUNIOR_PRODUCER:
-                JuniorProducer j = new CollaboratorClass(name, payPerHour);
-                aux = j;
+                JuniorProducerClass j = new CollaboratorClass(name, payPerHour);
+                aux = (Collaborator) j;
                 break;
             case VEDETTE_ACTOR:
                 Actor va = new VedetteClass(name, payPerHour);
-                aux = va;
+                aux = (Collaborator) va;
                 break;
             case NORMAL_ACTOR:
                 Actor Na = new CollaboratorClass(name, payPerHour);
-                aux = Na;
+                aux = (Collaborator) Na;
                 break;
             case VEDETTE_DIRECTOR:
                 Director Vd = new VedetteClass(name, payPerHour);
-                aux = Vd;
+                aux = (Collaborator) Vd;
                 break;
             case NORMAL_DIRECTOR:
                 Director Nd = new CollaboratorClass(name, payPerHour);
-                aux = Nd;
+                aux = (Collaborator) Nd;
                 break;
             case TECHNICIAN:
                 Technician T = new CollaboratorClass(name, payPerHour);
-                aux = T;
+                aux = (Collaborator) T;
         }
-        staff.add((Collaborator) aux);
+        staff.add(aux);
     }
 
     @Override
@@ -55,11 +58,12 @@ public class TheProducersClass implements TheProducers {
         return staff;
     }
 
-    public int getType(String type){
-        switch(type){
-            case "":
-        }
-    return 0;
+    @Override
+    public CollaboratorType getType(String type){
+        CollaboratorType aux = null;
+        for(CollaboratorType CT : CollaboratorType.values())
+            if(CT.getInput().equals(type))
+                aux = CT;
+    return aux;
     }
-
 }

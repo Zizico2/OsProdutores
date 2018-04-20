@@ -1,4 +1,4 @@
-package Staff.Tag_Interfaces;
+package Staff.Tags;
 
 public interface Director {
 }

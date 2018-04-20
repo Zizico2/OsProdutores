@@ -1,6 +1,7 @@
+import Staff.Tag_Interfaces.*;
 import The_Producers.TheProducers;
 import The_Producers.TheProducersClass;
-
+import Iterator.Iterator;
 import java.util.Scanner;
 
 public class Main {
@@ -56,15 +57,15 @@ public class Main {
     }
 
     public static void main(String[] args){
+
+        Technician S = new CollaboratorClass("NAME",100);
+        System.out.println();
+
+
+
         Scanner input = new Scanner(System.in);
         TheProducers tP = new TheProducersClass();
-        TheProducersClass tPc = new TheProducersClass();
-
-        tPc.test();
-
         executeCommand(input,tP);
-
-
         input.close();
     }
 
@@ -80,6 +81,7 @@ public class Main {
         Command cmd = Command.UNKNOWN;
 
         while(!cmd.equals(Command.EXIT)){
+            System.out.print(Message.PROMPT.msg);
             cmd = getCommand(in);
 
                 switch(cmd){
@@ -146,7 +148,6 @@ public class Main {
                     case UNKNOWN:
                         System.out.println(Message.UNKNOWN.msg);
                 }
-                System.out.println();
         }
     }
 
@@ -184,19 +185,28 @@ public class Main {
     }
 
     private static void register(Scanner in, TheProducers tP) {
-        String type = in.next().trim();
+        String typename = in.next().trim();
+        String type;
 
-        if(in.hasNextInt())
-            type = type + in.next().trim();
-
+        if(!in.hasNextInt())
+            type = typename + " " + in.next().trim();
+        else
+            type = typename;
         int PayPerHour = in.nextInt();
+        String name  = in.nextLine();
 
-
-
+        tP.add(name,PayPerHour,tP.getType(type));
+        System.out.println(Message.REGISTRY_COMPLETE.msg);
 
     }
 
     private static void staff(Scanner in, TheProducers tP) {
+        Iterator<Collaborator> staff = tP.staff();
+        staff.initialize();
+        while(staff.hasNext()){
+
+
+        }
     }
 
     private static void help(){
