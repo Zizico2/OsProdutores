@@ -5,7 +5,7 @@ import Staff.VedetteAbstract;
 
 public class VedetteDirectorClass extends VedetteAbstract implements Director {
 
-    protected VedetteDirectorClass(String Name, int moneyPerHour) {
+    public VedetteDirectorClass(String Name, int moneyPerHour) {
         super(Name, moneyPerHour);
     }
 

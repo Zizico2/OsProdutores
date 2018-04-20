@@ -1,10 +1,5 @@
 package Array;
 
-
-import Staff.StaffMember;
-
-import java.util.Arrays;
-
 public class ArrayClass<Elem> implements Array<Elem> {
 
     private Elem[] array;
@@ -41,7 +36,6 @@ public class ArrayClass<Elem> implements Array<Elem> {
     public void add(Elem object) {
         if(counter == array.length)
             resize();
-
         array[counter++] =  object;
     }
 

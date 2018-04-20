@@ -3,7 +3,7 @@ package The_Producers;
 public enum StaffType {
 
      SENIOR_PRODUCER("produtor","senior"),
-     JUNIOR_PRODUCER("produtor"," junior"),
+     JUNIOR_PRODUCER("produtor","junior"),
      VEDETTE_ACTOR ("actor","vedeta"),
      NORMAL_ACTOR  ("actor","normal"),
      VEDETTE_DIRECTOR("realizador","vedeta"),

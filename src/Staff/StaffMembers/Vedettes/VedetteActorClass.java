@@ -5,7 +5,7 @@ import Staff.VedetteAbstract;
 
 public class VedetteActorClass extends VedetteAbstract implements Actor {
 
-    protected VedetteActorClass(String Name, int moneyPerHour) {
+    public VedetteActorClass(String Name, int moneyPerHour) {
         super(Name, moneyPerHour);
     }
 

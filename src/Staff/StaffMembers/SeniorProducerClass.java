@@ -5,7 +5,7 @@ import Staff.Tags.Producer;
 
 public class SeniorProducerClass extends StaffMemberAbstract implements Producer {
 
-    protected SeniorProducerClass(String Name, int moneyPerHour) {
+    public SeniorProducerClass(String Name, int moneyPerHour) {
         super(Name, moneyPerHour);
     }
 }

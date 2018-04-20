@@ -1,7 +1,10 @@
 import Staff.StaffMember;
+import The_Producers.StaffType;
 import The_Producers.TheProducers;
 import The_Producers.TheProducersClass;
 import Array.Array;
+import org.omg.CORBA.UNKNOWN;
+
 import java.util.Scanner;
 
 public class Main {
@@ -45,7 +48,7 @@ public class Main {
         POUTANCES    ("amuancos - lista os colaboradores com quem uma vedeta esta amuada","AMUANCOS"),
         HELP         ("ajuda - Mostra a ajuda","AJUDA"),
         EXIT         ("sai - Termina a execucao do programa","SAI"),
-        UNKNOWN      ("","UNKNOWN");
+        UNKNOWN      ("","");
 
         private final String cmd;
         private final String description;
@@ -84,7 +87,7 @@ public class Main {
                         break;
 
                     case STAFF:
-                        staff(in, tP);
+                        staff(tP);
                         break;
 
                     case SCENERY:
@@ -179,29 +182,40 @@ public class Main {
     }
 
     private static void register(Scanner in, TheProducers tP) {
-        String typename = in.next().trim();
-        String type;
+        String type = in.next();
+        String subType = "";
 
         if(!in.hasNextInt())
-            type = typename + " " + in.next().trim();
-        else
-            type = typename;
-        int PayPerHour = in.nextInt();
-        String name  = in.nextLine();
+            subType = in.next();
 
 
+        int MoneyPerHour =in.nextInt();
+        String name  = in.nextLine().substring(1);
+
+        StaffType realType = null;
+
+        for (StaffType T: StaffType.values()) {
+            if(type.equals(T.getType()) && subType.equals(T.getSubType()) || type.equals(T.getSubType()))
+                realType = T;
+        }
+
+        tP.add(name,MoneyPerHour,realType);
         System.out.println(Message.REGISTRY_COMPLETE.msg);
 
     }
 
-    private static void staff(Scanner in, TheProducers tP) {
-        Array<StaffMember> staff = tP.staff();
-        staff.initialize();
-
+    private static void staff( TheProducers tP) {
+        String msg = tP.Staff();
+        if(!msg.equals(""))
+            System.out.print(tP.Staff());
+        else
+            System.out.println("Nao existem colaboradores registados.");
     }
 
     private static void help(){
         for(Command C : Command.values())
-            System.out.println(C.description);
+            if(C  != Command.UNKNOWN)
+                System.out.println(C.description);
+
     }
 }
