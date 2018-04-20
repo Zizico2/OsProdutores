@@ -16,36 +16,38 @@ public class TheProducersClass implements TheProducers {
 
     @Override
     public void add(String name, int payPerHour, CollaboratorType type) {
+        Object aux = null;
+
         switch (type) {
             case SENIOR_PRODUCER:
                 SeniorProducer s = new CollaboratorClass(name, payPerHour);
-                staff.add((Collaborator) s);
+                aux = s;
                 break;
             case JUNIOR_PRODUCER:
                 JuniorProducer j = new CollaboratorClass(name, payPerHour);
-                staff.add((Collaborator) j);
+                aux = j;
                 break;
             case VEDETTE_ACTOR:
                 Actor va = new VedetteClass(name, payPerHour);
-                ((Vedette) va).getName();
-                staff.add((Collaborator) va);
+                aux = va;
                 break;
             case NORMAL_ACTOR:
                 Actor Na = new CollaboratorClass(name, payPerHour);
-                staff.add((Collaborator) Na);
+                aux = Na;
                 break;
             case VEDETTE_DIRECTOR:
                 Director Vd = new VedetteClass(name, payPerHour);
-                staff.add((Collaborator) Vd);
+                aux = Vd;
                 break;
             case NORMAL_DIRECTOR:
                 Director Nd = new CollaboratorClass(name, payPerHour);
-                staff.add((Collaborator) Nd);
+                aux = Nd;
                 break;
             case TECHNICIAN:
                 Technician T = new CollaboratorClass(name, payPerHour);
-                staff.add((Collaborator) T);
+                aux = T;
         }
+        staff.add((Collaborator) aux);
     }
 
     @Override
@@ -58,20 +60,6 @@ public class TheProducersClass implements TheProducers {
             case "":
         }
     return 0;
-    }
-
-    
-    public void test(){
-
-        if (staff.next() instanceof Actor)
-            System.out.println("Actor");
-
-        if (staff.next() instanceof Vedette)
-            System.out.println("Vedette");
-
-        if (staff.next() instanceof Collaborator)
-            System.out.println("Collaborator");
-
     }
 
 }
