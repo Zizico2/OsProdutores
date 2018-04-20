@@ -28,7 +28,7 @@ public class TheProducersClass implements TheProducers {
             case VEDETTE_ACTOR:
                 Actor va = new VedetteClass(name, payPerHour);
                 ((Vedette) va).getName();
-                staff.add((Vedette) va);
+                staff.add((Collaborator) va);
                 break;
             case NORMAL_ACTOR:
                 Actor Na = new CollaboratorClass(name, payPerHour);
@@ -36,7 +36,7 @@ public class TheProducersClass implements TheProducers {
                 break;
             case VEDETTE_DIRECTOR:
                 Director Vd = new VedetteClass(name, payPerHour);
-                staff.add((Vedette) Vd);
+                staff.add((Collaborator) Vd);
                 break;
             case NORMAL_DIRECTOR:
                 Director Nd = new CollaboratorClass(name, payPerHour);
@@ -62,13 +62,6 @@ public class TheProducersClass implements TheProducers {
 
     
     public void test(){
-
-        Actor va = new VedetteClass("name", 2);
-        staff.add((Vedette) va);
-
-        ((Vedette) va).getName();
-        
-        staff.initialize();
 
         if (staff.next() instanceof Actor)
             System.out.println("Actor");
