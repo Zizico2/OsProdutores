@@ -5,8 +5,9 @@ import Staff.StaffMember;
 import Staff.StaffMembers.JuniorProducerClass;
 
 import Staff.StaffMembers.*;
-import Staff.StaffMembers.Vedettes.*;
 import Staff.*;
+import Staff.StaffMembers.Vedettes.VedetteActorClass;
+import Staff.StaffMembers.Vedettes.VedetteDirectorClass;
 import Staff.Tags.*;
 
 
