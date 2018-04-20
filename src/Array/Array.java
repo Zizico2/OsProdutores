@@ -1,6 +1,6 @@
-package Iterator;
+package Array;
 
-public interface Iterator<Elem> {
+public interface Array<Elem> {
 
     int DEFAULT_SIZE = 10;
     int GROWTH_RATE = 2;

@@ -1,69 +1,68 @@
 package The_Producers;
 
-import Iterator.*;
+import Array.*;
+import Staff.StaffMember;
+import Staff.StaffMembers.JuniorProducerClass;
+import Staff.StaffMembers.TechnicianClass;
 import Staff.Tags.Actor;
 import Staff.Tags.Director;
-import Staff.StaffMembers.JuniorProducerClass;
-import Staff.StaffMembers.SeniorProducerClass;
-import Staff.Tag_Interfaces.*;
+import Staff.Tags.*;
+import Staff.*;
+
 
 public class TheProducersClass implements TheProducers {
 
-    private Iterator<Recording> calendar;
-    private Iterator<Collaborator> staff;
+    private Array<Recording> calendar;
+    private Array<StaffMember> staff;
 
     public TheProducersClass(){
-        staff = new IteratorClass<Collaborator>();
-        calendar = new IteratorClass<Recording>();
+        staff = new ArrayClass<StaffMember>();
+        calendar = new ArrayClass<Recording>();
     }
 
     @Override
-    public void add(String name, int payPerHour, CollaboratorType type) {
-        Collaborator aux = null;
+    public void add(String name, int payPerHour, StaffType type) {
 
-        switch (type) {
-            case SENIOR_PRODUCER:
-                SeniorProducerClass s = new CollaboratorClass(name, payPerHour);
-                aux = (Collaborator) s;
-                break;
-            case JUNIOR_PRODUCER:
-                JuniorProducerClass j = new CollaboratorClass(name, payPerHour);
-                aux = (Collaborator) j;
-                break;
-            case VEDETTE_ACTOR:
-                Actor va = new VedetteClass(name, payPerHour);
-                aux = (Collaborator) va;
-                break;
-            case NORMAL_ACTOR:
-                Actor Na = new CollaboratorClass(name, payPerHour);
-                aux = (Collaborator) Na;
-                break;
-            case VEDETTE_DIRECTOR:
-                Director Vd = new VedetteClass(name, payPerHour);
-                aux = (Collaborator) Vd;
-                break;
-            case NORMAL_DIRECTOR:
-                Director Nd = new CollaboratorClass(name, payPerHour);
-                aux = (Collaborator) Nd;
-                break;
-            case TECHNICIAN:
-                Technician T = new CollaboratorClass(name, payPerHour);
-                aux = (Collaborator) T;
-        }
-        staff.add(aux);
     }
 
     @Override
-    public Iterator<Collaborator> staff() {
+    public Array<StaffMember> staff() {
         return staff;
     }
 
+
+    public StaffType getType(StaffMember ST){
+        if(ST instanceof Vedette) {
+                 if(ST instanceof Actor)
+                     return StaffType.VEDETTE_ACTOR;
+                 else
+                    return StaffType.VEDETTE_DIRECTOR;
+        } else {
+            if (ST instanceof Producer) {
+                if (ST instanceof JuniorProducerClass)
+                    return StaffType.JUNIOR_PRODUCER;
+                else
+                    return StaffType.SENIOR_PRODUCER;
+            } else if (ST instanceof Actor)
+                return StaffType.NORMAL_ACTOR;
+
+            else if (ST instanceof Director)
+                return StaffType.NORMAL_DIRECTOR;
+
+            else
+                return StaffType.TECHNICIAN;
+        }
+    }
+
     @Override
-    public CollaboratorType getType(String type){
-        CollaboratorType aux = null;
-        for(CollaboratorType CT : CollaboratorType.values())
-            if(CT.getInput().equals(type))
-                aux = CT;
-    return aux;
+    public String Staff() {
+        staff.initialize();
+        String msg = "";
+        while(staff.hasNext()){
+            StaffMember jonhdoe = staff.next();
+            StaffType ST = getType(jonhdoe);
+            msg += ST.getType() + " " + ST.getSubType() + " " + jonhdoe.getName() + " " + jonhdoe.getMoneyPerHour();
+        }
+        return msg;
     }
 }

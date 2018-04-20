@@ -1,17 +1,19 @@
 package The_Producers;
 
-import Iterator.Iterator;
+import Array.*;
+import Staff.*;
 
 public interface TheProducers {
 
+    void add(String name, int payPerHour, StaffType type);
+
+    Array<StaffMember> staff();
+
+    StaffType getType(StaffMember ST);
+
+    String Staff();
 
 
-
-    void add(String name, int payPerHour, CollaboratorType type);
-
-    Iterator<Collaborator> staff();
-
-    CollaboratorType getType(String type);
 
 
 

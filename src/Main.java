@@ -1,7 +1,7 @@
-import Staff.Tag_Interfaces.*;
+import Staff.StaffMember;
 import The_Producers.TheProducers;
 import The_Producers.TheProducersClass;
-import Iterator.Iterator;
+import Array.Array;
 import java.util.Scanner;
 
 public class Main {
@@ -57,12 +57,6 @@ public class Main {
     }
 
     public static void main(String[] args){
-
-        Technician S = new CollaboratorClass("NAME",100);
-        System.out.println();
-
-
-
         Scanner input = new Scanner(System.in);
         TheProducers tP = new TheProducersClass();
         executeCommand(input,tP);
@@ -195,18 +189,15 @@ public class Main {
         int PayPerHour = in.nextInt();
         String name  = in.nextLine();
 
-        tP.add(name,PayPerHour,tP.getType(type));
+
         System.out.println(Message.REGISTRY_COMPLETE.msg);
 
     }
 
     private static void staff(Scanner in, TheProducers tP) {
-        Iterator<Collaborator> staff = tP.staff();
+        Array<StaffMember> staff = tP.staff();
         staff.initialize();
-        while(staff.hasNext()){
 
-
-        }
     }
 
     private static void help(){
