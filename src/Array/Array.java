@@ -1,6 +1,6 @@
-package Iterator;
+package Array;
 
-public interface Iterator<Elem> {
+public interface Array<Elem> {
 
     int DEFAULT_SIZE = 10;
     int GROWTH_RATE = 2;
@@ -25,6 +25,8 @@ public interface Iterator<Elem> {
      * @param object objeto a adicionar.
      */
     void add(Elem object);
+
+   // void remove(Elem object);
 
     void initialize();
 }

@@ -1,14 +1,13 @@
-package Iterator;
+package Array;
 
-
-public class IteratorClass<Elem> implements Iterator<Elem> {
+public class ArrayClass<Elem> implements Array<Elem> {
 
     private Elem[] array;
     private int counter;
     private int current;
 
     @SuppressWarnings("unchecked")
-    public IteratorClass(){
+    public ArrayClass(){
         array = (Elem[]) new Object[DEFAULT_SIZE];
         current = -1;
         counter = 0;
@@ -37,7 +36,6 @@ public class IteratorClass<Elem> implements Iterator<Elem> {
     public void add(Elem object) {
         if(counter == array.length)
             resize();
-
         array[counter++] =  object;
     }
 
@@ -45,5 +43,6 @@ public class IteratorClass<Elem> implements Iterator<Elem> {
     public void initialize() {
         current = 0;
     }
+
 
 }
