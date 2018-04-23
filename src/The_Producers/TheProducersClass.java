@@ -104,7 +104,7 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
-    public String Staff() {
+    public String staff() {
         staff.initialize();
         String msg = "";
 
@@ -112,6 +112,17 @@ public class TheProducersClass implements TheProducers {
             StaffMember jonhdoe = staff.next();
             StaffType ST = checkType(jonhdoe);
             msg += ST.getOutput() + jonhdoe.getName() + " " + jonhdoe.getMoneyPerHour() + "\n";
+        }
+        return msg;
+    }
+
+    public String planned() {
+        calendar.initialize();
+        String msg = "";
+
+        while(calendar.hasNext()){
+            Recording NCIS_LA = calendar.next();
+            msg += NCIS_LA.toString();
         }
         return msg;
     }

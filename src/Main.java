@@ -1,8 +1,7 @@
-import Staff.*;
-import Staff.StaffMembers.VedetteActorClass;
 import The_Producers.TheProducers;
 import The_Producers.TheProducersClass;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
@@ -58,8 +57,6 @@ public class Main {
     }
 
     public static void main(String[] args){
-        StaffMember s = new VedetteActorClass("",2);
-
         Scanner input = new Scanner(System.in);
         TheProducers tP = new TheProducersClass();
         executeCommand(input,tP);
@@ -229,7 +226,7 @@ public class Main {
     }
 
     private static void staff( TheProducers tP) {
-        String msg = tP.Staff();
+        String msg = tP.staff();
         if(!msg.equals(""))
             System.out.print(msg);
         else

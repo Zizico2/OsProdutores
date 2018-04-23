@@ -9,7 +9,7 @@ public interface TheProducers {
 
     StaffType checkType(StaffMember ST);
 
-    String Staff();
+    String staff();
 
     boolean duplicateName(String name);
 
