@@ -1,11 +1,7 @@
 import Staff.*;
-import Staff.StaffMembers.*;
 import Staff.StaffMembers.Vedette.*;
-import The_Producers.StaffType;
 import The_Producers.TheProducers;
 import The_Producers.TheProducersClass;
-import Array.Array;
-import org.omg.CORBA.UNKNOWN;
 
 import java.util.Scanner;
 
@@ -13,12 +9,12 @@ public class Main {
 
     private enum Message{
 
-        PROMPT      ("> "),
+        PROMPT                  ("> "),
         REGISTRY_COMPLETE       ("Colaborador registado com sucesso!"),
-        MSG3        (""),
-        MSG4        (""),
-        MSG5        (""),
-        MSG6        (""),
+        DUPLICATE_NAME          ("Ja existe um colaborador com o mesmo nome."),
+        INVALID_TYPE            ("Tipo de colaborador desconhecido."),
+        INVALID_SUBTYPE         ("Notoriedade invalida."),
+        INVALID_SALARY          ("Acha mesmo que este colaborador vai pagar para trabalhar?"),
         MSG7        (""),
         MSG8        (""),
         MSG9        (""),
@@ -193,18 +189,25 @@ public class Main {
             subType = in.next();
 
 
-        int MoneyPerHour =in.nextInt();
+        int moneyPerHour =in.nextInt();
         String name  = in.nextLine().substring(1);
 
-        StaffType realType = null;
+        if (tP.duplicateName(name))
+            System.out.println(Message.DUPLICATE_NAME.msg);
 
-        for (StaffType T: StaffType.values()) {
-            if(type.equals(T.getType()) && subType.equals(T.getSubType()) || type.equals(T.getSubType()))
-                realType = T;
+        else if(!tP.isTypeValid(type))
+            System.out.println(Message.INVALID_TYPE.msg);
+
+        else if(!tP.isSubTypeValid(subType))
+            System.out.println(Message.INVALID_SUBTYPE.msg);
+
+        else if(!tP.isSalaryValid(moneyPerHour))
+            System.out.println(Message.INVALID_SALARY.msg);
+
+        else{
+            tP.register(name,moneyPerHour,type,subType);
+            System.out.println(Message.REGISTRY_COMPLETE.msg);
         }
-
-        tP.add(name,MoneyPerHour,realType);
-        System.out.println(Message.REGISTRY_COMPLETE.msg);
 
     }
 

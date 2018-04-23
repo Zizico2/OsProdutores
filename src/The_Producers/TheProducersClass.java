@@ -1,6 +1,8 @@
 package The_Producers;
 
 import Array.*;
+import Sceneries.Scenery;
+import Sceneries.SceneryClass;
 import Staff.StaffMember;
 import Staff.StaffMembers.JuniorProducerClass;
 
@@ -15,16 +17,19 @@ public class TheProducersClass implements TheProducers {
 
     private Array<Recording> calendar;
     private Array<StaffMember> staff;
+    private Array<Scenery> sceneries;
 
     public TheProducersClass(){
         staff = new ArrayClass<StaffMember>();
         calendar = new ArrayClass<Recording>();
+        sceneries = new ArrayClass<Scenery>();
     }
 
     @Override
-    public void add(String name, int payPerHour, StaffType type) {
+    public void register(String name, int payPerHour, String type, String subType) {
+        StaffType ST = getType(type,subType);
 
-        switch(type){
+        switch(ST){
             case SENIOR_PRODUCER:
                 staff.add(new SeniorProducerClass(name,payPerHour));
                 break;
@@ -54,7 +59,12 @@ public class TheProducersClass implements TheProducers {
         }
     }
 
-    public StaffType getType(StaffMember ST){
+    public void addScenery(String name, int pricePerHour){
+        sceneries.add(new SceneryClass(name,pricePerHour));
+    }
+
+    @Override
+    public StaffType checkType(StaffMember ST){
         if(ST instanceof Vedette) {
                  if(ST instanceof Actor)
                      return StaffType.VEDETTE_ACTOR;
@@ -81,15 +91,53 @@ public class TheProducersClass implements TheProducers {
     public String Staff() {
         staff.initialize();
         String msg = "";
-        String prollySpace = " ";
+
         while(staff.hasNext()){
             StaffMember jonhdoe = staff.next();
-            StaffType ST = getType(jonhdoe);
-            if(ST.equals(StaffType.TECHNICIAN))
-                prollySpace = "";
-                msg += ST.getType() + prollySpace + ST.getSubType() + " " + jonhdoe.getName() + " " + jonhdoe.getMoneyPerHour() + "\n";
-                prollySpace = " ";
+            StaffType ST = checkType(jonhdoe);
+            msg += ST.getOutput() + jonhdoe.getName() + " " + jonhdoe.getMoneyPerHour() + "\n";
         }
         return msg;
     }
+
+    public boolean duplicateName(String name){
+        staff.initialize();
+        while(staff.hasNext()){
+            if(staff.next().getName().equals(name))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isTypeValid(String type){
+
+        for(StaffType ST: StaffType.values())
+            if(ST.getType().equals(type))
+                return true;
+        return false;
+    }
+
+    @Override
+    public boolean isSubTypeValid(String subType){
+        for(StaffType ST: StaffType.values())
+            if(ST.getSubType().equals(subType))
+                return true;
+        return false;
+    }
+
+    @Override
+    public boolean isSalaryValid(int money){
+        return money > 0;
+    }
+
+    private StaffType getType(String type, String subType){
+        for (StaffType T: StaffType.values()) {
+            if(type.equals(T.getType()) && subType.equals(T.getSubType()))
+                return T;
+        }
+        return null;
+    }
+
+
 }
