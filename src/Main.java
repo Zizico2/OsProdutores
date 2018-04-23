@@ -184,10 +184,18 @@ public class Main {
     }
 
     private static void scenery(Scanner in, TheProducers tP) {
+        String name = in.nextLine();
+        int cost = in.nextInt();
+        in.nextLine();
 
-        tP.addScenery(in.nextLine(), in.nextInt());in.nextLine();
-
-        System.out.println("Cenario registado.");
+        if (tP.duplicateSceneryName(name))
+            System.out.println("Localizacao ja tinha sido registada.");
+        else if (!tP.isCostValid(cost))
+            System.out.println("Acha que eles nos pagam para gravar la?");
+        else {
+            tP.addScenery(name, cost);
+            System.out.println("Cenario registado.");
+        }
     }
 
     private static void register(Scanner in, TheProducers tP) {
@@ -210,7 +218,7 @@ public class Main {
         else if(!tP.isSubTypeValid(subType))
             System.out.println(Message.INVALID_SUBTYPE.msg);
 
-        else if(!tP.isSalaryValid(moneyPerHour))
+        else if(!tP.isCostValid(moneyPerHour))
             System.out.println(Message.INVALID_SALARY.msg);
 
         else{
