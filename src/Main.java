@@ -1,9 +1,7 @@
-import Staff.StaffMember;
-import The_Producers.StaffType;
+import Staff.*;
+import Staff.StaffMembers.VedetteActorClass;
 import The_Producers.TheProducers;
 import The_Producers.TheProducersClass;
-import Array.Array;
-import org.omg.CORBA.UNKNOWN;
 
 import java.util.Scanner;
 
@@ -11,12 +9,12 @@ public class Main {
 
     private enum Message{
 
-        PROMPT      ("> "),
+        PROMPT                  ("> "),
         REGISTRY_COMPLETE       ("Colaborador registado com sucesso!"),
-        MSG3        (""),
-        MSG4        (""),
-        MSG5        (""),
-        MSG6        (""),
+        DUPLICATE_NAME          ("Ja existe um colaborador com o mesmo nome."),
+        INVALID_TYPE            ("Tipo de colaborador desconhecido."),
+        INVALID_SUBTYPE         ("Notoriedade invalida."),
+        INVALID_SALARY          ("Acha mesmo que este colaborador vai pagar para trabalhar?"),
         MSG7        (""),
         MSG8        (""),
         MSG9        (""),
@@ -60,6 +58,8 @@ public class Main {
     }
 
     public static void main(String[] args){
+        StaffMember s = new VedetteActorClass("",2);
+
         Scanner input = new Scanner(System.in);
         TheProducers tP = new TheProducersClass();
         executeCommand(input,tP);
@@ -176,9 +176,18 @@ public class Main {
     }
 
     private static void sceneries(TheProducers tP) {
+        String msg = tP.listSceneries();
+        if(!msg.equals(""))
+            System.out.print(msg);
+        else
+            System.out.println("Nao existem localizacoes registadas.");
     }
 
     private static void scenery(Scanner in, TheProducers tP) {
+
+        tP.addScenery(in.nextLine(), in.nextInt());in.nextLine();
+
+        System.out.println("Cenario registado.");
     }
 
     private static void register(Scanner in, TheProducers tP) {
@@ -189,25 +198,32 @@ public class Main {
             subType = in.next();
 
 
-        int MoneyPerHour =in.nextInt();
+        int moneyPerHour =in.nextInt();
         String name  = in.nextLine().substring(1);
 
-        StaffType realType = null;
+        if (tP.duplicateName(name))
+            System.out.println(Message.DUPLICATE_NAME.msg);
 
-        for (StaffType T: StaffType.values()) {
-            if(type.equals(T.getType()) && subType.equals(T.getSubType()) || type.equals(T.getSubType()))
-                realType = T;
+        else if(!tP.isTypeValid(type))
+            System.out.println(Message.INVALID_TYPE.msg);
+
+        else if(!tP.isSubTypeValid(subType))
+            System.out.println(Message.INVALID_SUBTYPE.msg);
+
+        else if(!tP.isSalaryValid(moneyPerHour))
+            System.out.println(Message.INVALID_SALARY.msg);
+
+        else{
+            tP.register(name,moneyPerHour,type,subType);
+            System.out.println(Message.REGISTRY_COMPLETE.msg);
         }
-
-        tP.add(name,MoneyPerHour,realType);
-        System.out.println(Message.REGISTRY_COMPLETE.msg);
 
     }
 
     private static void staff( TheProducers tP) {
         String msg = tP.Staff();
         if(!msg.equals(""))
-            System.out.print(tP.Staff());
+            System.out.print(msg);
         else
             System.out.println("Nao existem colaboradores registados.");
     }

@@ -18,3 +18,4 @@ public abstract class StaffMemberAbstract implements StaffMember {
         return Name;
     }
 }
+

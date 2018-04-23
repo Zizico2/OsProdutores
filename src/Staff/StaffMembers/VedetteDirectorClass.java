@@ -1,4 +1,4 @@
-package Staff.StaffMembers.Vedettes;
+package Staff.StaffMembers;
 
 import Staff.Tags.Director;
 import Staff.VedetteAbstract;
