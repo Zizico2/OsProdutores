@@ -1,8 +1,8 @@
 package The_Producers;
 
 import Array.*;
-import Sceneries.Scenery;
-import Sceneries.SceneryClass;
+import Scenery.Scenery;
+import Scenery.SceneryClass;
 import Staff.StaffMember;
 import Staff.StaffMembers.JuniorProducerClass;
 

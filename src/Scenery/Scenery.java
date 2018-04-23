@@ -1,4 +1,4 @@
-package Sceneries;
+package Scenery;
 
 public interface Scenery {
 
@@ -7,4 +7,5 @@ public interface Scenery {
     int getPricePerHour();
 
     String getName();
+    void changeStatus();
 }

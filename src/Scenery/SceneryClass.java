@@ -1,4 +1,4 @@
-package Sceneries;
+package Scenery;
 
 public class SceneryClass implements Scenery {
 
@@ -25,7 +25,7 @@ public class SceneryClass implements Scenery {
         return status;
     }
 
-    public void Book() {
-        status = BOOKED;
+    public void changeStatus() {
+        status = !status;
     }
 }
