@@ -143,8 +143,17 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
-    public boolean isSalaryValid(int money){
+    public boolean isCostValid(int money){
         return money > 0;
+    }
+
+    public boolean duplicateSceneryName(String name){
+        sceneries.initialize();
+        while(sceneries.hasNext()){
+            if(sceneries.next().getName().equals(name))
+                return true;
+        }
+        return false;
     }
 
     private StaffType getType(String type, String subType){

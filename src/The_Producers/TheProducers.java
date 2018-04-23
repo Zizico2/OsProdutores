@@ -17,8 +17,10 @@ public interface TheProducers {
 
     boolean isSubTypeValid(String subType);
 
-    boolean isSalaryValid(int i);
+    boolean isCostValid(int i);
 
     String listSceneries();
+
+    boolean duplicateSceneryName(String name);
 
 }
