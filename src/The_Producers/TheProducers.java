@@ -5,6 +5,8 @@ public interface TheProducers {
 
     void register(String name, int payPerHour, String type, String subType);
 
+    void addScenery(String site, int pricePerHour);
+
     StaffType checkType(StaffMember ST);
 
     String Staff();
@@ -16,5 +18,7 @@ public interface TheProducers {
     boolean isSubTypeValid(String subType);
 
     boolean isSalaryValid(int i);
+
+    String listSceneries();
 
 }

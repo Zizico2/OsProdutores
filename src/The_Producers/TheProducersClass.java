@@ -59,9 +59,25 @@ public class TheProducersClass implements TheProducers {
         }
     }
 
-    public void addScenery(String name, int pricePerHour){
-        sceneries.add(new SceneryClass(name,pricePerHour));
+    @Override
+    public void addScenery(String site, int pricePerHour){
+
+        sceneries.add(new SceneryClass(site, pricePerHour));
+
     }
+
+    public String listSceneries(){
+
+        String msg = "";
+
+        sceneries.initialize();
+
+        while(sceneries.hasNext()){
+            Scenery somewhereovertherainbow = sceneries.next();
+            msg += somewhereovertherainbow.getName() + " " + somewhereovertherainbow.getPricePerHour() + ".\n";
+        }
+        return msg;
+        }
 
     @Override
     public StaffType checkType(StaffMember ST){

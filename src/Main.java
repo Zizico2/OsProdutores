@@ -176,9 +176,18 @@ public class Main {
     }
 
     private static void sceneries(TheProducers tP) {
+        String msg = tP.listSceneries();
+        if(!msg.equals(""))
+            System.out.print(msg);
+        else
+            System.out.println("Nao existem localizacoes registadas.");
     }
 
     private static void scenery(Scanner in, TheProducers tP) {
+
+        tP.addScenery(in.nextLine(), in.nextInt());in.nextLine();
+
+        System.out.println("Cenario registado.");
     }
 
     private static void register(Scanner in, TheProducers tP) {
@@ -214,7 +223,7 @@ public class Main {
     private static void staff( TheProducers tP) {
         String msg = tP.Staff();
         if(!msg.equals(""))
-            System.out.print(tP.Staff());
+            System.out.print(msg);
         else
             System.out.println("Nao existem colaboradores registados.");
     }
