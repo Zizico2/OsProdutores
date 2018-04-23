@@ -1,5 +1,5 @@
 import Staff.*;
-import Staff.StaffMembers.Vedette.*;
+import Staff.StaffMembers.VedetteActorClass;
 import The_Producers.TheProducers;
 import The_Producers.TheProducersClass;
 
