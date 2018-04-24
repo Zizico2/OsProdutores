@@ -44,5 +44,10 @@ public class ArrayClass<Elem> implements Array<Elem> {
         current = 0;
     }
 
+    @Override
+    public Elem[] getArray() {
+        return array;
+    }
+
 
 }

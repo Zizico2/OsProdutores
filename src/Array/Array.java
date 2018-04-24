@@ -29,4 +29,6 @@ public interface Array<Elem> {
    // void remove(Elem object);
 
     void initialize();
+
+    Elem[] getArray();
 }
