@@ -1,8 +1,9 @@
-import Staff.*;
-import Staff.StaffMembers.VedetteActorClass;
+import Array.Array;
+import Staff.StaffMember;
 import The_Producers.TheProducers;
 import The_Producers.TheProducersClass;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
@@ -58,8 +59,6 @@ public class Main {
     }
 
     public static void main(String[] args){
-        StaffMember s = new VedetteActorClass("",2);
-
         Scanner input = new Scanner(System.in);
         TheProducers tP = new TheProducersClass();
         executeCommand(input,tP);
@@ -152,7 +151,25 @@ public class Main {
     }
 
     private static void schedule(Scanner in, TheProducers tP) {
-    }
+        int[] localDateTime = new int[6];
+        String[] mainNames = new String[3];
+        String scenery = in.nextLine();
+        for(int i = 0; i < 6; i++)
+            localDateTime[i] = in.nextInt();
+        in.nextLine();
+        for(int i = 0; i < 3; i++)
+            mainNames[i] = in.nextLine();
+        int numberOfStaffMembers = in.nextInt() + 3;
+        in.nextLine();
+        String[] names = new String[numberOfStaffMembers];
+        System.arraycopy(mainNames, 0, names, 0, 3);
+        for (int i = 3; i < numberOfStaffMembers; i++){
+            names[i] = in.nextLine();
+        }
+
+        tP.scheduleRecording(scenery, localDateTime, names);
+        System.out.println("Gravacao agendada com sucesso!");
+        }
 
     private static void record(Scanner in, TheProducers tP) {
     }
@@ -167,6 +184,12 @@ public class Main {
     }
 
     private static void planned(Scanner in, TheProducers tP) {
+        String msg = tP.listPlannedRecordings();
+
+        if (msg.equals(""))
+            System.out.println("Nenhuma gravacao prevista.");
+        else
+            System.out.println(msg);
     }
 
     private static void performed(Scanner in, TheProducers tP) {
@@ -229,7 +252,7 @@ public class Main {
     }
 
     private static void staff( TheProducers tP) {
-        String msg = tP.Staff();
+        String msg = tP.staff();
         if(!msg.equals(""))
             System.out.print(msg);
         else

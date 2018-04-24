@@ -15,13 +15,15 @@ import Staff.Tags.*;
 
 public class TheProducersClass implements TheProducers {
 
-    private Array<Recording> calendar;
+    private Array<Recording> plannedRecordings;
+    private Array<Recording> pastRecordings;
     private Array<StaffMember> staff;
     private Array<Scenery> sceneries;
 
     public TheProducersClass(){
         staff = new ArrayClass<StaffMember>();
-        calendar = new ArrayClass<Recording>();
+        plannedRecordings = new ArrayClass<Recording>();
+        pastRecordings = new ArrayClass<Recording>();
         sceneries = new ArrayClass<Scenery>();
     }
 
@@ -104,7 +106,7 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
-    public String Staff() {
+    public String staff() {
         staff.initialize();
         String msg = "";
 
@@ -112,6 +114,17 @@ public class TheProducersClass implements TheProducers {
             StaffMember jonhdoe = staff.next();
             StaffType ST = checkType(jonhdoe);
             msg += ST.getOutput() + jonhdoe.getName() + " " + jonhdoe.getMoneyPerHour() + "\n";
+        }
+        return msg;
+    }
+
+    public String planned() {
+        plannedRecordings.initialize();
+        String msg = "";
+
+        while(plannedRecordings.hasNext()){
+            Recording NCIS_LA = plannedRecordings.next();
+            msg += NCIS_LA.toString();
         }
         return msg;
     }
@@ -164,5 +177,48 @@ public class TheProducersClass implements TheProducers {
         return null;
     }
 
+    public void scheduleRecording(String scenery, int[] localDateTime, String[] names){
+        plannedRecordings.add(new RecordingClass(getSceneryByName(scenery), localDateTime[0], localDateTime[1],
+                     localDateTime[2], localDateTime[3], localDateTime[4], localDateTime[5], getStaffMembersByName(names)));
+    }
 
+    public String listPlannedRecordings(){
+        int totalCost = 0;
+        String msg = "";
+        plannedRecordings.initialize();
+        if(plannedRecordings.hasNext()) {
+            while (plannedRecordings.hasNext()) {
+                Recording R = plannedRecordings.next();
+                totalCost += R.getCost();
+                msg += R.toString();
+            }
+            msg += totalCost + " euros orcamentados.";
+        }
+        return msg;
+    }
+
+    private Scenery getSceneryByName(String name){
+        sceneries.initialize();
+        while(sceneries.hasNext()) {
+            Scenery sC = sceneries.next();
+            if (sC.getName().equals(name))
+                return sC;
+        }
+            return null;
+    }
+
+    private StaffMember[] getStaffMembersByName(String[] names) {
+        int counter = 0;
+        int length = names.length;
+        StaffMember[] staff = new StaffMember[length];
+        this.staff.initialize();
+        while (this.staff.hasNext() && counter < length){
+            StaffMember sM = this.staff.next();
+            if (sM.getName().equals(names[counter])) {
+                staff[counter++] = sM;
+                this.staff.initialize();
+            }
+        }
+            return staff;
+    }
 }

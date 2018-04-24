@@ -1,5 +1,6 @@
 package The_Producers;
 import Staff.*;
+import Scenery.*;
 
 public interface TheProducers {
 
@@ -9,7 +10,7 @@ public interface TheProducers {
 
     StaffType checkType(StaffMember ST);
 
-    String Staff();
+    String staff();
 
     boolean duplicateName(String name);
 
@@ -23,4 +24,7 @@ public interface TheProducers {
 
     boolean duplicateSceneryName(String name);
 
+    void scheduleRecording(String scenery, int[] localDateTime, String[] names);
+
+    String listPlannedRecordings();
 }
