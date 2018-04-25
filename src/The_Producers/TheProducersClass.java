@@ -113,6 +113,7 @@ public class TheProducersClass implements TheProducers {
         return recording.toString() + " Gravada!";
     }
 
+    @Override
     public String site(String site){
         String msg = "";
         Recording recording;
@@ -130,10 +131,34 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
+    public String staffMember(String name){
+        String msg = "";
+        int totalCost = 0;
+        plannedRecordings.initialize();
+        while(plannedRecordings.hasNext()){
+            Recording recording = plannedRecordings.next();
+            if(recording.checkStaffMember(name)){
+                totalCost += recording.getCost();
+                msg += recording.toString().replaceFirst(recording.getScenery() + "; ","") + "\n";
+            }
+        }
+        msg += totalCost + " euros orcamentados.";
+        return msg;
+    }
+
+    @Override
     public boolean siteExists(String scenery) {
         sceneries.initialize();
         while(sceneries.hasNext())
             if(sceneries.next().getName().equals(scenery))
+                return true;
+        return false;
+    }
+    @Override
+    public boolean staffMemberExists(String name) {
+        staff.initialize();
+        while(staff.hasNext())
+            if(staff.next().getName().equals(name))
                 return true;
         return false;
     }

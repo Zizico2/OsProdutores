@@ -1,9 +1,6 @@
-import Array.Array;
-import Staff.StaffMember;
 import The_Producers.TheProducers;
 import The_Producers.TheProducersClass;
 
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
@@ -122,7 +119,7 @@ public class Main {
                         break;
 
                     case COLLABORATOR:
-                        collaborator(in,tP);
+                        staffMember(in,tP);
                         break;
 
                     case RECORD:
@@ -178,7 +175,17 @@ public class Main {
     private static void poutances(Scanner in, TheProducers tP) {
     }
 
-    private static void collaborator(Scanner in, TheProducers tP) {
+    private static void staffMember(Scanner in, TheProducers tP) {
+        String name = in.nextLine();
+        String msg = tP.staffMember(name);
+        if(!tP.staffMemberExists(name))
+            System.out.println("Colaborador desconhecido.");
+        else{
+            if (msg.equals("0 euros orcamentados."))
+                System.out.println("Nenhuma gravacao prevista com " + name + ".");
+            else
+                System.out.println(msg);
+        }
     }
 
     private static void site(Scanner in, TheProducers tP){

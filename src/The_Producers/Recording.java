@@ -11,4 +11,5 @@ public interface Recording {
     String toString();
     String getScenery();
 
+    boolean checkStaffMember(String name);
 }

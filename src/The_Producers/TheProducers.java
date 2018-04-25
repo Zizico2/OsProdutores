@@ -35,4 +35,8 @@ public interface TheProducers {
     String site(String scenery);
 
     boolean siteExists(String scenery);
+
+    boolean staffMemberExists(String name);
+
+    String staffMember(String name);
 }

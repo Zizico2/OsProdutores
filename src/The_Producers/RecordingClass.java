@@ -40,6 +40,15 @@ public class RecordingClass implements Recording{
     }
 
     @Override
+    public boolean checkStaffMember(String name) {
+        staff.initialize();
+        while(staff.hasNext())
+            if (name.equals(staff.next().getName()))
+               return true;
+        return false;
+    }
+
+    @Override
     public int getCost(){
         int total = 0;
         staff.initialize();
