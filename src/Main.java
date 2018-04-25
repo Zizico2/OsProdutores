@@ -126,7 +126,7 @@ public class Main {
                         break;
 
                     case RECORD:
-                        record(in,tP);
+                        record(tP);
                         break;
 
                     case POUTANCES:
@@ -171,7 +171,8 @@ public class Main {
         System.out.println("Gravacao agendada com sucesso!");
         }
 
-    private static void record(Scanner in, TheProducers tP) {
+    private static void record( TheProducers tP) {
+        System.out.println(tP.record());
     }
 
     private static void poutances(Scanner in, TheProducers tP) {
@@ -184,7 +185,7 @@ public class Main {
     }
 
     private static void planned(Scanner in, TheProducers tP) {
-        String msg = tP.listPlannedRecordings();
+        String msg = tP.listRecordings(TheProducers.PLANNED);
 
         if (msg.equals(""))
             System.out.println("Nenhuma gravacao prevista.");
@@ -193,6 +194,12 @@ public class Main {
     }
 
     private static void performed(Scanner in, TheProducers tP) {
+        String msg = tP.listRecordings(TheProducers.PERFORMED);
+
+        if (msg.equals(""))
+            System.out.println("Nenhuma gravacao realizada.");
+        else
+            System.out.println(msg);
     }
 
     private static void mope(TheProducers tP) {

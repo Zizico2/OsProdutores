@@ -32,7 +32,7 @@ public class RecordingClass implements Recording{
         if (suspended)
             s = " Suspensa!";
         return start.format(FORMAT_DATE) + "; " + this.scenery.getName() + "; " + this.staff.next().getName() + "; "
-                + staff.next().getName() + "." + s + "\n";
+                + staff.next().getName() + "." + s;
     }
 
     public int getCost(){

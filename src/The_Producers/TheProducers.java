@@ -3,6 +3,8 @@ import Staff.*;
 import Scenery.*;
 
 public interface TheProducers {
+    int PLANNED = 0;
+    int PERFORMED = 1;
 
     void register(String name, int payPerHour, String type, String subType);
 
@@ -26,5 +28,7 @@ public interface TheProducers {
 
     void scheduleRecording(String scenery, int[] localDateTime, String[] names);
 
-    String listPlannedRecordings();
+    String listRecordings(int arrayCode);
+
+    String record();
 }

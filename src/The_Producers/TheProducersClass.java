@@ -105,6 +105,39 @@ public class TheProducersClass implements TheProducers {
         }
     }
 
+
+    @Override
+    public String record(){
+        Recording recording = plannedRecordings.remove();
+        pastRecordings.add(recording);
+        return recording.toString() + " Gravada!";
+    }
+
+    public String listRecordings(int arrayCode){
+        Array<Recording> array;
+        String money = " euros ";
+        if(arrayCode == PLANNED) {
+            array = plannedRecordings;
+            money += "orcamentados.";
+        }
+        else {
+            array = pastRecordings;
+            money += "gastos.";
+        }
+        int totalCost = 0;
+        String msg = "";
+        array.initialize();
+        if(array.hasNext()) {
+            while (array.hasNext()) {
+                Recording R = array.next();
+                totalCost += R.getCost();
+                msg += R.toString() + "\n";
+            }
+            msg += totalCost + money;
+        }
+        return msg;
+    }
+
     @Override
     public String staff() {
         staff.initialize();
@@ -182,20 +215,7 @@ public class TheProducersClass implements TheProducers {
                      localDateTime[2], localDateTime[3], localDateTime[4], localDateTime[5], getStaffMembersByName(names)));
     }
 
-    public String listPlannedRecordings(){
-        int totalCost = 0;
-        String msg = "";
-        plannedRecordings.initialize();
-        if(plannedRecordings.hasNext()) {
-            while (plannedRecordings.hasNext()) {
-                Recording R = plannedRecordings.next();
-                totalCost += R.getCost();
-                msg += R.toString();
-            }
-            msg += totalCost + " euros orcamentados.";
-        }
-        return msg;
-    }
+
 
     private Scenery getSceneryByName(String name){
         sceneries.initialize();
