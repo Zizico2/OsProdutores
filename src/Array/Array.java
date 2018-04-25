@@ -31,4 +31,6 @@ public interface Array<Elem> {
     void initialize();
 
     Elem[] getArray();
+
+    Elem remove();
 }
