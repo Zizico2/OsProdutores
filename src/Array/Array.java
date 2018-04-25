@@ -33,4 +33,8 @@ public interface Array<Elem> {
     Elem[] getArray();
 
     Elem remove();
+
+    void remove(int i);
+
+    int getCurrent();
 }

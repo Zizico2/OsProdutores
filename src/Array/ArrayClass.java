@@ -56,5 +56,14 @@ public class ArrayClass<Elem> implements Array<Elem> {
         return elem;
     }
 
+    public void remove(int i){
+        System.arraycopy(array,i+1,array,i,counter--);
+    }
+
+    @Override
+    public int getCurrent() {
+        return current;
+    }
+
 
 }

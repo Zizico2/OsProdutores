@@ -109,8 +109,11 @@ public class TheProducersClass implements TheProducers {
     @Override
     public String record(){
         Recording recording = plannedRecordings.remove();
+        String msg = " Gravada!";
+        if(recording.isSuspended())
+            msg = " Cancelada!";
         pastRecordings.add(recording);
-        return recording.toString() + " Gravada!";
+        return recording.toString() +  msg;
     }
 
     @Override
@@ -188,6 +191,32 @@ public class TheProducersClass implements TheProducers {
         return msg;
     }
 
+    public int mope(String bullyName, String victimName){
+        String[] bully = {bullyName};
+        Vedette bullyMember = (Vedette)getStaffMembersByName(bully)[0];
+        bullyMember.mope(victimName);
+        return suspendRecordings(bullyName,victimName);
+    }
+
+    private int suspendRecordings(String bullyName, String victimName){
+        int nSuspended = 0;
+        plannedRecordings.initialize();
+        while(plannedRecordings.hasNext()){
+            Recording recording = plannedRecordings.next();
+            if(recording.checkStaffMember(victimName) && recording.checkStaffMember(bullyName)) {
+                recording.changeStatus();
+                nSuspended++;
+            }
+        }
+        return nSuspended;
+    }
+
+    public String poutances(String name){
+        String[] vedette = {name};
+        Vedette vedetteMember = (Vedette)getStaffMembersByName(vedette)[0];
+        return vedetteMember.getBlacklist();
+    }
+
     @Override
     public String staff() {
         staff.initialize();
@@ -201,6 +230,9 @@ public class TheProducersClass implements TheProducers {
         return msg;
     }
 
+
+
+    @Override
     public String planned() {
         plannedRecordings.initialize();
         String msg = "";

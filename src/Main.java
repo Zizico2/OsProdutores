@@ -99,7 +99,7 @@ public class Main {
                         break;
 
                     case MOPE:
-                        mope(tP);
+                        mope(in, tP);
                         break;
 
                     case RECONCILE:
@@ -107,7 +107,7 @@ public class Main {
                         break;
 
                     case PERFORMED:
-                        performed(in,tP);
+                        performed(tP);
                         break;
 
                     case PLANNED:
@@ -173,6 +173,9 @@ public class Main {
     }
 
     private static void poutances(Scanner in, TheProducers tP) {
+        String msg = tP.poutances(in.nextLine());
+        System.out.print(msg);
+
     }
 
     private static void staffMember(Scanner in, TheProducers tP) {
@@ -210,7 +213,7 @@ public class Main {
             System.out.println(msg);
     }
 
-    private static void performed(Scanner in, TheProducers tP) {
+    private static void performed(TheProducers tP) {
         String msg = tP.listRecordings(TheProducers.PERFORMED);
 
         if (msg.equals(""))
@@ -219,7 +222,10 @@ public class Main {
             System.out.println(msg);
     }
 
-    private static void mope(TheProducers tP) {
+    private static void mope(Scanner in, TheProducers tP) {
+        String bullyName = in.nextLine();
+        String victimName = in.nextLine();
+        System.out.println(bullyName + " colocou " + victimName + " na sua lista negra, suspendendo " + tP.mope(bullyName,victimName + " gravacoes."));
     }
 
     private static void sceneries(TheProducers tP) {

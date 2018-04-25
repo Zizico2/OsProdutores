@@ -1,6 +1,5 @@
 package The_Producers;
 import Staff.*;
-import Scenery.*;
 
 public interface TheProducers {
     int PLANNED = 0;
@@ -39,4 +38,11 @@ public interface TheProducers {
     boolean staffMemberExists(String name);
 
     String staffMember(String name);
+
+    String planned();
+
+    String poutances(String name);
+
+    int mope(String bullyName, String victimName);
+
 }
