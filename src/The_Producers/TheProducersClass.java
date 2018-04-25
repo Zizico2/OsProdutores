@@ -113,6 +113,31 @@ public class TheProducersClass implements TheProducers {
         return recording.toString() + " Gravada!";
     }
 
+    public String site(String site){
+        String msg = "";
+        Recording recording;
+        int totalCost = 0;
+        plannedRecordings.initialize();
+        while(plannedRecordings.hasNext()){
+            recording = plannedRecordings.next();
+            if(site.equals(recording.getScenery())){
+                totalCost += recording.getCost();
+                msg += recording.toString().replaceFirst(site + "; ","") + "\n";
+            }
+        }
+        msg += totalCost + " euros orcamentados.";
+        return msg;
+    }
+
+    @Override
+    public boolean siteExists(String scenery) {
+        sceneries.initialize();
+        while(sceneries.hasNext())
+            if(sceneries.next().getName().equals(scenery))
+                return true;
+        return false;
+    }
+
     public String listRecordings(int arrayCode){
         Array<Recording> array;
         String money = " euros ";

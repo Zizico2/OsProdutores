@@ -28,13 +28,18 @@ public class RecordingClass implements Recording{
 
     public String toString() {
         String s = "";
-        this.staff.initialize();
+        staff.initialize();
         if (suspended)
             s = " Suspensa!";
-        return start.format(FORMAT_DATE) + "; " + this.scenery.getName() + "; " + this.staff.next().getName() + "; "
+        return start.format(FORMAT_DATE) + "; " + scenery.getName() + "; " + staff.next().getName() + "; "
                 + staff.next().getName() + "." + s;
     }
 
+    public String getScenery(){
+        return scenery.getName();
+    }
+
+    @Override
     public int getCost(){
         int total = 0;
         staff.initialize();

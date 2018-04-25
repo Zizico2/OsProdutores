@@ -31,4 +31,8 @@ public interface TheProducers {
     String listRecordings(int arrayCode);
 
     String record();
+
+    String site(String scenery);
+
+    boolean siteExists(String scenery);
 }

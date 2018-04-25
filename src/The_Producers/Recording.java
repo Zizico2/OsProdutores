@@ -9,5 +9,6 @@ public interface Recording {
     DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("yyyy M d");
     int getCost();
     String toString();
+    String getScenery();
 
 }

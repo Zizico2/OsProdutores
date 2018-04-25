@@ -114,7 +114,7 @@ public class Main {
                         break;
 
                     case PLANNED:
-                        planned(in,tP);
+                        planned(tP);
                         break;
 
                     case SITE:
@@ -181,10 +181,20 @@ public class Main {
     private static void collaborator(Scanner in, TheProducers tP) {
     }
 
-    private static void site(Scanner in, TheProducers tP) {
+    private static void site(Scanner in, TheProducers tP){
+        String scenery = in.nextLine();
+        String msg = tP.site(scenery);
+        if(!tP.siteExists(scenery))
+            System.out.println("Local desconhecido.");
+        else{
+            if (msg.equals("0 euros orcamentados."))
+                System.out.println("Nenhuma gravacao prevista em " + scenery + ".");
+            else
+                System.out.println(msg);
+        }
     }
 
-    private static void planned(Scanner in, TheProducers tP) {
+    private static void planned(TheProducers tP) {
         String msg = tP.listRecordings(TheProducers.PLANNED);
 
         if (msg.equals(""))
