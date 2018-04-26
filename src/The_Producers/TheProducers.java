@@ -27,7 +27,9 @@ public interface TheProducers {
 
     void scheduleRecording(String scenery, int[] localDateTime, String[] names);
 
-    String listRecordings(int arrayCode);
+    String listPlannedRecordings();
+
+    String listPerformedRecordings();
 
     String record();
 
