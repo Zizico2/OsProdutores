@@ -40,12 +40,22 @@ public class RecordingClass implements Recording{
     }
 
     @Override
+    public void changeStatus() {
+        suspended = !suspended;
+    }
+
+    @Override
     public boolean checkStaffMember(String name) {
         staff.initialize();
         while(staff.hasNext())
             if (name.equals(staff.next().getName()))
                return true;
         return false;
+    }
+
+    @Override
+    public boolean isSuspended() {
+        return suspended;
     }
 
     @Override

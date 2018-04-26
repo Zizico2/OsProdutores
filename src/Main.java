@@ -99,7 +99,7 @@ public class Main {
                         break;
 
                     case MOPE:
-                        mope(tP);
+                        mope(in, tP);
                         break;
 
                     case RECONCILE:
@@ -107,7 +107,7 @@ public class Main {
                         break;
 
                     case PERFORMED:
-                        performed(in,tP);
+                        performed(tP);
                         break;
 
                     case PLANNED:
@@ -158,11 +158,12 @@ public class Main {
             mainNames[i] = in.nextLine();
         int numberOfStaffMembers = in.nextInt() + 3;
         in.nextLine();
+
         String[] names = new String[numberOfStaffMembers];
         System.arraycopy(mainNames, 0, names, 0, 3);
-        for (int i = 3; i < numberOfStaffMembers; i++){
+
+        for (int i = 3; i < numberOfStaffMembers; i++)
             names[i] = in.nextLine();
-        }
 
         tP.scheduleRecording(scenery, localDateTime, names);
         System.out.println("Gravacao agendada com sucesso!");
@@ -173,6 +174,9 @@ public class Main {
     }
 
     private static void poutances(Scanner in, TheProducers tP) {
+        String msg = tP.poutances(in.nextLine());
+        System.out.print(msg);
+
     }
 
     private static void staffMember(Scanner in, TheProducers tP) {
@@ -202,7 +206,7 @@ public class Main {
     }
 
     private static void planned(TheProducers tP) {
-        String msg = tP.listRecordings(TheProducers.PLANNED);
+        String msg = tP.listPlannedRecordings();
 
         if (msg.equals(""))
             System.out.println("Nenhuma gravacao prevista.");
@@ -210,8 +214,8 @@ public class Main {
             System.out.println(msg);
     }
 
-    private static void performed(Scanner in, TheProducers tP) {
-        String msg = tP.listRecordings(TheProducers.PERFORMED);
+    private static void performed(TheProducers tP) {
+        String msg = tP.listPerformedRecordings();
 
         if (msg.equals(""))
             System.out.println("Nenhuma gravacao realizada.");
@@ -219,7 +223,10 @@ public class Main {
             System.out.println(msg);
     }
 
-    private static void mope(TheProducers tP) {
+    private static void mope(Scanner in, TheProducers tP) {
+        String bullyName = in.nextLine();
+        String victimName = in.nextLine();
+        System.out.println(bullyName + " colocou " + victimName + " na sua lista negra, suspendendo " + tP.mope(bullyName,victimName) + " gravacoes.");
     }
 
     private static void sceneries(TheProducers tP) {

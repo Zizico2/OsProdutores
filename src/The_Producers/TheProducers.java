@@ -1,6 +1,5 @@
 package The_Producers;
 import Staff.*;
-import Scenery.*;
 
 public interface TheProducers {
     int PLANNED = 0;
@@ -28,7 +27,9 @@ public interface TheProducers {
 
     void scheduleRecording(String scenery, int[] localDateTime, String[] names);
 
-    String listRecordings(int arrayCode);
+    String listPlannedRecordings();
+
+    String listPerformedRecordings();
 
     String record();
 
@@ -39,4 +40,11 @@ public interface TheProducers {
     boolean staffMemberExists(String name);
 
     String staffMember(String name);
+
+    String planned();
+
+    String poutances(String name);
+
+    int mope(String bullyName, String victimName);
+
 }

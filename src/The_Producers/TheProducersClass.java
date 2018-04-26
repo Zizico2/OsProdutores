@@ -109,8 +109,14 @@ public class TheProducersClass implements TheProducers {
     @Override
     public String record(){
         Recording recording = plannedRecordings.remove();
+        String msg;
         pastRecordings.add(recording);
-        return recording.toString() + " Gravada!";
+        if(recording.isSuspended()){
+            msg =  recording.toString().replaceAll(" Suspensa!"," Cancelada!");
+        }
+        else
+            msg = recording.toString() + " Gravada!";
+        return msg;
     }
 
     @Override
@@ -163,29 +169,63 @@ public class TheProducersClass implements TheProducers {
         return false;
     }
 
-    public String listRecordings(int arrayCode){
-        Array<Recording> array;
-        String money = " euros ";
-        if(arrayCode == PLANNED) {
-            array = plannedRecordings;
-            money += "orcamentados.";
-        }
-        else {
-            array = pastRecordings;
-            money += "gastos.";
-        }
+    public String listPlannedRecordings(){
+        String money = " euros orcamentados.";
         int totalCost = 0;
         String msg = "";
-        array.initialize();
-        if(array.hasNext()) {
-            while (array.hasNext()) {
-                Recording R = array.next();
+        plannedRecordings.initialize();
+        if(plannedRecordings.hasNext()) {
+            while (plannedRecordings.hasNext()) {
+                Recording R = plannedRecordings.next();
                 totalCost += R.getCost();
                 msg += R.toString() + "\n";
             }
             msg += totalCost + money;
         }
         return msg;
+    }
+
+    public String listPerformedRecordings(){
+        String money = " euros gastos.";
+        int totalCost = 0;
+        String msg = "";
+        pastRecordings.initialize();
+        if(pastRecordings.hasNext()) {
+            while (pastRecordings.hasNext()) {
+                Recording R = pastRecordings.next();
+                if(!R.isSuspended())
+                    totalCost += R.getCost();
+                msg += R.toString() + "\n";
+            }
+            msg += totalCost + money;
+        }
+        return msg.replaceAll(" Suspensa!\n"," Cancelada!\n");
+    }
+
+    public int mope(String bullyName, String victimName){
+        String[] bully = {bullyName};
+        Vedette bullyMember = (Vedette)getStaffMembersByName(bully)[0];
+        bullyMember.mope(victimName);
+        return suspendRecordings(bullyName,victimName);
+    }
+
+    private int suspendRecordings(String bullyName, String victimName){
+        int nSuspended = 0;
+        plannedRecordings.initialize();
+        while(plannedRecordings.hasNext()){
+            Recording recording = plannedRecordings.next();
+            if(recording.checkStaffMember(victimName) && recording.checkStaffMember(bullyName) && !recording.isSuspended()) {
+                recording.changeStatus();
+                nSuspended++;
+            }
+        }
+        return nSuspended;
+    }
+
+    public String poutances(String name){
+        String[] vedette = {name};
+        Vedette vedetteMember = (Vedette)getStaffMembersByName(vedette)[0];
+        return vedetteMember.getBlacklist();
     }
 
     @Override
@@ -201,6 +241,9 @@ public class TheProducersClass implements TheProducers {
         return msg;
     }
 
+
+
+    @Override
     public String planned() {
         plannedRecordings.initialize();
         String msg = "";

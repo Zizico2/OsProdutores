@@ -11,5 +11,8 @@ public interface Recording {
     String toString();
     String getScenery();
 
+    void changeStatus();
     boolean checkStaffMember(String name);
+
+    boolean isSuspended();
 }
