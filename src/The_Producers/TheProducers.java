@@ -2,8 +2,6 @@ package The_Producers;
 import Staff.*;
 
 public interface TheProducers {
-    int PLANNED = 0;
-    int PERFORMED = 1;
 
     void register(String name, int payPerHour, String type, String subType);
 
@@ -41,10 +39,13 @@ public interface TheProducers {
 
     String staffMember(String name);
 
-    String planned();
-
     String poutances(String name);
 
     int mope(String bullyName, String victimName);
 
+    int reconcile(String exBullyName, String exVictimName);
+
+    boolean isThereAFightWith(String exBullyName, String exVictimName);
+
+    boolean isThereAVedetteNamed(String name);
 }

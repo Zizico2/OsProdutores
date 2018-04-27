@@ -1,16 +1,12 @@
 package The_Producers;
 
 import Array.*;
-import Scenery.Scenery;
-import Scenery.SceneryClass;
-import Staff.StaffMember;
-import Staff.StaffMembers.JuniorProducerClass;
-
+import Scenery.*;
 import Staff.StaffMembers.*;
 import Staff.*;
-import Staff.StaffMembers.VedetteActorClass;
-import Staff.StaffMembers.VedetteDirectorClass;
 import Staff.Tags.*;
+
+import java.awt.image.VolatileImage;
 
 
 public class TheProducersClass implements TheProducers {
@@ -63,9 +59,7 @@ public class TheProducersClass implements TheProducers {
 
     @Override
     public void addScenery(String site, int pricePerHour){
-
         sceneries.add(new SceneryClass(site, pricePerHour));
-
     }
 
     public String listSceneries(){
@@ -160,6 +154,7 @@ public class TheProducersClass implements TheProducers {
                 return true;
         return false;
     }
+
     @Override
     public boolean staffMemberExists(String name) {
         staff.initialize();
@@ -169,6 +164,7 @@ public class TheProducersClass implements TheProducers {
         return false;
     }
 
+    @Override
     public String listPlannedRecordings(){
         String money = " euros orcamentados.";
         int totalCost = 0;
@@ -185,6 +181,7 @@ public class TheProducersClass implements TheProducers {
         return msg;
     }
 
+    @Override
     public String listPerformedRecordings(){
         String money = " euros gastos.";
         int totalCost = 0;
@@ -202,11 +199,71 @@ public class TheProducersClass implements TheProducers {
         return msg.replaceAll(" Suspensa!\n"," Cancelada!\n");
     }
 
+    @Override
     public int mope(String bullyName, String victimName){
         String[] bully = {bullyName};
-        Vedette bullyMember = (Vedette)getStaffMembersByName(bully)[0];
-        bullyMember.mope(victimName);
+        Vedette bullyMember = (Vedette) getStaffMembersByName(bully)[0];
+
+        String[] victim = {victimName};
+        StaffMember victimMember = getStaffMembersByName(victim)[0];
+
+        bullyMember.mope(victimMember);
         return suspendRecordings(bullyName,victimName);
+    }
+
+    @Override
+    public boolean isThereAFightWith(String exBullyName, String exVictimName) {
+        String[] bully = {exBullyName};
+        Vedette bullyMember = (Vedette) getStaffMembersByName(bully)[0];
+
+        String[] victim = {exVictimName};
+        StaffMember victimMember =  getStaffMembersByName(victim)[0];
+
+        if(victimMember instanceof Vedette)
+            return checkFight((Vedette) victimMember,exBullyName) || checkFight(bullyMember,exVictimName);
+        else
+            return checkFight(bullyMember,exVictimName);
+    }
+
+    @Override
+    public boolean isThereAVedetteNamed(String name){
+        staff.initialize();
+        while(staff.hasNext()) {
+            StaffMember sT = staff.next();
+            if(sT.getName().equals(name) && sT instanceof Vedette)
+                return true;
+        }
+        return false;
+    }
+
+    private boolean checkFight(Vedette vedette,String victimName){
+        Array<StaffMember> blacklist = vedette.getBlacklistArray();
+        blacklist.initialize();
+        while (blacklist.hasNext())
+            if ((blacklist.next().getName().equals(victimName)))
+                return true;
+        return false;
+    }
+
+    public int reconcile(String exBullyName, String exVictimName){
+        String[] bully = {exBullyName};
+        Vedette bullyMember = (Vedette)getStaffMembersByName(bully)[0];
+        int nRecordings = unSuspendRecordings(exBullyName,exVictimName);
+        bullyMember.reconcile(exVictimName);
+        return nRecordings;
+    }
+
+    private int unSuspendRecordings(String exBullyName, String exVictimName) {
+        int nUnSuspended = 0;
+        plannedRecordings.initialize();
+        while(plannedRecordings.hasNext()){
+            Recording recording = plannedRecordings.next();
+            if(recording.checkStaffMember(exVictimName) && recording.checkStaffMember(exBullyName) && recording.isSuspended()) {
+                recording.changeStatus();
+                nUnSuspended++;
+            }
+        }
+        return nUnSuspended;
     }
 
     private int suspendRecordings(String bullyName, String victimName){
@@ -237,20 +294,6 @@ public class TheProducersClass implements TheProducers {
             StaffMember jonhdoe = staff.next();
             StaffType ST = checkType(jonhdoe);
             msg += ST.getOutput() + jonhdoe.getName() + " " + jonhdoe.getMoneyPerHour() + "\n";
-        }
-        return msg;
-    }
-
-
-
-    @Override
-    public String planned() {
-        plannedRecordings.initialize();
-        String msg = "";
-
-        while(plannedRecordings.hasNext()){
-            Recording NCIS_LA = plannedRecordings.next();
-            msg += NCIS_LA.toString();
         }
         return msg;
     }

@@ -145,6 +145,17 @@ public class Main {
     }
 
     private static void reconcile(Scanner in, TheProducers tP) {
+        String exBullyName = in.nextLine();
+        String exVictimName = in.nextLine();
+
+        if(!tP.isThereAVedetteNamed(exBullyName))
+            System.out.println(exBullyName + " nao e uma vedeta.");
+
+        else if(!tP.isThereAFightWith(exBullyName,exVictimName))
+            System.out.println("Nao existe zanga com " + exVictimName + ".");
+
+        else
+            System.out.println(exBullyName + " <3 " + exVictimName +". " + tP.reconcile(exBullyName,exVictimName));
     }
 
     private static void schedule(Scanner in, TheProducers tP) {
@@ -226,7 +237,18 @@ public class Main {
     private static void mope(Scanner in, TheProducers tP) {
         String bullyName = in.nextLine();
         String victimName = in.nextLine();
-        System.out.println(bullyName + " colocou " + victimName + " na sua lista negra, suspendendo " + tP.mope(bullyName,victimName) + " gravacoes.");
+
+        if(!tP.isThereAVedetteNamed(bullyName))
+            System.out.println(bullyName + " nao e uma vedeta.");
+
+        else if(!tP.staffMemberExists(victimName))
+            System.out.println(victimName + " nao e um colaborador.");
+
+        else if(tP.isThereAFightWith(bullyName,victimName))
+            System.out.println("Que falta de paciencia para divas...");
+
+        else
+            System.out.println(bullyName + " colocou " + victimName + " na sua lista negra, suspendendo " + tP.mope(bullyName,victimName) + " gravacoes.");
     }
 
     private static void sceneries(TheProducers tP) {

@@ -31,4 +31,8 @@ public abstract class VedetteAbstract extends StaffMemberAbstract implements Ved
             msg += blacklist.next().getName() + "\n";
         return msg;
     }
+
+    public Array<StaffMember> getBlacklistArray(){
+        return blacklist;
+    }
 }
