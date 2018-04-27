@@ -204,7 +204,7 @@ public class TheProducersClass implements TheProducers {
         String[] bully = {bullyName};
         Vedette bullyMember = (Vedette) getStaffMembersByName(bully)[0];
 
-        String[] victim = {bullyName};
+        String[] victim = {victimName};
         StaffMember victimMember = getStaffMembersByName(victim)[0];
 
         bullyMember.mope(victimMember);
