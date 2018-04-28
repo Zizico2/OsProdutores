@@ -15,8 +15,8 @@ public class RecordingClass implements Recording{
     private boolean suspended;
 
 
-    RecordingClass(Scenery scenery, int year, int month, int day, int hour, int minute, int duration, StaffMember[] staff) {
-        start = LocalDateTime.of(year, month, day, hour, minute);
+    RecordingClass(Scenery scenery,LocalDateTime date, int duration, StaffMember[] staff) {
+        start = date;
         //end = start.plusMinutes(duration);
         this.duration = duration;
         this.scenery = scenery;
@@ -75,6 +75,12 @@ public class RecordingClass implements Recording{
         }
         return true;
     }
+
+    @Override
+    public LocalDateTime getDate() {
+        return start;
+    }
+
 
     @Override
     public int getCost(){

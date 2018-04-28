@@ -6,6 +6,8 @@ import Staff.StaffMembers.*;
 import Staff.*;
 import Staff.Tags.*;
 
+import java.time.LocalDateTime;
+
 
 public class TheProducersClass implements TheProducers {
 
@@ -331,11 +333,20 @@ public class TheProducersClass implements TheProducers {
     }
 
     public void scheduleRecording(String scenery, int[] localDateTime, String[] names){
-        plannedRecordings.add(new RecordingClass(getSceneryByName(scenery), localDateTime[0], localDateTime[1],
-                     localDateTime[2], localDateTime[3], localDateTime[4], localDateTime[5], getStaffMembersByName(names)));
+        LocalDateTime date = LocalDateTime.of(localDateTime[0],localDateTime[1],localDateTime[2],localDateTime[3],localDateTime[4]);
+        int duration = localDateTime[5];
+        plannedRecordings.add(new RecordingClass(getSceneryByName(scenery), date, duration, getStaffMembersByName(names)),getChronologicalPos(date));
     }
 
-
+    private int getChronologicalPos(LocalDateTime date){
+    plannedRecordings.initialize();
+    while(plannedRecordings.hasNext()){
+        Recording recording = plannedRecordings.next();
+        if(recording.getDate().isAfter(date))
+            return plannedRecordings.getCurrentElem();
+    }
+        return plannedRecordings.length();
+    }
 
     private Scenery getSceneryByName(String name){
         sceneries.initialize();
