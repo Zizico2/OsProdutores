@@ -11,4 +11,6 @@ public interface Vedette extends  StaffMember{
     void reconcile(String name);
 
     Array<StaffMember> getBlacklistArray();
+
+    boolean isMadWith(String name);
 }

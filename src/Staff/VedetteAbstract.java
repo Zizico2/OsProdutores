@@ -4,7 +4,7 @@ import Array.*;
 
 public abstract class VedetteAbstract extends StaffMemberAbstract implements Vedette {
 
-    Array<StaffMember> blacklist;
+    private Array<StaffMember> blacklist;
     protected VedetteAbstract(String Name, int moneyPerHour) {
         super(Name, moneyPerHour);
         blacklist = new ArrayClass<StaffMember>();
@@ -19,7 +19,7 @@ public abstract class VedetteAbstract extends StaffMemberAbstract implements Ved
         blacklist.initialize();
         while(blacklist.hasNext())
             if(blacklist.next().getName().equals(name)) {
-                blacklist.remove(blacklist.getCurrent());
+                blacklist.remove(blacklist.getCurrentElem());
                 return;
             }
     }
@@ -34,5 +34,14 @@ public abstract class VedetteAbstract extends StaffMemberAbstract implements Ved
 
     public Array<StaffMember> getBlacklistArray(){
         return blacklist;
+    }
+
+    public boolean isMadWith(String name){
+        blacklist.initialize();
+        while(blacklist.hasNext())
+            if(blacklist.next().getName().equals(name))
+                return true;
+
+        return false;
     }
 }

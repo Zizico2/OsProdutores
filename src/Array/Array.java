@@ -36,5 +36,7 @@ public interface Array<Elem> {
 
     void remove(int i);
 
-    int getCurrent();
+    int getCurrentElem();
+
+    int length();
 }

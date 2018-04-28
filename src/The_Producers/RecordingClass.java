@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import Array.*;
 import Scenery.*;
 import Staff.StaffMember;
-import Staff.Tags.Director;
+import Staff.Vedette;
 
 public class RecordingClass implements Recording{
 
@@ -59,6 +59,24 @@ public class RecordingClass implements Recording{
     }
 
     @Override
+    public boolean isRecordingSaved() {
+        Array<StaffMember> members = staff;
+        members.initialize();
+        staff.initialize();
+        while(staff.hasNext()){
+            StaffMember member = staff.next();
+            if(member instanceof Vedette){
+                Vedette vMember = (Vedette) member;
+                while(staff.hasNext()){
+                    if (vMember.isMadWith(members.next().getName()))
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
     public int getCost(){
         int total = 0;
         staff.initialize();
@@ -68,9 +86,12 @@ public class RecordingClass implements Recording{
     }
 
     private void populateStaff(StaffMember[] staff){
-
         for (StaffMember sM: staff)
             this.staff.add(sM);
+    }
+
+    public Array<StaffMember> getStaff(){
+        return staff;
     }
 
 // verificar se data -start- 'e inferior 'a data -date-

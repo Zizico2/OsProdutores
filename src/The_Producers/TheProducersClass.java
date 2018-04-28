@@ -6,8 +6,6 @@ import Staff.StaffMembers.*;
 import Staff.*;
 import Staff.Tags.*;
 
-import java.awt.image.VolatileImage;
-
 
 public class TheProducersClass implements TheProducers {
 
@@ -105,9 +103,8 @@ public class TheProducersClass implements TheProducers {
         Recording recording = plannedRecordings.remove();
         String msg;
         pastRecordings.add(recording);
-        if(recording.isSuspended()){
-            msg =  recording.toString().replaceAll(" Suspensa!"," Cancelada!");
-        }
+        if(recording.isSuspended())
+            msg =  recording.toString().replaceFirst(" Suspensa!"," Cancelada!");
         else
             msg = recording.toString() + " Gravada!";
         return msg;
@@ -215,14 +212,7 @@ public class TheProducersClass implements TheProducers {
     public boolean isThereAFightWith(String exBullyName, String exVictimName) {
         String[] bully = {exBullyName};
         Vedette bullyMember = (Vedette) getStaffMembersByName(bully)[0];
-
-        String[] victim = {exVictimName};
-        StaffMember victimMember =  getStaffMembersByName(victim)[0];
-
-        if(victimMember instanceof Vedette)
-            return checkFight((Vedette) victimMember,exBullyName) || checkFight(bullyMember,exVictimName);
-        else
-            return checkFight(bullyMember,exVictimName);
+        return checkFight(bullyMember,exVictimName);
     }
 
     @Override
@@ -237,20 +227,14 @@ public class TheProducersClass implements TheProducers {
     }
 
     private boolean checkFight(Vedette vedette,String victimName){
-        Array<StaffMember> blacklist = vedette.getBlacklistArray();
-        blacklist.initialize();
-        while (blacklist.hasNext())
-            if ((blacklist.next().getName().equals(victimName)))
-                return true;
-        return false;
+        return vedette.isMadWith(victimName);
     }
 
     public int reconcile(String exBullyName, String exVictimName){
         String[] bully = {exBullyName};
         Vedette bullyMember = (Vedette)getStaffMembersByName(bully)[0];
-        int nRecordings = unSuspendRecordings(exBullyName,exVictimName);
         bullyMember.reconcile(exVictimName);
-        return nRecordings;
+        return unSuspendRecordings(exBullyName,exVictimName);
     }
 
     private int unSuspendRecordings(String exBullyName, String exVictimName) {
@@ -258,7 +242,7 @@ public class TheProducersClass implements TheProducers {
         plannedRecordings.initialize();
         while(plannedRecordings.hasNext()){
             Recording recording = plannedRecordings.next();
-            if(recording.checkStaffMember(exVictimName) && recording.checkStaffMember(exBullyName) && recording.isSuspended()) {
+            if(recording.checkStaffMember(exVictimName) && recording.checkStaffMember(exBullyName) && recording.isRecordingSaved()) {
                 recording.changeStatus();
                 nUnSuspended++;
             }
