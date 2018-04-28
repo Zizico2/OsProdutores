@@ -155,7 +155,7 @@ public class Main {
             System.out.println("Nao existe zanga com " + exVictimName + ".");
 
         else
-            System.out.println(exBullyName + " <3 " + exVictimName +". " + tP.reconcile(exBullyName,exVictimName));
+            System.out.println(exBullyName + " <3 " + exVictimName +". " + tP.reconcile(exBullyName,exVictimName) + " gravacoes salvas!");
     }
 
     private static void schedule(Scanner in, TheProducers tP) {
@@ -181,6 +181,7 @@ public class Main {
         }
 
     private static void record( TheProducers tP) {
+
         System.out.println(tP.record());
     }
 

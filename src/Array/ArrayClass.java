@@ -57,13 +57,18 @@ public class ArrayClass<Elem> implements Array<Elem> {
     }
 
     public void remove(int i){
+        if(i == counter)
+            counter--;
         System.arraycopy(array,i+1,array,i,counter--);
     }
 
     @Override
-    public int getCurrent() {
-        return current;
+    public int getCurrentElem() {
+        return current-1;
     }
 
-
+    @Override
+    public int length() {
+        return counter;
+    }
 }

@@ -11,4 +11,6 @@ public interface Vedette{
     void reconcile(String name);
 
     Array<StaffMember> getBlacklistArray();
+
+    boolean isMadWith(String name);
 }
