@@ -2,7 +2,7 @@ package Staff;
 
 import Array.Array;
 
-public interface Vedette{
+public interface Vedette extends  StaffMember{
 
     void mope(StaffMember staffMember);
 
