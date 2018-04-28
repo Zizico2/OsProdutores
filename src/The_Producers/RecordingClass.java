@@ -6,6 +6,12 @@ import Scenery.*;
 import Staff.StaffMember;
 import Staff.Vedette;
 
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
+
 public class RecordingClass implements Recording{
 
     private Scenery scenery;

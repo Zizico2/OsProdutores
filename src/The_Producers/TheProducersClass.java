@@ -5,9 +5,13 @@ import Scenery.*;
 import Staff.StaffMembers.*;
 import Staff.*;
 import Staff.Tags.*;
-
 import java.time.LocalDateTime;
 
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
 
 public class TheProducersClass implements TheProducers {
 

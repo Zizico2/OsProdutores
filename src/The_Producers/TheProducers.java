@@ -1,6 +1,12 @@
 package The_Producers;
 import Staff.*;
 
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
+
 public interface TheProducers {
 
     void register(String name, int payPerHour, String type, String subType);

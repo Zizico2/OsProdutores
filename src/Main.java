@@ -1,25 +1,53 @@
 import The_Producers.TheProducers;
 import The_Producers.TheProducersClass;
-
 import java.util.Scanner;
+
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
 
 public class Main {
 
+    private static final int DATE_NUMBER_FORMAT = 6;
+    private static final int MAIN_STAFF_NUMBER = 3;
     private enum Message{
 
-        PROMPT                  ("> "),
-        REGISTRY_COMPLETE       ("Colaborador registado com sucesso!"),
-        DUPLICATE_NAME          ("Ja existe um colaborador com o mesmo nome."),
-        INVALID_TYPE            ("Tipo de colaborador desconhecido."),
-        INVALID_SUBTYPE         ("Notoriedade invalida."),
-        INVALID_SALARY          ("Acha mesmo que este colaborador vai pagar para trabalhar?"),
-        MSG7        (""),
-        MSG8        (""),
-        MSG9        (""),
-        MSG10       (""),
-        MSG11       (""),
-        UNKNOWN     ("Opcao inexistente."),
-        EXITING     ("Ate a proxima");
+        PROMPT                          ("> "),
+        REGISTRY_COMPLETE               ("Colaborador registado com sucesso!"),
+        DUPLICATE_NAME                  ("Ja existe um colaborador com o mesmo nome."),
+        INVALID_TYPE                    ("Tipo de colaborador desconhecido."),
+        INVALID_SUBTYPE                 ("Notoriedade invalida."),
+        INVALID_SALARY                  ("Acha mesmo que este colaborador vai pagar para trabalhar?"),
+        NO_STAFF_MEMBERS                ("Nao existem colaboradores registados."),
+        DUPLICATE_SCENERY_NAME          ("Localizacao ja tinha sido registada."),
+        INVALID_SCENERY_COST            ("Acha que eles nos pagam para gravar la?"),
+        SCENERY_REGISTRY_COMPLETE       ("Cenario registado."),
+        NO_SITES                        ("Nao existem localizacoes registadas."),
+        ALREADY_EXISTS_IN_BLACKLIST     ("Que falta de paciencia para divas..."),
+        NO_PERFORMED_RECORDINGS         ("Nenhuma gravacao realizada."),
+        NO_PLANNED_RECORDINGS           ("Nenhuma gravacao prevista."),
+        UNKNOWN_SITES                   ("Local desconhecido."),
+        EMPTY_BLACKLIST                 ("Anthony Hopkins da-se bem com todos!"),
+        UNKNOWN_STAFF_MEMBER            ("Colaborador desconhecido."),
+        SCHEDULE_COMPLETE               ("Gravacao agendada com sucesso!"),
+        NO_GRUDGE_BETWEEN               ("Nao existe zanga com "),
+        NOT_VEDETTE                     (" nao e uma vedeta."),
+        NOT_A_STAFF_MEMBER              (" nao e um colaborador."),
+        NO_RECORDING_WITH               ("Nenhuma gravacao prevista com "),
+        NO_RECORDING_AT                 ("Nenhuma gravacao prevista em "),
+        RECORDINGS_SAVED                (" gravacoes salvas!"),
+        DEFAULT_LIST_MSG                ("0 euros orcamentados."),
+        PLACED                          (" colocou "),
+        ON_HIS_BLACKLIST_SUSPENDING     (" na sua lista negra, suspendendo "),
+        N_RECORDINGS                    (" gravacoes."),
+        LOVES                           (" <3 " ),
+        POINT                           ("."),
+        SPACE                           (" "),
+        VOID_MESSAGE                    (""),
+        UNKNOWN                         ("Opcao inexistente."),
+        EXITING                         ("Ate a proxima");
 
 
         private final String msg;
@@ -149,45 +177,50 @@ public class Main {
         String exVictimName = in.nextLine();
 
         if(!tP.isThereAVedetteNamed(exBullyName))
-            System.out.println(exBullyName + " nao e uma vedeta.");
+            System.out.println(exBullyName + Message.NOT_VEDETTE.msg);
 
         else if(!tP.isThereAFightWith(exBullyName,exVictimName))
-            System.out.println("Nao existe zanga com " + exVictimName + ".");
+            System.out.println(Message.NO_GRUDGE_BETWEEN.msg + exVictimName + Message.POINT.msg);
 
         else
-            System.out.println(exBullyName + " <3 " + exVictimName +". " + tP.reconcile(exBullyName,exVictimName) + " gravacoes salvas!");
+            System.out.println(exBullyName + Message.LOVES.msg + exVictimName + Message.POINT + Message.SPACE.msg + tP.reconcile(exBullyName,exVictimName) + Message.RECORDINGS_SAVED.msg);
     }
 
     private static void schedule(Scanner in, TheProducers tP) {
         int[] localDateTime = new int[6];
         String[] mainNames = new String[3];
         String scenery = in.nextLine();
-        for(int i = 0; i < 6; i++)
+
+        for(int i = 0; i < DATE_NUMBER_FORMAT; i++)
             localDateTime[i] = in.nextInt();
         in.nextLine();
-        for(int i = 0; i < 3; i++)
+
+        for(int i = 0; i < MAIN_STAFF_NUMBER; i++)
             mainNames[i] = in.nextLine();
-        int numberOfStaffMembers = in.nextInt() + 3;
+
+        int numberOfStaffMembers = in.nextInt() + MAIN_STAFF_NUMBER;
         in.nextLine();
 
         String[] names = new String[numberOfStaffMembers];
-        System.arraycopy(mainNames, 0, names, 0, 3);
+        System.arraycopy(mainNames, 0, names, 0, MAIN_STAFF_NUMBER);
 
-        for (int i = 3; i < numberOfStaffMembers; i++)
+        for (int i = MAIN_STAFF_NUMBER; i < numberOfStaffMembers; i++)
             names[i] = in.nextLine();
 
         tP.scheduleRecording(scenery, localDateTime, names);
-        System.out.println("Gravacao agendada com sucesso!");
+        System.out.println(Message.SCHEDULE_COMPLETE.msg);
         }
 
     private static void record( TheProducers tP) {
-
         System.out.println(tP.record());
     }
 
     private static void poutances(Scanner in, TheProducers tP) {
         String msg = tP.poutances(in.nextLine());
-        System.out.print(msg);
+        if(msg.equals(Message.VOID_MESSAGE.msg))
+            System.out.println(Message.EMPTY_BLACKLIST.msg);
+        else
+            System.out.print(msg);
 
     }
 
@@ -195,10 +228,12 @@ public class Main {
         String name = in.nextLine();
         String msg = tP.staffMember(name);
         if(!tP.staffMemberExists(name))
-            System.out.println("Colaborador desconhecido.");
+            System.out.println(Message.UNKNOWN_STAFF_MEMBER.msg);
+
         else{
-            if (msg.equals("0 euros orcamentados."))
-                System.out.println("Nenhuma gravacao prevista com " + name + ".");
+            if (msg.equals(Message.DEFAULT_LIST_MSG.msg))
+                System.out.println(Message.NO_RECORDING_WITH + name + Message.POINT.msg);
+
             else
                 System.out.println(msg);
         }
@@ -207,11 +242,13 @@ public class Main {
     private static void site(Scanner in, TheProducers tP){
         String scenery = in.nextLine();
         String msg = tP.site(scenery);
+
         if(!tP.siteExists(scenery))
-            System.out.println("Local desconhecido.");
+            System.out.println(Message.UNKNOWN_SITES.msg);
+
         else{
-            if (msg.equals("0 euros orcamentados."))
-                System.out.println("Nenhuma gravacao prevista em " + scenery + ".");
+            if (msg.equals(Message.DEFAULT_LIST_MSG.msg))
+                System.out.println(Message.NO_RECORDING_AT + scenery + Message.POINT.msg);
             else
                 System.out.println(msg);
         }
@@ -220,8 +257,8 @@ public class Main {
     private static void planned(TheProducers tP) {
         String msg = tP.listPlannedRecordings();
 
-        if (msg.equals(""))
-            System.out.println("Nenhuma gravacao prevista.");
+        if (msg.equals(Message.VOID_MESSAGE.msg))
+            System.out.println(Message.NO_PLANNED_RECORDINGS.msg);
         else
             System.out.println(msg);
     }
@@ -229,8 +266,8 @@ public class Main {
     private static void performed(TheProducers tP) {
         String msg = tP.listPerformedRecordings();
 
-        if (msg.equals(""))
-            System.out.println("Nenhuma gravacao realizada.");
+        if (msg.equals(Message.VOID_MESSAGE.msg))
+            System.out.println(Message.NO_PERFORMED_RECORDINGS);
         else
             System.out.println(msg);
     }
@@ -240,24 +277,24 @@ public class Main {
         String victimName = in.nextLine();
 
         if(!tP.isThereAVedetteNamed(bullyName))
-            System.out.println(bullyName + " nao e uma vedeta.");
+            System.out.println(bullyName + Message.NOT_VEDETTE.msg);
 
         else if(!tP.staffMemberExists(victimName))
-            System.out.println(victimName + " nao e um colaborador.");
+            System.out.println(victimName + Message.NOT_A_STAFF_MEMBER.msg);
 
         else if(tP.isThereAFightWith(bullyName,victimName))
-            System.out.println("Que falta de paciencia para divas...");
+            System.out.println(Message.ALREADY_EXISTS_IN_BLACKLIST);
 
         else
-            System.out.println(bullyName + " colocou " + victimName + " na sua lista negra, suspendendo " + tP.mope(bullyName,victimName) + " gravacoes.");
+            System.out.println(bullyName + Message.PLACED + victimName + Message.ON_HIS_BLACKLIST_SUSPENDING + tP.mope(bullyName,victimName) + Message.N_RECORDINGS);
     }
 
     private static void sceneries(TheProducers tP) {
         String msg = tP.listSceneries();
-        if(!msg.equals(""))
+        if(!msg.equals(Message.VOID_MESSAGE.msg))
             System.out.print(msg);
         else
-            System.out.println("Nao existem localizacoes registadas.");
+            System.out.println(Message.NO_SITES.msg);
     }
 
     private static void scenery(Scanner in, TheProducers tP) {
@@ -266,12 +303,12 @@ public class Main {
         in.nextLine();
 
         if (tP.duplicateSceneryName(name))
-            System.out.println("Localizacao ja tinha sido registada.");
+            System.out.println(Message.DUPLICATE_SCENERY_NAME.msg);
         else if (!tP.isCostValid(cost))
-            System.out.println("Acha que eles nos pagam para gravar la?");
+            System.out.println(Message.INVALID_SCENERY_COST.msg);
         else {
             tP.addScenery(name, cost);
-            System.out.println("Cenario registado.");
+            System.out.println(Message.SCENERY_REGISTRY_COMPLETE.msg);
         }
     }
 
@@ -307,10 +344,10 @@ public class Main {
 
     private static void staff( TheProducers tP) {
         String msg = tP.staff();
-        if(!msg.equals(""))
+        if(!msg.equals(Message.VOID_MESSAGE.msg))
             System.out.print(msg);
         else
-            System.out.println("Nao existem colaboradores registados.");
+            System.out.println(Message.NO_STAFF_MEMBERS.msg);
     }
 
     private static void help(){
