@@ -32,7 +32,7 @@ public class RecordingClass implements Recording{
     }
 
 
-    public String toString() {
+    public String toStringExtra() {
         String s = "";
         staff.initialize();
         if (suspended)

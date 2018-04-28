@@ -17,7 +17,7 @@ public interface Recording {
 
     int getCost();
 
-    String toString();
+    String toStringExtra();
 
     String getScenery();
 

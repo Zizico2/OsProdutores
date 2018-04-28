@@ -1,6 +1,8 @@
 package The_Producers;
 import Staff.*;
 
+import java.time.LocalDateTime;
+
 /**
  * @author Tiago Guerreiro
  * @author Bernardo Borda d'Agua
@@ -24,6 +26,8 @@ public interface TheProducers {
     boolean isSubTypeValid(String subType);
 
     boolean isCostValid(int i);
+
+    boolean isDateValid(int[] dateArray);
 
     String listSceneries();
 
@@ -54,4 +58,14 @@ public interface TheProducers {
     boolean isThereAFightWith(String exBullyName, String exVictimName);
 
     boolean isThereAVedetteNamed(String name);
+
+    boolean isDurationValid(int duration);
+
+    boolean isThereAProducerNamed(String name);
+
+    boolean isThereADirectorNamed(String name);
+
+    boolean isThereATechnicianNamed(String name);
+
+    boolean isThereStaffNamed(String[] mainNames, int numberOfStaffMembers);
 }

@@ -24,19 +24,25 @@ public class Main {
         DUPLICATE_SCENERY_NAME          ("Localizacao ja tinha sido registada."),
         INVALID_SCENERY_COST            ("Acha que eles nos pagam para gravar la?"),
         SCENERY_REGISTRY_COMPLETE       ("Cenario registado."),
+        INVALID_DURATION                ("Duracao invalida."),
         NO_SITES                        ("Nao existem localizacoes registadas."),
         ALREADY_EXISTS_IN_BLACKLIST     ("Que falta de paciencia para divas..."),
+        INVALID_DATE_OF_RECORDING       ("Data de gravacao invalida."),
         NO_PERFORMED_RECORDINGS         ("Nenhuma gravacao realizada."),
         NO_PLANNED_RECORDINGS           ("Nenhuma gravacao prevista."),
-        UNKNOWN_SITES                   ("Local desconhecido."),
-        EMPTY_BLACKLIST                 ("Anthony Hopkins da-se bem com todos!"),
+        UNKNOWN_SITE                    ("Local desconhecido."),
+        EMPTY_BLACKLIST                 (" da-se bem com todos!"),
         UNKNOWN_STAFF_MEMBER            ("Colaborador desconhecido."),
         SCHEDULE_COMPLETE               ("Gravacao agendada com sucesso!"),
         NO_GRUDGE_BETWEEN               ("Nao existe zanga com "),
+        UNKNOWN_PRODUCER                ("Produtor desconhecido."),
+        UNKNOWN_DIRECTOR                ("Realizador desconhecido."),
+        UNKNOWN_TECHNICIAN              ("Tecnico desconhecido."),
         NOT_VEDETTE                     (" nao e uma vedeta."),
         NOT_A_STAFF_MEMBER              (" nao e um colaborador."),
         NO_RECORDING_WITH               ("Nenhuma gravacao prevista com "),
         NO_RECORDING_AT                 ("Nenhuma gravacao prevista em "),
+        NO_RECORDINGS_TO_RECORD         ("Nenhuma gravacao agendada."),
         RECORDINGS_SAVED                (" gravacoes salvas!"),
         DEFAULT_LIST_MSG                ("0 euros orcamentados."),
         PLACED                          (" colocou "),
@@ -183,7 +189,7 @@ public class Main {
             System.out.println(Message.NO_GRUDGE_BETWEEN.msg + exVictimName + Message.POINT.msg);
 
         else
-            System.out.println(exBullyName + Message.LOVES.msg + exVictimName + Message.POINT + Message.SPACE.msg + tP.reconcile(exBullyName,exVictimName) + Message.RECORDINGS_SAVED.msg);
+            System.out.println(exBullyName + Message.LOVES.msg + exVictimName + Message.POINT.msg + Message.SPACE.msg + tP.reconcile(exBullyName,exVictimName) + Message.RECORDINGS_SAVED.msg);
     }
 
     private static void schedule(Scanner in, TheProducers tP) {
@@ -207,18 +213,45 @@ public class Main {
         for (int i = MAIN_STAFF_NUMBER; i < numberOfStaffMembers; i++)
             names[i] = in.nextLine();
 
-        tP.scheduleRecording(scenery, localDateTime, names);
-        System.out.println(Message.SCHEDULE_COMPLETE.msg);
+        if(!tP.siteExists(scenery))
+            System.out.println(Message.UNKNOWN_SITE.msg);
+
+        else if(!tP.isDateValid(localDateTime))
+            System.out.println(Message.INVALID_DATE_OF_RECORDING.msg);
+
+        else if(!tP.isDurationValid(localDateTime[5]))
+            System.out.println(Message.INVALID_DURATION.msg);
+
+        else if(!tP.isThereAProducerNamed(mainNames[0]))
+            System.out.println(Message.UNKNOWN_PRODUCER.msg);
+
+        else if(!tP.isThereADirectorNamed(mainNames[1]))
+            System.out.println(Message.UNKNOWN_DIRECTOR.msg);
+
+        else if(!tP.isThereATechnicianNamed(mainNames[2]))
+            System.out.println(Message.UNKNOWN_TECHNICIAN);
+
+        else if(!tP.isThereStaffNamed(mainNames,numberOfStaffMembers))
+            System.out.println(Message.UNKNOWN_STAFF_MEMBER.msg);
+
+        else{
+                tP.scheduleRecording(scenery, localDateTime, names);
+                System.out.println(Message.SCHEDULE_COMPLETE.msg);
+            }
         }
 
     private static void record( TheProducers tP) {
-        System.out.println(tP.record());
+        if(tP.listPlannedRecordings().equals(Message.VOID_MESSAGE.msg))
+            System.out.println(Message.NO_RECORDINGS_TO_RECORD.msg);
+        else
+             System.out.println(tP.record());
     }
 
     private static void poutances(Scanner in, TheProducers tP) {
-        String msg = tP.poutances(in.nextLine());
+        String name = in.nextLine();
+        String msg = tP.poutances(name);
         if(msg.equals(Message.VOID_MESSAGE.msg))
-            System.out.println(Message.EMPTY_BLACKLIST.msg);
+            System.out.println(name + Message.EMPTY_BLACKLIST.msg);
         else
             System.out.print(msg);
 
@@ -244,7 +277,7 @@ public class Main {
         String msg = tP.site(scenery);
 
         if(!tP.siteExists(scenery))
-            System.out.println(Message.UNKNOWN_SITES.msg);
+            System.out.println(Message.UNKNOWN_SITE.msg);
 
         else{
             if (msg.equals(Message.DEFAULT_LIST_MSG.msg))
@@ -267,7 +300,7 @@ public class Main {
         String msg = tP.listPerformedRecordings();
 
         if (msg.equals(Message.VOID_MESSAGE.msg))
-            System.out.println(Message.NO_PERFORMED_RECORDINGS);
+            System.out.println(Message.NO_PERFORMED_RECORDINGS.msg);
         else
             System.out.println(msg);
     }
@@ -283,10 +316,10 @@ public class Main {
             System.out.println(victimName + Message.NOT_A_STAFF_MEMBER.msg);
 
         else if(tP.isThereAFightWith(bullyName,victimName))
-            System.out.println(Message.ALREADY_EXISTS_IN_BLACKLIST);
+            System.out.println(Message.ALREADY_EXISTS_IN_BLACKLIST.msg);
 
         else
-            System.out.println(bullyName + Message.PLACED + victimName + Message.ON_HIS_BLACKLIST_SUSPENDING + tP.mope(bullyName,victimName) + Message.N_RECORDINGS);
+            System.out.println(bullyName + Message.PLACED.msg + victimName + Message.ON_HIS_BLACKLIST_SUSPENDING.msg + tP.mope(bullyName,victimName) + Message.N_RECORDINGS.msg);
     }
 
     private static void sceneries(TheProducers tP) {
