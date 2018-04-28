@@ -94,9 +94,6 @@ public class RecordingClass implements Recording{
         return staff;
     }
 
-// verificar se data -start- 'e inferior 'a data -date-
-	//	System.out.println(start.isBefore(date));
-
     //Formatacao com a classe DateTimeFormatter
     //DateTimeFormatter format_date = DateTimeFormatter.ofPattern("yyyy M d");
     //DateTimeFormatter format_date_time = DateTimeFormatter.ofPattern("yyyy M d h m");
