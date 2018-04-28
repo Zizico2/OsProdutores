@@ -40,6 +40,15 @@ public class ArrayClass<Elem> implements Array<Elem> {
     }
 
     @Override
+    public void add(Elem object, int pos) {
+        if(counter == array.length)
+            resize();
+        System.arraycopy(array,pos,array,pos+1,counter-pos);
+        array[pos] = object;
+        counter++;
+    }
+
+    @Override
     public void initialize() {
         current = 0;
     }

@@ -26,6 +26,8 @@ public interface Array<Elem> {
      */
     void add(Elem object);
 
+    void add(Elem object,int pos);
+
    // void remove(Elem object);
 
     void initialize();

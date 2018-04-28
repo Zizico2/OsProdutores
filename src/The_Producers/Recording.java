@@ -1,5 +1,6 @@
 package The_Producers;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public interface Recording {
@@ -21,4 +22,6 @@ public interface Recording {
     boolean isSuspended();
 
     boolean isRecordingSaved();
+
+    LocalDateTime getDate();
 }
