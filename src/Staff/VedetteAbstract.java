@@ -2,6 +2,12 @@ package Staff;
 
 import Array.*;
 
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
+
 public abstract class VedetteAbstract extends StaffMemberAbstract implements Vedette {
 
     private Array<StaffMember> blacklist;

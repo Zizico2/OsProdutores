@@ -1,5 +1,10 @@
 package Array;
 
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
 public class ArrayClass<Elem> implements Array<Elem> {
 
     private Elem[] array;

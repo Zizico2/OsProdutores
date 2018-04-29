@@ -1,5 +1,11 @@
 package Array;
 
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
+
 public interface Array<Elem> {
 
     int DEFAULT_SIZE = 10;

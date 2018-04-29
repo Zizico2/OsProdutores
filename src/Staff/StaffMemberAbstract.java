@@ -1,5 +1,11 @@
 package Staff;
 
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
+
 public abstract class StaffMemberAbstract implements StaffMember {
 
     private int moneyPerHour;

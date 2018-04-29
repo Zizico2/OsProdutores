@@ -6,6 +6,12 @@ import Scenery.*;
 import Staff.StaffMember;
 import Staff.Vedette;
 
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
+
 public class RecordingClass implements Recording{
 
     private Scenery scenery;
@@ -15,18 +21,19 @@ public class RecordingClass implements Recording{
     private boolean suspended;
 
 
-    RecordingClass(Scenery scenery,LocalDateTime date, int duration, StaffMember[] staff) {
+    RecordingClass(Scenery scenery,LocalDateTime date, int duration, StaffMember[] staff, boolean suspended) {
         start = date;
         //end = start.plusMinutes(duration);
         this.duration = duration;
         this.scenery = scenery;
         this.staff = new ArrayClass<StaffMember>();
         populateStaff(staff);
-        suspended = false;
+        this.suspended = suspended;
     }
 
 
-    public String toString() {
+
+    public String toStringExtra() {
         String s = "";
         staff.initialize();
         if (suspended)

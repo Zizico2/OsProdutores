@@ -1,5 +1,11 @@
 package Scenery;
 
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
+
 public class SceneryClass implements Scenery {
 
     private String name;

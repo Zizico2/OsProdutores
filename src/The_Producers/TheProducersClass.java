@@ -5,9 +5,13 @@ import Scenery.*;
 import Staff.StaffMembers.*;
 import Staff.*;
 import Staff.Tags.*;
-
 import java.time.LocalDateTime;
 
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
 
 public class TheProducersClass implements TheProducers {
 
@@ -62,6 +66,17 @@ public class TheProducersClass implements TheProducers {
         sceneries.add(new SceneryClass(site, pricePerHour));
     }
 
+    @Override
+    public boolean isDateValid(int[] dateArray){
+        LocalDateTime date = LocalDateTime.of(dateArray[0],dateArray[1],dateArray[2],dateArray[3],dateArray[4]);
+        pastRecordings.initialize();
+        if(pastRecordings.hasNext()) {
+            LocalDateTime lastRecordingDate = pastRecordings.next().getDate();
+            return lastRecordingDate.isBefore(date);
+        }
+        return true;
+    }
+
     public String listSceneries(){
 
         String msg = "";
@@ -106,9 +121,9 @@ public class TheProducersClass implements TheProducers {
         String msg;
         pastRecordings.add(recording);
         if(recording.isSuspended())
-            msg =  recording.toString().replaceFirst(" Suspensa!"," Cancelada!");
+            msg =  recording.toStringExtra().replaceFirst(" Suspensa!"," Cancelada!");
         else
-            msg = recording.toString() + " Gravada!";
+            msg = recording.toStringExtra() + " Gravada!";
         return msg;
     }
 
@@ -122,7 +137,7 @@ public class TheProducersClass implements TheProducers {
             recording = plannedRecordings.next();
             if(site.equals(recording.getScenery())){
                 totalCost += recording.getCost();
-                msg += recording.toString().replaceFirst(site + "; ","") + "\n";
+                msg += recording.toStringExtra().replaceFirst(site + "; ","") + "\n";
             }
         }
         msg += totalCost + " euros orcamentados.";
@@ -138,7 +153,7 @@ public class TheProducersClass implements TheProducers {
             Recording recording = plannedRecordings.next();
             if(recording.checkStaffMember(name)){
                 totalCost += recording.getCost();
-                msg += recording.toString().replaceFirst(recording.getScenery() + "; ","") + "\n";
+                msg += recording.toStringExtra().replaceFirst(recording.getScenery() + "; ","") + "\n";
             }
         }
         msg += totalCost + " euros orcamentados.";
@@ -173,7 +188,7 @@ public class TheProducersClass implements TheProducers {
             while (plannedRecordings.hasNext()) {
                 Recording R = plannedRecordings.next();
                 totalCost += R.getCost();
-                msg += R.toString() + "\n";
+                msg += R.toStringExtra() + "\n";
             }
             msg += totalCost + money;
         }
@@ -191,7 +206,7 @@ public class TheProducersClass implements TheProducers {
                 Recording R = pastRecordings.next();
                 if(!R.isSuspended())
                     totalCost += R.getCost();
-                msg += R.toString() + "\n";
+                msg += R.toStringExtra() + "\n";
             }
             msg += totalCost + money;
         }
@@ -225,6 +240,62 @@ public class TheProducersClass implements TheProducers {
             if(sT.getName().equals(name) && sT instanceof Vedette)
                 return true;
         }
+        return false;
+    }
+
+    @Override
+    public boolean isDurationValid(int duration) {
+        return duration > 0;
+    }
+
+    @Override
+    public boolean isThereAProducerNamed(String name) {
+        staff.initialize();
+        while(staff.hasNext()) {
+            StaffMember sT = staff.next();
+            if(sT.getName().equals(name) && sT instanceof Producer)
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isThereADirectorNamed(String name) {
+        staff.initialize();
+        while(staff.hasNext()) {
+            StaffMember sT = staff.next();
+            if(sT.getName().equals(name) && sT instanceof Director)
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isThereATechnicianNamed(String name) {
+        staff.initialize();
+        while(staff.hasNext()) {
+            StaffMember sT = staff.next();
+            if(sT.getName().equals(name) && sT instanceof TechnicianClass)
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isThereStaffNamed(String[] names, int numberOfStaffMembers) {
+        for(int i = 2; i < numberOfStaffMembers; i++)
+            if(!staffMemberExists(names[i]))
+                return false;
+        return true;
+    }
+
+    @Override
+    public boolean isThereFightsBetweenThisStaff(String[] names) {
+        for(String name1: names)
+            for (String name: names)
+             if(isThereAVedetteNamed(name1))
+                 if(isThereAFightWith(name1,name))
+                     return true;
         return false;
     }
 
@@ -332,10 +403,10 @@ public class TheProducersClass implements TheProducers {
         return null;
     }
 
-    public void scheduleRecording(String scenery, int[] localDateTime, String[] names){
+    public void scheduleRecording(String scenery, int[] localDateTime, String[] names,boolean suspended){
         LocalDateTime date = LocalDateTime.of(localDateTime[0],localDateTime[1],localDateTime[2],localDateTime[3],localDateTime[4]);
         int duration = localDateTime[5];
-        plannedRecordings.add(new RecordingClass(getSceneryByName(scenery), date, duration, getStaffMembersByName(names)),getChronologicalPos(date));
+        plannedRecordings.add(new RecordingClass(getSceneryByName(scenery), date, duration, getStaffMembersByName(names),suspended),getChronologicalPos(date));
     }
 
     private int getChronologicalPos(LocalDateTime date){

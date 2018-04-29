@@ -1,6 +1,14 @@
 package The_Producers;
 import Staff.*;
 
+import java.time.LocalDateTime;
+
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
+
 public interface TheProducers {
 
     void register(String name, int payPerHour, String type, String subType);
@@ -19,11 +27,13 @@ public interface TheProducers {
 
     boolean isCostValid(int i);
 
+    boolean isDateValid(int[] dateArray);
+
     String listSceneries();
 
     boolean duplicateSceneryName(String name);
 
-    void scheduleRecording(String scenery, int[] localDateTime, String[] names);
+    void scheduleRecording(String scenery, int[] localDateTime, String[] names, boolean suspended);
 
     String listPlannedRecordings();
 
@@ -48,4 +58,16 @@ public interface TheProducers {
     boolean isThereAFightWith(String exBullyName, String exVictimName);
 
     boolean isThereAVedetteNamed(String name);
+
+    boolean isDurationValid(int duration);
+
+    boolean isThereAProducerNamed(String name);
+
+    boolean isThereADirectorNamed(String name);
+
+    boolean isThereATechnicianNamed(String name);
+
+    boolean isThereStaffNamed(String[] names, int numberOfStaffMembers);
+
+    boolean isThereFightsBetweenThisStaff(String[] names);
 }

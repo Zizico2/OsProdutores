@@ -3,6 +3,12 @@ package The_Producers;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * @author Tiago Guerreiro
+ * @author Bernardo Borda d'Agua
+ *
+ */
+
 public interface Recording {
 
     DateTimeFormatter FORMAT_DATE_TIME = DateTimeFormatter.ofPattern("yyyy M d h m");
@@ -11,7 +17,7 @@ public interface Recording {
 
     int getCost();
 
-    String toString();
+    String toStringExtra();
 
     String getScenery();
 
