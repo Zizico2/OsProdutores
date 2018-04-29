@@ -33,7 +33,7 @@ public interface TheProducers {
 
     boolean duplicateSceneryName(String name);
 
-    void scheduleRecording(String scenery, int[] localDateTime, String[] names);
+    void scheduleRecording(String scenery, int[] localDateTime, String[] names, boolean suspended);
 
     String listPlannedRecordings();
 
@@ -67,5 +67,7 @@ public interface TheProducers {
 
     boolean isThereATechnicianNamed(String name);
 
-    boolean isThereStaffNamed(String[] mainNames, int numberOfStaffMembers);
+    boolean isThereStaffNamed(String[] names, int numberOfStaffMembers);
+
+    boolean isThereFightsBetweenThisStaff(String[] names);
 }

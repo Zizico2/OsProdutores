@@ -34,6 +34,7 @@ public class Main {
         EMPTY_BLACKLIST                 (" da-se bem com todos!"),
         UNKNOWN_STAFF_MEMBER            ("Colaborador desconhecido."),
         SCHEDULE_COMPLETE               ("Gravacao agendada com sucesso!"),
+        SCHEDULED_RECORDING_SUSPENDED   ("Gravacao pendente de uma birra."),
         NO_GRUDGE_BETWEEN               ("Nao existe zanga com "),
         UNKNOWN_PRODUCER                ("Produtor desconhecido."),
         UNKNOWN_DIRECTOR                ("Realizador desconhecido."),
@@ -229,13 +230,17 @@ public class Main {
             System.out.println(Message.UNKNOWN_DIRECTOR.msg);
 
         else if(!tP.isThereATechnicianNamed(mainNames[2]))
-            System.out.println(Message.UNKNOWN_TECHNICIAN);
+            System.out.println(Message.UNKNOWN_TECHNICIAN.msg);
 
-        else if(!tP.isThereStaffNamed(mainNames,numberOfStaffMembers))
+        else if(!tP.isThereStaffNamed(names,numberOfStaffMembers))
             System.out.println(Message.UNKNOWN_STAFF_MEMBER.msg);
 
+        else if(tP.isThereFightsBetweenThisStaff(names)){
+            tP.scheduleRecording(scenery,localDateTime,names, true);
+            System.out.println(Message.SCHEDULED_RECORDING_SUSPENDED.msg);
+        }
         else{
-                tP.scheduleRecording(scenery, localDateTime, names);
+                tP.scheduleRecording(scenery, localDateTime, names, false);
                 System.out.println(Message.SCHEDULE_COMPLETE.msg);
             }
         }

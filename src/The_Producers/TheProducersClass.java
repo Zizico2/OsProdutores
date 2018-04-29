@@ -72,7 +72,7 @@ public class TheProducersClass implements TheProducers {
         pastRecordings.initialize();
         if(pastRecordings.hasNext()) {
             LocalDateTime lastRecordingDate = pastRecordings.next().getDate();
-            return !lastRecordingDate.isAfter(date) || !lastRecordingDate.isEqual(date);
+            return lastRecordingDate.isBefore(date);
         }
         return true;
     }
@@ -282,11 +282,21 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
-    public boolean isThereStaffNamed(String[] mainNames, int numberOfStaffMembers) {
+    public boolean isThereStaffNamed(String[] names, int numberOfStaffMembers) {
         for(int i = 2; i < numberOfStaffMembers; i++)
-            if(!staffMemberExists(mainNames[i]))
+            if(!staffMemberExists(names[i]))
                 return false;
         return true;
+    }
+
+    @Override
+    public boolean isThereFightsBetweenThisStaff(String[] names) {
+        for(String name1: names)
+            for (String name: names)
+             if(isThereAVedetteNamed(name1))
+                 if(isThereAFightWith(name1,name))
+                     return true;
+        return false;
     }
 
     private boolean checkFight(Vedette vedette,String victimName){
@@ -393,10 +403,10 @@ public class TheProducersClass implements TheProducers {
         return null;
     }
 
-    public void scheduleRecording(String scenery, int[] localDateTime, String[] names){
+    public void scheduleRecording(String scenery, int[] localDateTime, String[] names,boolean suspended){
         LocalDateTime date = LocalDateTime.of(localDateTime[0],localDateTime[1],localDateTime[2],localDateTime[3],localDateTime[4]);
         int duration = localDateTime[5];
-        plannedRecordings.add(new RecordingClass(getSceneryByName(scenery), date, duration, getStaffMembersByName(names)),getChronologicalPos(date));
+        plannedRecordings.add(new RecordingClass(getSceneryByName(scenery), date, duration, getStaffMembersByName(names),suspended),getChronologicalPos(date));
     }
 
     private int getChronologicalPos(LocalDateTime date){

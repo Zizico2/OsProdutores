@@ -21,15 +21,16 @@ public class RecordingClass implements Recording{
     private boolean suspended;
 
 
-    RecordingClass(Scenery scenery,LocalDateTime date, int duration, StaffMember[] staff) {
+    RecordingClass(Scenery scenery,LocalDateTime date, int duration, StaffMember[] staff, boolean suspended) {
         start = date;
         //end = start.plusMinutes(duration);
         this.duration = duration;
         this.scenery = scenery;
         this.staff = new ArrayClass<StaffMember>();
         populateStaff(staff);
-        suspended = false;
+        this.suspended = suspended;
     }
+
 
 
     public String toStringExtra() {
