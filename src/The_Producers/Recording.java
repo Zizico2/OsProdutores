@@ -1,5 +1,8 @@
 package The_Producers;
 
+import Staff.StaffMember;
+import Staff.Tags.Producer;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -23,11 +26,15 @@ public interface Recording {
 
     void changeStatus();
 
-    boolean checkStaffMember(String name);
+    boolean hasStaffMemberNamed(String name);
 
     boolean isSuspended();
 
     boolean isRecordingSaved();
 
-    LocalDateTime getDate();
+    LocalDateTime getStartingDate();
+
+    LocalDateTime getEndDate();
+
+    StaffMember getProducer();
 }

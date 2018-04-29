@@ -67,7 +67,9 @@ public interface TheProducers {
 
     boolean isThereATechnicianNamed(String name);
 
-    boolean isThereStaffNamed(String[] names, int numberOfStaffMembers);
+    boolean isThereStaffMembersNamed(String[] names, int numberOfStaffMembers);
 
     boolean isThereFightsBetweenThisStaff(String[] names);
+
+    boolean isThereDatesConflict(String scenery, int[] date, String[] names);
 }
