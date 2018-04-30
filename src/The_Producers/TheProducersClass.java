@@ -343,7 +343,7 @@ public class TheProducersClass implements TheProducers {
 
     private boolean isThereStaffIntersection(Recording recording,String[] names,LocalDateTime realDateStart,LocalDateTime realDateEnd){
         int namesCounter = 0;
-        while (namesCounter != names.length - 1){
+        while (namesCounter != names.length){
              if (recording.hasStaffMemberNamed(names[namesCounter]))
                  return true;
               else
@@ -351,6 +351,8 @@ public class TheProducersClass implements TheProducers {
          }
          return false;
     }
+
+
 
     private boolean isThereSceneryIntersection(Recording recording, String sceneryName) {
         return recording.getScenery().equals(sceneryName);

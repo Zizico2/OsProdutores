@@ -274,7 +274,7 @@ public class Main {
 
         else{
             if (msg.equals(Message.DEFAULT_LIST_MSG.msg))
-                System.out.println(Message.NO_RECORDING_WITH + name + Message.POINT.msg);
+                System.out.println(Message.NO_RECORDING_WITH.msg + name + Message.POINT.msg);
 
             else
                 System.out.println(msg);
@@ -290,7 +290,7 @@ public class Main {
 
         else{
             if (msg.equals(Message.DEFAULT_LIST_MSG.msg))
-                System.out.println(Message.NO_RECORDING_AT + scenery + Message.POINT.msg);
+                System.out.println(Message.NO_RECORDING_AT.msg + scenery + Message.POINT.msg);
             else
                 System.out.println(msg);
         }
