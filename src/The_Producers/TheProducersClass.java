@@ -161,7 +161,7 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
-    public boolean siteExists(String scenery) {
+    public boolean isThereASiteNamed(String scenery) {
         sceneries.initialize();
         while(sceneries.hasNext())
             if(sceneries.next().getName().equals(scenery))
@@ -170,7 +170,7 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
-    public boolean staffMemberExists(String name) {
+    public boolean isThereAStaffMemberNamed(String name) {
         staff.initialize();
         while(staff.hasNext())
             if(staff.next().getName().equals(name))
@@ -284,7 +284,7 @@ public class TheProducersClass implements TheProducers {
     @Override
     public boolean isThereStaffMembersNamed(String[] names, int numberOfStaffMembers) {
         for(int i = 2; i < numberOfStaffMembers; i++)
-            if(!staffMemberExists(names[i]))
+            if(!isThereAStaffMemberNamed(names[i]))
                 return false;
         return true;
     }
@@ -410,15 +410,6 @@ public class TheProducersClass implements TheProducers {
             msg += ST.getOutput() + jonhdoe.getName() + " " + jonhdoe.getMoneyPerHour() + "\n";
         }
         return msg;
-    }
-
-    public boolean duplicateName(String name){
-        staff.initialize();
-        while(staff.hasNext()){
-            if(staff.next().getName().equals(name))
-                return true;
-        }
-        return false;
     }
 
     @Override

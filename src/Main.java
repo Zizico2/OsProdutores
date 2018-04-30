@@ -215,7 +215,7 @@ public class Main {
         for (int i = MAIN_STAFF_NUMBER; i < numberOfStaffMembers; i++)
             names[i] = in.nextLine();
 
-        if(!tP.siteExists(scenery))
+        if(!tP.isThereASiteNamed(scenery))
             System.out.println(Message.UNKNOWN_SITE.msg);
 
         else if(!tP.isDateValid(localDateTime))
@@ -269,7 +269,7 @@ public class Main {
     private static void staffMember(Scanner in, TheProducers tP) {
         String name = in.nextLine();
         String msg = tP.staffMember(name);
-        if(!tP.staffMemberExists(name))
+        if(!tP.isThereAStaffMemberNamed(name))
             System.out.println(Message.UNKNOWN_STAFF_MEMBER.msg);
 
         else{
@@ -285,7 +285,7 @@ public class Main {
         String scenery = in.nextLine();
         String msg = tP.site(scenery);
 
-        if(!tP.siteExists(scenery))
+        if(!tP.isThereASiteNamed(scenery))
             System.out.println(Message.UNKNOWN_SITE.msg);
 
         else{
@@ -321,7 +321,7 @@ public class Main {
         if(!tP.isThereAVedetteNamed(bullyName))
             System.out.println(bullyName + Message.NOT_VEDETTE.msg);
 
-        else if(!tP.staffMemberExists(victimName))
+        else if(!tP.isThereAStaffMemberNamed(victimName))
             System.out.println(victimName + Message.NOT_A_STAFF_MEMBER.msg);
 
         else if(tP.isThereAFightWith(bullyName,victimName))
@@ -365,7 +365,7 @@ public class Main {
         int moneyPerHour =in.nextInt();
         String name  = in.nextLine().substring(1);
 
-        if (tP.duplicateName(name))
+        if (tP.isThereAStaffMemberNamed(name))
             System.out.println(Message.DUPLICATE_NAME.msg);
 
         else if(!tP.isTypeValid(type))
