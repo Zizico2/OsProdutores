@@ -1,2 +1,2 @@
-# Escola
+# OsProdutores
 Project for college (OOP).
