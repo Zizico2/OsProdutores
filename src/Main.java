@@ -35,6 +35,7 @@ public class Main {
         UNKNOWN_STAFF_MEMBER            ("Colaborador desconhecido."),
         SCHEDULE_COMPLETE               ("Gravacao agendada com sucesso!"),
         SCHEDULED_RECORDING_SUSPENDED   ("Gravacao pendente de uma birra."),
+        RECORDING_WITH_CONFLICTED_DATES ("Gravacao nao agendada por conflito de datas."),
         NO_GRUDGE_BETWEEN               ("Nao existe zanga com "),
         UNKNOWN_PRODUCER                ("Produtor desconhecido."),
         UNKNOWN_DIRECTOR                ("Realizador desconhecido."),
@@ -214,7 +215,7 @@ public class Main {
         for (int i = MAIN_STAFF_NUMBER; i < numberOfStaffMembers; i++)
             names[i] = in.nextLine();
 
-        if(!tP.siteExists(scenery))
+        if(!tP.isThereASiteNamed(scenery))
             System.out.println(Message.UNKNOWN_SITE.msg);
 
         else if(!tP.isDateValid(localDateTime))
@@ -232,13 +233,16 @@ public class Main {
         else if(!tP.isThereATechnicianNamed(mainNames[2]))
             System.out.println(Message.UNKNOWN_TECHNICIAN.msg);
 
-        else if(!tP.isThereStaffNamed(names,numberOfStaffMembers))
+        else if(!tP.isThereStaffMembersNamed(names,numberOfStaffMembers))
             System.out.println(Message.UNKNOWN_STAFF_MEMBER.msg);
 
         else if(tP.isThereFightsBetweenThisStaff(names)){
             tP.scheduleRecording(scenery,localDateTime,names, true);
             System.out.println(Message.SCHEDULED_RECORDING_SUSPENDED.msg);
         }
+        else if(tP.isThereDatesConflict(scenery,localDateTime,names))
+            System.out.println(Message.RECORDING_WITH_CONFLICTED_DATES.msg);
+
         else{
                 tP.scheduleRecording(scenery, localDateTime, names, false);
                 System.out.println(Message.SCHEDULE_COMPLETE.msg);
@@ -265,12 +269,12 @@ public class Main {
     private static void staffMember(Scanner in, TheProducers tP) {
         String name = in.nextLine();
         String msg = tP.staffMember(name);
-        if(!tP.staffMemberExists(name))
+        if(!tP.isThereAStaffMemberNamed(name))
             System.out.println(Message.UNKNOWN_STAFF_MEMBER.msg);
 
         else{
             if (msg.equals(Message.DEFAULT_LIST_MSG.msg))
-                System.out.println(Message.NO_RECORDING_WITH + name + Message.POINT.msg);
+                System.out.println(Message.NO_RECORDING_WITH.msg + name + Message.POINT.msg);
 
             else
                 System.out.println(msg);
@@ -281,12 +285,12 @@ public class Main {
         String scenery = in.nextLine();
         String msg = tP.site(scenery);
 
-        if(!tP.siteExists(scenery))
+        if(!tP.isThereASiteNamed(scenery))
             System.out.println(Message.UNKNOWN_SITE.msg);
 
         else{
             if (msg.equals(Message.DEFAULT_LIST_MSG.msg))
-                System.out.println(Message.NO_RECORDING_AT + scenery + Message.POINT.msg);
+                System.out.println(Message.NO_RECORDING_AT.msg + scenery + Message.POINT.msg);
             else
                 System.out.println(msg);
         }
@@ -317,7 +321,7 @@ public class Main {
         if(!tP.isThereAVedetteNamed(bullyName))
             System.out.println(bullyName + Message.NOT_VEDETTE.msg);
 
-        else if(!tP.staffMemberExists(victimName))
+        else if(!tP.isThereAStaffMemberNamed(victimName))
             System.out.println(victimName + Message.NOT_A_STAFF_MEMBER.msg);
 
         else if(tP.isThereAFightWith(bullyName,victimName))
@@ -361,7 +365,7 @@ public class Main {
         int moneyPerHour =in.nextInt();
         String name  = in.nextLine().substring(1);
 
-        if (tP.duplicateName(name))
+        if (tP.isThereAStaffMemberNamed(name))
             System.out.println(Message.DUPLICATE_NAME.msg);
 
         else if(!tP.isTypeValid(type))

@@ -19,16 +19,6 @@ public interface TheProducers {
 
     String staff();
 
-    boolean duplicateName(String name);
-
-    boolean isTypeValid(String type);
-
-    boolean isSubTypeValid(String subType);
-
-    boolean isCostValid(int i);
-
-    boolean isDateValid(int[] dateArray);
-
     String listSceneries();
 
     boolean duplicateSceneryName(String name);
@@ -43,10 +33,6 @@ public interface TheProducers {
 
     String site(String scenery);
 
-    boolean siteExists(String scenery);
-
-    boolean staffMemberExists(String name);
-
     String staffMember(String name);
 
     String poutances(String name);
@@ -54,6 +40,18 @@ public interface TheProducers {
     int mope(String bullyName, String victimName);
 
     int reconcile(String exBullyName, String exVictimName);
+
+    boolean isSubTypeValid(String subType);
+
+    boolean isCostValid(int i);
+
+    boolean isDateValid(int[] dateArray);
+
+    boolean isThereAStaffMemberNamed(String name);
+
+    boolean isThereASiteNamed(String scenery);
+
+    boolean isTypeValid(String type);
 
     boolean isThereAFightWith(String exBullyName, String exVictimName);
 
@@ -67,7 +65,9 @@ public interface TheProducers {
 
     boolean isThereATechnicianNamed(String name);
 
-    boolean isThereStaffNamed(String[] names, int numberOfStaffMembers);
+    boolean isThereStaffMembersNamed(String[] names, int numberOfStaffMembers);
 
     boolean isThereFightsBetweenThisStaff(String[] names);
+
+    boolean isThereDatesConflict(String scenery, int[] date, String[] names);
 }

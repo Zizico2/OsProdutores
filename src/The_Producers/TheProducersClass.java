@@ -71,7 +71,7 @@ public class TheProducersClass implements TheProducers {
         LocalDateTime date = LocalDateTime.of(dateArray[0],dateArray[1],dateArray[2],dateArray[3],dateArray[4]);
         pastRecordings.initialize();
         if(pastRecordings.hasNext()) {
-            LocalDateTime lastRecordingDate = pastRecordings.next().getDate();
+            LocalDateTime lastRecordingDate = pastRecordings.next().getStartingDate();
             return lastRecordingDate.isBefore(date);
         }
         return true;
@@ -151,7 +151,7 @@ public class TheProducersClass implements TheProducers {
         plannedRecordings.initialize();
         while(plannedRecordings.hasNext()){
             Recording recording = plannedRecordings.next();
-            if(recording.checkStaffMember(name)){
+            if(recording.hasStaffMemberNamed(name)){
                 totalCost += recording.getCost();
                 msg += recording.toStringExtra().replaceFirst(recording.getScenery() + "; ","") + "\n";
             }
@@ -161,7 +161,7 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
-    public boolean siteExists(String scenery) {
+    public boolean isThereASiteNamed(String scenery) {
         sceneries.initialize();
         while(sceneries.hasNext())
             if(sceneries.next().getName().equals(scenery))
@@ -170,7 +170,7 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
-    public boolean staffMemberExists(String name) {
+    public boolean isThereAStaffMemberNamed(String name) {
         staff.initialize();
         while(staff.hasNext())
             if(staff.next().getName().equals(name))
@@ -282,9 +282,9 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
-    public boolean isThereStaffNamed(String[] names, int numberOfStaffMembers) {
+    public boolean isThereStaffMembersNamed(String[] names, int numberOfStaffMembers) {
         for(int i = 2; i < numberOfStaffMembers; i++)
-            if(!staffMemberExists(names[i]))
+            if(!isThereAStaffMemberNamed(names[i]))
                 return false;
         return true;
     }
@@ -297,6 +297,65 @@ public class TheProducersClass implements TheProducers {
                  if(isThereAFightWith(name1,name))
                      return true;
         return false;
+    }
+
+    @Override
+    public boolean isThereDatesConflict(String scenery, int[] date, String[] names) {
+       Array<Recording> recordings = conflictedRecordings(scenery,date,names);
+        recordings.initialize();
+       if(!recordings.hasNext())
+           return false;
+
+       else return !isRecordingRescheduable(recordings, names[0]);
+    }
+
+    private boolean isRecordingRescheduable(Array<Recording> recordings, String producerName){
+        String[] recordingProducer = {producerName};
+        StaffType recordingProducerType = checkType(getStaffMembersByName(recordingProducer)[0]);
+        if(recordingProducerType.equals(StaffType.JUNIOR_PRODUCER))
+            return false;
+        for (int i = 0; i < recordings.length() ; i++) {
+            Recording recording = recordings.next();
+            StaffType plannedRecordingProducerType = checkType(recording.getProducer());
+            if(plannedRecordingProducerType.equals(StaffType.JUNIOR_PRODUCER))
+                return true;
+        }
+        return false;
+    }
+
+    private Array<Recording> conflictedRecordings(String sceneryName, int[] date, String[] names){
+        Array<Recording> recordings = new ArrayClass<Recording>();
+        LocalDateTime realDate = LocalDateTime.of(date[0], date[1], date[2], date[3], date[4]);
+        plannedRecordings.initialize();
+        while(plannedRecordings.hasNext()) {
+            Recording recording = plannedRecordings.next();
+            if(isDateConflicted(realDate,realDate.plusMinutes(date[5]),recording) && (isThereSceneryIntersection(recording,sceneryName) || isThereStaffIntersection(recording,names,realDate,realDate.plusMinutes(date[5]))))
+                recordings.add(recording);
+       }
+       return recordings;
+    }
+
+    private boolean isDateConflicted(LocalDateTime realDateStart, LocalDateTime realDateEnd,Recording recording){
+        LocalDateTime startingDate = recording.getStartingDate();
+        LocalDateTime endDate = recording.getEndDate();
+        return ! (((realDateStart.isBefore(startingDate) && realDateEnd.isBefore(startingDate)) || realDateStart.isAfter(endDate)));
+    }
+
+    private boolean isThereStaffIntersection(Recording recording,String[] names,LocalDateTime realDateStart,LocalDateTime realDateEnd){
+        int namesCounter = 0;
+        while (namesCounter != names.length){
+             if (recording.hasStaffMemberNamed(names[namesCounter]))
+                 return true;
+              else
+                  namesCounter++;
+         }
+         return false;
+    }
+
+
+
+    private boolean isThereSceneryIntersection(Recording recording, String sceneryName) {
+        return recording.getScenery().equals(sceneryName);
     }
 
     private boolean checkFight(Vedette vedette,String victimName){
@@ -315,7 +374,7 @@ public class TheProducersClass implements TheProducers {
         plannedRecordings.initialize();
         while(plannedRecordings.hasNext()){
             Recording recording = plannedRecordings.next();
-            if(recording.checkStaffMember(exVictimName) && recording.checkStaffMember(exBullyName) && recording.isRecordingSaved()) {
+            if(recording.hasStaffMemberNamed(exVictimName) && recording.hasStaffMemberNamed(exBullyName) && recording.isRecordingSaved()) {
                 recording.changeStatus();
                 nUnSuspended++;
             }
@@ -328,7 +387,7 @@ public class TheProducersClass implements TheProducers {
         plannedRecordings.initialize();
         while(plannedRecordings.hasNext()){
             Recording recording = plannedRecordings.next();
-            if(recording.checkStaffMember(victimName) && recording.checkStaffMember(bullyName) && !recording.isSuspended()) {
+            if(recording.hasStaffMemberNamed(victimName) && recording.hasStaffMemberNamed(bullyName) && !recording.isSuspended()) {
                 recording.changeStatus();
                 nSuspended++;
             }
@@ -353,15 +412,6 @@ public class TheProducersClass implements TheProducers {
             msg += ST.getOutput() + jonhdoe.getName() + " " + jonhdoe.getMoneyPerHour() + "\n";
         }
         return msg;
-    }
-
-    public boolean duplicateName(String name){
-        staff.initialize();
-        while(staff.hasNext()){
-            if(staff.next().getName().equals(name))
-                return true;
-        }
-        return false;
     }
 
     @Override
@@ -413,7 +463,7 @@ public class TheProducersClass implements TheProducers {
     plannedRecordings.initialize();
     while(plannedRecordings.hasNext()){
         Recording recording = plannedRecordings.next();
-        if(recording.getDate().isAfter(date))
+        if(recording.getStartingDate().isAfter(date))
             return plannedRecordings.getCurrentElem();
     }
         return plannedRecordings.length();

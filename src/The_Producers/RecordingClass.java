@@ -52,7 +52,7 @@ public class RecordingClass implements Recording{
     }
 
     @Override
-    public boolean checkStaffMember(String name) {
+    public boolean hasStaffMemberNamed(String name) {
         staff.initialize();
         while(staff.hasNext())
             if (name.equals(staff.next().getName()))
@@ -84,10 +84,19 @@ public class RecordingClass implements Recording{
     }
 
     @Override
-    public LocalDateTime getDate() {
+    public LocalDateTime getStartingDate() {
         return start;
     }
 
+    public LocalDateTime getEndDate(){
+        return start.plusMinutes(duration);
+    }
+
+    @Override
+    public StaffMember getProducer() {
+        staff.initialize();
+        return staff.next();
+    }
 
     @Override
     public int getCost(){
