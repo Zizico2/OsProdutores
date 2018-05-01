@@ -358,7 +358,7 @@ public class TheProducersClass implements TheProducers {
         return recording.getScenery().equals(sceneryName);
     }
 
-    private boolean checkFight(Vedette vedette,String victimName){
+    private boolean checkFight(Vedette vedette,String victimName) {
         return vedette.isMadWith(victimName);
     }
 
@@ -432,8 +432,8 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
-    public boolean isCostValid(int money){
-        return money > 0;
+    public boolean isCostInvalid(int money){
+        return money <= 0;
     }
 
     public boolean duplicateSceneryName(String name){
@@ -453,10 +453,16 @@ public class TheProducersClass implements TheProducers {
         return null;
     }
 
+    @Override
     public void scheduleRecording(String scenery, int[] localDateTime, String[] names,boolean suspended){
         LocalDateTime date = LocalDateTime.of(localDateTime[0],localDateTime[1],localDateTime[2],localDateTime[3],localDateTime[4]);
         int duration = localDateTime[5];
         plannedRecordings.add(new RecordingClass(getSceneryByName(scenery), date, duration, getStaffMembersByName(names),suspended),getChronologicalPos(date));
+    }
+
+    public boolean isReschuleNeeded(String scenery, int[] date, String[] names){
+        Array<Recording> recordings = conflictedRecordings(scenery,date,names);
+        return isRecordingRescheduable(recordings,names[0]);
     }
 
     private int getChronologicalPos(LocalDateTime date){

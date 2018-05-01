@@ -43,7 +43,7 @@ public interface TheProducers {
 
     boolean isSubTypeValid(String subType);
 
-    boolean isCostValid(int i);
+    boolean isCostInvalid(int i);
 
     boolean isDateValid(int[] dateArray);
 
@@ -70,4 +70,6 @@ public interface TheProducers {
     boolean isThereFightsBetweenThisStaff(String[] names);
 
     boolean isThereDatesConflict(String scenery, int[] date, String[] names);
+
+    boolean isReschuleNeeded(String scenery, int[] date, String[] names);
 }

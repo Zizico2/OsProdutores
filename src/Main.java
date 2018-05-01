@@ -36,6 +36,7 @@ public class Main {
         SCHEDULE_COMPLETE               ("Gravacao agendada com sucesso!"),
         SCHEDULED_RECORDING_SUSPENDED   ("Gravacao pendente de uma birra."),
         RECORDING_WITH_CONFLICTED_DATES ("Gravacao nao agendada por conflito de datas."),
+        RECORDINGS_RESCHEDULED           ("Gravacao prioritaria agendada provocou mudancas noutra(s) gravacao(oes)."),
         NO_GRUDGE_BETWEEN               ("Nao existe zanga com "),
         UNKNOWN_PRODUCER                ("Produtor desconhecido."),
         UNKNOWN_DIRECTOR                ("Realizador desconhecido."),
@@ -243,6 +244,11 @@ public class Main {
         else if(tP.isThereDatesConflict(scenery,localDateTime,names))
             System.out.println(Message.RECORDING_WITH_CONFLICTED_DATES.msg);
 
+        else if(tP.isReschuleNeeded(scenery,localDateTime,names)){
+            System.out.println(Message.RECORDINGS_RESCHEDULED.msg);
+            // reschedule starts here!!
+        }
+
         else{
                 tP.scheduleRecording(scenery, localDateTime, names, false);
                 System.out.println(Message.SCHEDULE_COMPLETE.msg);
@@ -346,7 +352,7 @@ public class Main {
 
         if (tP.duplicateSceneryName(name))
             System.out.println(Message.DUPLICATE_SCENERY_NAME.msg);
-        else if (!tP.isCostValid(cost))
+        else if (tP.isCostInvalid(cost))
             System.out.println(Message.INVALID_SCENERY_COST.msg);
         else {
             tP.addScenery(name, cost);
@@ -361,7 +367,6 @@ public class Main {
         if(!in.hasNextInt())
             subType = in.next();
 
-
         int moneyPerHour =in.nextInt();
         String name  = in.nextLine().substring(1);
 
@@ -374,7 +379,7 @@ public class Main {
         else if(!tP.isSubTypeValid(subType))
             System.out.println(Message.INVALID_SUBTYPE.msg);
 
-        else if(!tP.isCostValid(moneyPerHour))
+        else if(tP.isCostInvalid(moneyPerHour))
             System.out.println(Message.INVALID_SALARY.msg);
 
         else{
