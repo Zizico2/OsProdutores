@@ -97,7 +97,7 @@ public class TheProducersClass implements TheProducers {
         }
 
     /**
-     * verifica e devolve o tipo do Colaborador.
+     * Verifica e devolve o tipo do Colaborador.
      *
      * @param ST - Colaborador.
      * @return tipo e sub tipo.
@@ -621,7 +621,7 @@ public class TheProducersClass implements TheProducers {
      * Devolve um vetor com Colaboradores de acordo com os nomes guardados num vetor dado.
      *
      * @param names - Nomes dos Colaboradores.
-     * @return ArrayStaffMembers-
+     * @return ArrayStaffMembers.
      */
     private StaffMember[] getStaffMembersByName(String[] names) {
         int counter = 0;
