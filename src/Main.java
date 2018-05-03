@@ -325,7 +325,7 @@ public class Main {
     }
 
     /**
-     * Imprime informacoes relativas aos senarios registados
+     * Imprime informacoes relativas aos cenarios registados
      *
      * @param tP produtora
      */
@@ -359,7 +359,7 @@ public class Main {
     }
 
     /**
-     * Regista um utilizador de acoroo com os parametros definidos pelo utilizador.
+     * Regista um utilizador de acordo com os parametros definidos pelo utilizador.
      *
      * @param in scanner a ser usado para receber informacoes do utilizador
      * @param tP produtora
