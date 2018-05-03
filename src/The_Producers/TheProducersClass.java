@@ -415,11 +415,12 @@ public class TheProducersClass implements TheProducers {
     }
 
     /**
-     *Verifica se existe Colaboradores comuns com...
+     *Verifica se existe Colaboradores comuns de uma recording dada com o vetor de nomes dos Colaboradores dado.
      *
-     * @param recording
-     * @param names
-     * @return
+     * @param recording - Gravacao a comparar.
+     * @param names - Nomes dos Colaboradores.
+     * @return true se existir nomes em comum;
+     *         false se nao existir.
      */
     private boolean isThereStaffIntersection(Recording recording, String[] names){
         int namesCounter = 0;
@@ -432,14 +433,31 @@ public class TheProducersClass implements TheProducers {
          return false;
     }
 
+    /**
+     * Verifica se o cenario da gravacao tem o nome dado.
+     *
+     * @param recording - Gravacao
+     * @param sceneryName - Nome do Cenario.
+     * @return true se for o mesmo nome;
+     *         false se nao for o mesmo nome.
+     */
     private boolean isThereSceneryIntersection(Recording recording, String sceneryName) {
         return recording.getScenery().equals(sceneryName);
     }
 
+    /**
+     * Verifica se existe uma zanga entre uma vedeta dada e um Colaborador com o nome dado.
+     *
+     * @param vedette - Vedeta
+     * @param victimName -  Nome do Colaborador vitima.
+     * @return true se houver zanga;
+     *         false se nao houver zanga.
+     */
     private boolean checkFight(Vedette vedette,String victimName) {
         return vedette.isMadWith(victimName);
     }
 
+    @Override
     public int reconcile(String exBullyName, String exVictimName){
         String[] bully = {exBullyName};
         Vedette bullyMember = (Vedette)getStaffMembersByName(bully)[0];
@@ -447,6 +465,13 @@ public class TheProducersClass implements TheProducers {
         return unSuspendRecordings(exBullyName,exVictimName);
     }
 
+    /**
+     * Descobre quantas gravacoes foram salvas devido ao fim da zanga da vedeta e vitima com nomes dados.
+     *
+     * @param exBullyName - Nome da Vedeta.
+     * @param exVictimName -  Nome do Colaborador vitima.
+     * @return nUnsuspended.
+     */
     private int unSuspendRecordings(String exBullyName, String exVictimName) {
         int nUnSuspended = 0;
         plannedRecordings.initialize();
@@ -460,6 +485,13 @@ public class TheProducersClass implements TheProducers {
         return nUnSuspended;
     }
 
+    /**
+     * Descobre quantas gravacoes foram suspensas devido ao inicio da zanga da vedeta e vitima com nomes dados.
+     *
+     * @param bullyName - Nome da Vedeta.
+     * @param victimName -  Nome do Colaborador vitima.
+     * @return nSuspended.
+     */
     private int suspendRecordings(String bullyName, String victimName){
         int nSuspended = 0;
         plannedRecordings.initialize();
@@ -473,6 +505,7 @@ public class TheProducersClass implements TheProducers {
         return nSuspended;
     }
 
+    @Override
     public String poutances(String name){
         String[] vedette = {name};
         Vedette vedetteMember = (Vedette)getStaffMembersByName(vedette)[0];
@@ -523,6 +556,13 @@ public class TheProducersClass implements TheProducers {
         return false;
     }
 
+    /**
+     * Devolve o objeto StaffType com o tipo e sub tipo dado.
+     *
+     * @param type - tipo principal.
+     * @param subType - sub tipo.
+     * @return StaffType.
+     */
     private StaffType getType(String type, String subType){
         for (StaffType T: StaffType.values()) {
             if(type.equals(T.getType()) && subType.equals(T.getSubType()))
@@ -538,12 +578,19 @@ public class TheProducersClass implements TheProducers {
         plannedRecordings.add(new RecordingClass(getSceneryByName(scenery), date, duration, getStaffMembersByName(names),suspended),getChronologicalPos(date));
     }
 
+    @Override
     public boolean isReschuleNeeded(String scenery, int[] date, String[] names){
         Array<Recording> recordings = conflictedRecordings(scenery,date,names);
         recordings.initialize();
         return recordings.hasNext();
     }
 
+    /**
+     * Descobre e devolve o indice onde uma data de uma Gravacao deve ser colocado de ordem cronologica.
+     *
+     * @param date -  Data da Gravacao.
+     * @return index.
+     */
     private int getChronologicalPos(LocalDateTime date){
     plannedRecordings.initialize();
     while(plannedRecordings.hasNext()){
@@ -554,6 +601,12 @@ public class TheProducersClass implements TheProducers {
         return plannedRecordings.length();
     }
 
+    /**
+     * Devolve o cenario com o nome dado.
+     *
+     * @param name - Nome do Cenario
+     * @return Scenery.
+     */
     private Scenery getSceneryByName(String name){
         sceneries.initialize();
         while(sceneries.hasNext()) {
@@ -564,6 +617,12 @@ public class TheProducersClass implements TheProducers {
             return null;
     }
 
+    /**
+     * Devolve um vetor com Colaboradores de acordo com os nomes guardados num vetor dado.
+     *
+     * @param names - Nomes dos Colaboradores.
+     * @return ArrayStaffMembers-
+     */
     private StaffMember[] getStaffMembersByName(String[] names) {
         int counter = 0;
         int length = names.length;

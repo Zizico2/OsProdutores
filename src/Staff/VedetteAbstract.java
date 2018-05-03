@@ -17,10 +17,12 @@ public abstract class VedetteAbstract extends StaffMemberAbstract implements Ved
     }
 
 
+    @Override
     public void mope(StaffMember staffMember){
         blacklist.add(staffMember);
     }
 
+    @Override
     public void reconcile(String name){
         blacklist.initialize();
         while(blacklist.hasNext())
@@ -30,6 +32,7 @@ public abstract class VedetteAbstract extends StaffMemberAbstract implements Ved
             }
     }
 
+    @Override
     public String getBlacklist(){
         String msg = "";
         blacklist.initialize();
@@ -38,12 +41,12 @@ public abstract class VedetteAbstract extends StaffMemberAbstract implements Ved
         return msg;
     }
 
+    @Override
     public boolean isMadWith(String name){
         blacklist.initialize();
         while(blacklist.hasNext())
             if(blacklist.next().getName().equals(name))
                 return true;
-
         return false;
     }
 }
