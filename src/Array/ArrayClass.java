@@ -7,7 +7,7 @@ package Array;
  */
 public class ArrayClass<Elem> implements Array<Elem> {
 
-    // Variáveis de instancia
+    // Variaveis de instancia
 
     private Elem[] array;
     private int counter;

@@ -11,7 +11,7 @@ package Staff;
  */
 public abstract class StaffMemberAbstract implements StaffMember {
 
-    // Variáveis de Instância
+    // Variaveis de Instância
     private final int moneyPerHour;
     private final String Name;
 
