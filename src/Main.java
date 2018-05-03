@@ -28,7 +28,7 @@ public class Main {
     /**
      * Retorna um comando especificado pelo utilizador
      *
-     * @param in scanner a ser usado para receber informaçoes do utilizador
+     * @param in scanner a ser usado para receber informacoes do utilizador
      * @return Commmand
      */
     private static Command getCommand(Scanner in) {
@@ -42,7 +42,7 @@ public class Main {
     /**
      * Executa um comando especificado pelo utilizador.
      *
-     * @param in scanner a ser usado para receber informaçoes do utilizador
+     * @param in scanner a ser usado para receber informacoes do utilizador
      * @param tP produtora
      */
     private static void executeCommand(Scanner in, TheProducers tP ){
@@ -122,7 +122,7 @@ public class Main {
     /**
      * Reconcilia dois colaboradores especificados pelo utilizador.
      *
-     * @param in scanner a ser usado para receber informaçoes do utilizador
+     * @param in scanner a ser usado para receber informacoes do utilizador
      * @param tP produtora
      */
     private static void reconcile(Scanner in, TheProducers tP) {
@@ -142,7 +142,7 @@ public class Main {
     /**
      * Marca uma gravacao com os parametros especificados pelo o utilizador.
      *
-     * @param in scanner a ser usado para receber informaçoes do utilizador
+     * @param in scanner a ser usado para receber informacoes do utilizador
      * @param tP produtora
      */
     private static void schedule(Scanner in, TheProducers tP) {
@@ -217,7 +217,7 @@ public class Main {
     /**
      * Imprime informacoes relativas aos amuancos de uma vedeta especificada pelo utilizador
      *
-     * @param in scanner a ser usado para receber informaçoes do utilizador
+     * @param in scanner a ser usado para receber informacoes do utilizador
      * @param tP produtora
      */
     private static void poutances(Scanner in, TheProducers tP) {
@@ -233,7 +233,7 @@ public class Main {
     /**
      * Imprime informacoes relativas a um colaborador especificado pelo utilizador.
      *
-     * @param in scanner a ser usado para receber informaçoes do utilizador
+     * @param in scanner a ser usado para receber informacoes do utilizador
      * @param tP produtora
      */
     private static void staffMember(Scanner in, TheProducers tP) {
@@ -254,7 +254,7 @@ public class Main {
     /**
      * Imprime informacoes relativas a um cenario especificado pelo utilizador
      *
-     * @param in scanner a ser usado para receber informaçoes do utilizador
+     * @param in scanner a ser usado para receber informacoes do utilizador
      * @param tP produtora
      */
     private static void site(Scanner in, TheProducers tP){
@@ -303,7 +303,7 @@ public class Main {
     /**
      * Processa o amuanco de uma vedeta
      *
-     * @param in scanner a ser usado para receber informaçoes do utilizador
+     * @param in scanner a ser usado para receber informacoes do utilizador
      * @param tP produtora
      */
     private static void mope(Scanner in, TheProducers tP) {
@@ -339,7 +339,7 @@ public class Main {
     /**
      * Regista um cenario de acordo com os parametros definidos pelo utilizador
      *
-     * @param in scanner a ser usado para receber informaçoes do utilizador
+     * @param in scanner a ser usado para receber informacoes do utilizador
      * @param tP produtora
      */
     private static void scenery(Scanner in, TheProducers tP) {
@@ -360,7 +360,7 @@ public class Main {
     /**
      * Regista um utilizador de acoroo com os parametros definidos pelo utilizador.
      *
-     * @param in scanner a ser usado para receber informaçoes do utilizador
+     * @param in scanner a ser usado para receber informacoes do utilizador
      * @param tP produtora
      */
     private static void register(Scanner in, TheProducers tP) {
