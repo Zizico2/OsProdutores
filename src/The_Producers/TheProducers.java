@@ -1,7 +1,5 @@
 package The_Producers;
-import Staff.*;
 
-import java.time.LocalDateTime;
 
 /**
  * @author Tiago Guerreiro
@@ -9,13 +7,12 @@ import java.time.LocalDateTime;
  *
  */
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public interface TheProducers {
 
     void register(String name, int payPerHour, String type, String subType);
 
     void addScenery(String site, int pricePerHour);
-
-    StaffType checkType(StaffMember ST);
 
     String staff();
 
@@ -43,7 +40,7 @@ public interface TheProducers {
 
     boolean isSubTypeValid(String subType);
 
-    boolean isCostValid(int i);
+    boolean isCostInvalid(int i);
 
     boolean isDateValid(int[] dateArray);
 
@@ -70,4 +67,8 @@ public interface TheProducers {
     boolean isThereFightsBetweenThisStaff(String[] names);
 
     boolean isThereDatesConflict(String scenery, int[] date, String[] names);
+
+    boolean isReschuleNeeded(String scenery, int[] date, String[] names);
+
+    void reschedule(String sceneryName, int[] date, String[] names);
 }

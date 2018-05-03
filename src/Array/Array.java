@@ -38,11 +38,11 @@ public interface Array<Elem> {
 
     void initialize();
 
-    Elem[] getArray();
-
     Elem remove();
 
     void remove(int i);
+
+    void remove(Elem e);
 
     int getCurrentElem();
 

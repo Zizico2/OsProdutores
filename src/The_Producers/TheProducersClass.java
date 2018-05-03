@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
 
 public class TheProducersClass implements TheProducers {
 
-    private Array<Recording> plannedRecordings;
-    private Array<Recording> pastRecordings;
-    private Array<StaffMember> staff;
-    private Array<Scenery> sceneries;
+    private final Array<Recording> plannedRecordings;
+    private final Array<Recording> pastRecordings;
+    private final Array<StaffMember> staff;
+    private final Array<Scenery> sceneries;
 
     public TheProducersClass(){
         staff = new ArrayClass<StaffMember>();
@@ -90,8 +90,7 @@ public class TheProducersClass implements TheProducers {
         return msg;
         }
 
-    @Override
-    public StaffType checkType(StaffMember ST){
+    private StaffType checkType(StaffMember ST){
         if(ST instanceof Vedette) {
                  if(ST instanceof Actor)
                      return StaffType.VEDETTE_ACTOR;
@@ -144,7 +143,6 @@ public class TheProducersClass implements TheProducers {
         return msg;
     }
 
-    @Override
     public String staffMember(String name){
         String msg = "";
         int totalCost = 0;
@@ -314,14 +312,64 @@ public class TheProducersClass implements TheProducers {
         StaffType recordingProducerType = checkType(getStaffMembersByName(recordingProducer)[0]);
         if(recordingProducerType.equals(StaffType.JUNIOR_PRODUCER))
             return false;
+        recordings.initialize();
         for (int i = 0; i < recordings.length() ; i++) {
             Recording recording = recordings.next();
             StaffType plannedRecordingProducerType = checkType(recording.getProducer());
-            if(plannedRecordingProducerType.equals(StaffType.JUNIOR_PRODUCER))
-                return true;
+            if(!plannedRecordingProducerType.equals(StaffType.JUNIOR_PRODUCER)) {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
+
+    public void reschedule(String sceneryName, int[] date, String[] names) {
+
+        Array<Recording> recordings = conflictedRecordings(sceneryName, date, names);
+        recordings.initialize();
+
+        while (recordings.hasNext())
+            plannedRecordings.remove(recordings.next());
+
+        scheduleRecording(sceneryName, date, names, false);
+
+        recordings.initialize();
+
+        while(recordings.hasNext()){
+
+            Recording recording2reschedule = recordings.next();
+            LocalDateTime tempStartDate = LocalDateTime.of(date[0], date[1], date[2],date[3], date[4]).plusDays(1);
+            LocalDateTime tempEndDate = tempStartDate.plusMinutes(recording2reschedule.getDuration());
+            plannedRecordings.initialize();
+            boolean rescheduled = false;
+            while(plannedRecordings.hasNext() && !rescheduled) {
+                Recording recording = plannedRecordings.next();
+                if (isDateConflicted(tempStartDate, tempEndDate, recording) &&
+                    (isThereStaffIntersection(recording, recording2reschedule.getStaff()) ||
+                    isThereSceneryIntersection(recording, recording2reschedule.getScenery()))){
+
+                    tempStartDate = tempStartDate.plusDays(1);
+                    tempEndDate = tempEndDate.plusDays(1);
+                }
+                else {
+                    int index = getChronologicalPos(tempStartDate);
+                    recording2reschedule.changeDate(tempStartDate);
+                    plannedRecordings.add(recording2reschedule, index);
+                    rescheduled = true;
+
+                }
+
+            }
+        }
+    }
+
+
+
+
+
+
+
+
 
     private Array<Recording> conflictedRecordings(String sceneryName, int[] date, String[] names){
         Array<Recording> recordings = new ArrayClass<Recording>();
@@ -329,7 +377,7 @@ public class TheProducersClass implements TheProducers {
         plannedRecordings.initialize();
         while(plannedRecordings.hasNext()) {
             Recording recording = plannedRecordings.next();
-            if(isDateConflicted(realDate,realDate.plusMinutes(date[5]),recording) && (isThereSceneryIntersection(recording,sceneryName) || isThereStaffIntersection(recording,names,realDate,realDate.plusMinutes(date[5]))))
+            if(isDateConflicted(realDate,realDate.plusMinutes(date[5]),recording) && (isThereSceneryIntersection(recording,sceneryName) || isThereStaffIntersection(recording,names)))
                 recordings.add(recording);
        }
        return recordings;
@@ -341,7 +389,7 @@ public class TheProducersClass implements TheProducers {
         return ! (((realDateStart.isBefore(startingDate) && realDateEnd.isBefore(startingDate)) || realDateStart.isAfter(endDate)));
     }
 
-    private boolean isThereStaffIntersection(Recording recording,String[] names,LocalDateTime realDateStart,LocalDateTime realDateEnd){
+    private boolean isThereStaffIntersection(Recording recording, String[] names){
         int namesCounter = 0;
         while (namesCounter != names.length){
              if (recording.hasStaffMemberNamed(names[namesCounter]))
@@ -358,7 +406,7 @@ public class TheProducersClass implements TheProducers {
         return recording.getScenery().equals(sceneryName);
     }
 
-    private boolean checkFight(Vedette vedette,String victimName){
+    private boolean checkFight(Vedette vedette,String victimName) {
         return vedette.isMadWith(victimName);
     }
 
@@ -432,8 +480,8 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
-    public boolean isCostValid(int money){
-        return money > 0;
+    public boolean isCostInvalid(int money){
+        return money <= 0;
     }
 
     public boolean duplicateSceneryName(String name){
@@ -453,10 +501,17 @@ public class TheProducersClass implements TheProducers {
         return null;
     }
 
+    @Override
     public void scheduleRecording(String scenery, int[] localDateTime, String[] names,boolean suspended){
         LocalDateTime date = LocalDateTime.of(localDateTime[0],localDateTime[1],localDateTime[2],localDateTime[3],localDateTime[4]);
         int duration = localDateTime[5];
         plannedRecordings.add(new RecordingClass(getSceneryByName(scenery), date, duration, getStaffMembersByName(names),suspended),getChronologicalPos(date));
+    }
+
+    public boolean isReschuleNeeded(String scenery, int[] date, String[] names){
+        Array<Recording> recordings = conflictedRecordings(scenery,date,names);
+        recordings.initialize();
+        return recordings.hasNext();
     }
 
     private int getChronologicalPos(LocalDateTime date){
