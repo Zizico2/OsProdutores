@@ -7,9 +7,9 @@ package Array;
  */
 
 /**
- * Representa uma coleção de elementos genéricos.
+ * Representa uma coleção de elementos genericos.
  *
- * @param <Elem> elemento genérico (ie. StaffMember, Vedette, Recording, etc.).
+ * @param <Elem> elemento generico (ie. StaffMember, Vedette, Recording, etc.).
  */
 public interface Array<Elem> {
 

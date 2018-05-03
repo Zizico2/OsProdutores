@@ -7,7 +7,7 @@ package Scenery;
  */
 
 /**
- * Representa um cenário.
+ * Representa um cenario.
  */
 public interface Scenery {
 

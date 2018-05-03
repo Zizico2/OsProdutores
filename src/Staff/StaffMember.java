@@ -20,7 +20,7 @@ public interface StaffMember {
 
 
     /**
-     * devolve o salário por hora.
+     * devolve o salario por hora.
      *
      * @return moneyPerHour.
      */

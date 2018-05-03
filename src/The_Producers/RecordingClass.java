@@ -1,10 +1,12 @@
 package The_Producers;
 
-import java.time.LocalDateTime;
-import Array.*;
-import Scenery.*;
+import Array.Array;
+import Array.ArrayClass;
+import Scenery.Scenery;
 import Staff.StaffMember;
 import Staff.Vedette;
+
+import java.time.LocalDateTime;
 
 /**
  * @author Tiago Guerreiro

@@ -27,7 +27,7 @@ public interface Vedette extends StaffMember {
 
 
     /**
-     * Reconcilia, removendo um olaborador da sua lista negra.
+     * Reconcilia, removendo um colaborador da sua lista negra.
      *
      * @param name nome do colaborador a remover.
      */
