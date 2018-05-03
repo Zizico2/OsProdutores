@@ -87,7 +87,7 @@ public interface TheProducers {
     String record();
 
     /**
-     * Devolve a mensagem associado ao comando "CENARIO".
+     * Devolve a mensagem associado ao comando "LOCAL".
      *
      * @param scenery - Nome do Cenario.
      * @return msg.
