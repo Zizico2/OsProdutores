@@ -9,8 +9,12 @@ import Staff.Tags.Producer;
  *
  */
 
+/**
+ * Representa um Produtor Junior.
+ */
 public class JuniorProducerClass extends StaffMemberAbstract implements Producer {
 
+    // Construtor
     public JuniorProducerClass(String Name, int moneyPerHour) {
         super(Name, moneyPerHour);
     }

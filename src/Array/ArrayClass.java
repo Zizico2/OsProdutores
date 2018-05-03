@@ -7,9 +7,14 @@ package Array;
  */
 public class ArrayClass<Elem> implements Array<Elem> {
 
+    // Variáveis de instancia
+
     private Elem[] array;
     private int counter;
     private int current;
+
+
+    //Construtor
 
     @SuppressWarnings("unchecked")
     public ArrayClass(){
@@ -18,6 +23,12 @@ public class ArrayClass<Elem> implements Array<Elem> {
         counter = 0;
 
     }
+
+    //Metodos privados
+
+    /**
+     * duplica o tamanho do vetor
+     */
     @SuppressWarnings("unchecked")
     private void resize(){
         Elem[] temp = (Elem[]) new Object[array.length * GROWTH_RATE];
@@ -26,6 +37,8 @@ public class ArrayClass<Elem> implements Array<Elem> {
 
         array = temp;
     }
+
+    //Metodos publicos
 
     @Override
     public boolean hasNext() {
@@ -65,13 +78,15 @@ public class ArrayClass<Elem> implements Array<Elem> {
         return elem;
     }
 
+    @Override
     public void remove(int i){
         if(i == counter)
             counter--;
         else
-        System.arraycopy(array,i+1,array,i,counter--);
+            System.arraycopy(array, i + 1, array, i, counter--);
     }
 
+    @Override
     public void remove(Elem e){
         for (int i = 0; i < counter; i++)
             if (array[i].equals(e)) {
