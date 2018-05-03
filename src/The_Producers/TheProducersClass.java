@@ -13,13 +13,18 @@ import java.time.LocalDateTime;
  *
  */
 
+/**
+ * Implementa TheProducers.
+ */
 public class TheProducersClass implements TheProducers {
 
+    //Variaveis
     private final Array<Recording> plannedRecordings;
     private final Array<Recording> pastRecordings;
     private final Array<StaffMember> staff;
     private final Array<Scenery> sceneries;
 
+    //Construtor
     public TheProducersClass(){
         staff = new ArrayClass<StaffMember>();
         plannedRecordings = new ArrayClass<Recording>();
@@ -77,6 +82,7 @@ public class TheProducersClass implements TheProducers {
         return true;
     }
 
+    @Override
     public String listSceneries(){
 
         String msg = "";
@@ -90,6 +96,12 @@ public class TheProducersClass implements TheProducers {
         return msg;
         }
 
+    /**
+     * verifica e devolve o tipo do Colaborador.
+     *
+     * @param ST - Colaborador.
+     * @return tipo e sub tipo.
+     */
     private StaffType checkType(StaffMember ST){
         if(ST instanceof Vedette) {
                  if(ST instanceof Actor)
@@ -143,6 +155,7 @@ public class TheProducersClass implements TheProducers {
         return msg;
     }
 
+    @Override
     public String staffMember(String name){
         String msg = "";
         int totalCost = 0;
@@ -307,6 +320,14 @@ public class TheProducersClass implements TheProducers {
        else return !isRecordingRescheduable(recordings, names[0]);
     }
 
+    /**
+     * Verifica se as gravacoes sao reagendaveis.
+     *
+     * @param recordings - Objeto Vetor que contem as gravacoes conflituosas
+     * @param producerName - Nome do produtor da Gravacao a ser criada.
+     * @return true se for possivel reagendamento;
+     *         false se nao for possivel.
+     */
     private boolean isRecordingRescheduable(Array<Recording> recordings, String producerName){
         String[] recordingProducer = {producerName};
         StaffType recordingProducerType = checkType(getStaffMembersByName(recordingProducer)[0]);
@@ -323,18 +344,15 @@ public class TheProducersClass implements TheProducers {
         return true;
     }
 
+    @Override
     public void reschedule(String sceneryName, int[] date, String[] names) {
-
         Array<Recording> recordings = conflictedRecordings(sceneryName, date, names);
         recordings.initialize();
-
         while (recordings.hasNext())
             plannedRecordings.remove(recordings.next());
-
         scheduleRecording(sceneryName, date, names, false);
 
         recordings.initialize();
-
         while(recordings.hasNext()){
 
             Recording recording2reschedule = recordings.next();
@@ -356,21 +374,19 @@ public class TheProducersClass implements TheProducers {
                     recording2reschedule.changeDate(tempStartDate);
                     plannedRecordings.add(recording2reschedule, index);
                     rescheduled = true;
-
                 }
-
             }
         }
     }
 
-
-
-
-
-
-
-
-
+    /**
+     * Verifica e devolve um Objeto Vetor que contem todas as gravacoes conflituosas de acordo com uma gravacao
+     *
+     * @param sceneryName - Nome do Cenario da Gravacao a agendar.
+     * @param date - Data da gravacao
+     * @param names - Nomes dos Colaboradores participantes na Gravacao.
+     * @return recordings.
+     */
     private Array<Recording> conflictedRecordings(String sceneryName, int[] date, String[] names){
         Array<Recording> recordings = new ArrayClass<Recording>();
         LocalDateTime realDate = LocalDateTime.of(date[0], date[1], date[2], date[3], date[4]);
@@ -383,12 +399,28 @@ public class TheProducersClass implements TheProducers {
        return recordings;
     }
 
+    /**
+     * Verifica se a data de uma gravacao interseta com outra data de um gravacao dada.
+     *
+     * @param realDateStart - Data de inicio da Gravacao.
+     * @param realDateEnd - Data de fim da Gravacao.
+     * @param recording - Gravacao para comparar datas.
+     * @return true se houve interseccao;
+     *         false se nao houver.
+     */
     private boolean isDateConflicted(LocalDateTime realDateStart, LocalDateTime realDateEnd,Recording recording){
         LocalDateTime startingDate = recording.getStartingDate();
         LocalDateTime endDate = recording.getEndDate();
         return ! (((realDateStart.isBefore(startingDate) && realDateEnd.isBefore(startingDate)) || realDateStart.isAfter(endDate)));
     }
 
+    /**
+     *Verifica se existe Colaboradores comuns com...
+     *
+     * @param recording
+     * @param names
+     * @return
+     */
     private boolean isThereStaffIntersection(Recording recording, String[] names){
         int namesCounter = 0;
         while (namesCounter != names.length){
@@ -399,8 +431,6 @@ public class TheProducersClass implements TheProducers {
          }
          return false;
     }
-
-
 
     private boolean isThereSceneryIntersection(Recording recording, String sceneryName) {
         return recording.getScenery().equals(sceneryName);
@@ -480,8 +510,8 @@ public class TheProducersClass implements TheProducers {
     }
 
     @Override
-    public boolean isCostInvalid(int money){
-        return money <= 0;
+    public boolean isCostInvalid(int cost){
+        return cost <= 0;
     }
 
     public boolean duplicateSceneryName(String name){
