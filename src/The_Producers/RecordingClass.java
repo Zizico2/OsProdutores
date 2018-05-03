@@ -14,10 +14,10 @@ import Staff.Vedette;
 
 public class RecordingClass implements Recording{
 
-    private Scenery scenery;
+    private final Scenery scenery;
     private LocalDateTime start;
-    private int duration;
-    private Array<StaffMember> staff;
+    private final int duration;
+    private final Array<StaffMember> staff;
     private boolean suspended;
 
 

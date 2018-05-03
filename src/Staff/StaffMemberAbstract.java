@@ -8,8 +8,8 @@ package Staff;
 
 public abstract class StaffMemberAbstract implements StaffMember {
 
-    private int moneyPerHour;
-    private String Name;
+    private final int moneyPerHour;
+    private final String Name;
 
     protected StaffMemberAbstract(String Name, int moneyPerHour){
         this.moneyPerHour = moneyPerHour;

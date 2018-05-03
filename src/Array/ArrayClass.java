@@ -59,11 +59,6 @@ public class ArrayClass<Elem> implements Array<Elem> {
     }
 
     @Override
-    public Elem[] getArray() {
-        return array;
-    }
-
-    @Override
     public Elem remove(){
         Elem elem = array[0];
         System.arraycopy(array,1,array,0,counter--);

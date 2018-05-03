@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
 
 public class TheProducersClass implements TheProducers {
 
-    private Array<Recording> plannedRecordings;
-    private Array<Recording> pastRecordings;
-    private Array<StaffMember> staff;
-    private Array<Scenery> sceneries;
+    private final Array<Recording> plannedRecordings;
+    private final Array<Recording> pastRecordings;
+    private final Array<StaffMember> staff;
+    private final Array<Scenery> sceneries;
 
     public TheProducersClass(){
         staff = new ArrayClass<StaffMember>();
@@ -90,8 +90,7 @@ public class TheProducersClass implements TheProducers {
         return msg;
         }
 
-    @Override
-    public StaffType checkType(StaffMember ST){
+    private StaffType checkType(StaffMember ST){
         if(ST instanceof Vedette) {
                  if(ST instanceof Actor)
                      return StaffType.VEDETTE_ACTOR;
@@ -346,7 +345,7 @@ public class TheProducersClass implements TheProducers {
             while(plannedRecordings.hasNext() && !rescheduled) {
                 Recording recording = plannedRecordings.next();
                 if (isDateConflicted(tempStartDate, tempEndDate, recording) &&
-                    (isThereStaffIntersection(recording, recording2reschedule.getStaff(), tempStartDate, tempEndDate) ||
+                    (isThereStaffIntersection(recording, recording2reschedule.getStaff()) ||
                     isThereSceneryIntersection(recording, recording2reschedule.getScenery()))){
 
                     tempStartDate = tempStartDate.plusDays(1);
@@ -378,7 +377,7 @@ public class TheProducersClass implements TheProducers {
         plannedRecordings.initialize();
         while(plannedRecordings.hasNext()) {
             Recording recording = plannedRecordings.next();
-            if(isDateConflicted(realDate,realDate.plusMinutes(date[5]),recording) && (isThereSceneryIntersection(recording,sceneryName) || isThereStaffIntersection(recording,names,realDate,realDate.plusMinutes(date[5]))))
+            if(isDateConflicted(realDate,realDate.plusMinutes(date[5]),recording) && (isThereSceneryIntersection(recording,sceneryName) || isThereStaffIntersection(recording,names)))
                 recordings.add(recording);
        }
        return recordings;
@@ -390,7 +389,7 @@ public class TheProducersClass implements TheProducers {
         return ! (((realDateStart.isBefore(startingDate) && realDateEnd.isBefore(startingDate)) || realDateStart.isAfter(endDate)));
     }
 
-    private boolean isThereStaffIntersection(Recording recording,String[] names,LocalDateTime realDateStart,LocalDateTime realDateEnd){
+    private boolean isThereStaffIntersection(Recording recording, String[] names){
         int namesCounter = 0;
         while (namesCounter != names.length){
              if (recording.hasStaffMemberNamed(names[namesCounter]))

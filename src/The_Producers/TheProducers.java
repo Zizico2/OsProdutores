@@ -1,7 +1,5 @@
 package The_Producers;
-import Staff.*;
 
-import java.time.LocalDateTime;
 
 /**
  * @author Tiago Guerreiro
@@ -9,13 +7,12 @@ import java.time.LocalDateTime;
  *
  */
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public interface TheProducers {
 
     void register(String name, int payPerHour, String type, String subType);
 
     void addScenery(String site, int pricePerHour);
-
-    StaffType checkType(StaffMember ST);
 
     String staff();
 

@@ -8,8 +8,8 @@ package Scenery;
 
 public class SceneryClass implements Scenery {
 
-    private String name;
-    private int pricePerHour;
+    private final String name;
+    private final int pricePerHour;
 
 
     public SceneryClass(String name, int pricePerHour){

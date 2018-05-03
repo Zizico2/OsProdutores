@@ -1,7 +1,6 @@
 package The_Producers;
 
 import Staff.StaffMember;
-import Staff.Tags.Producer;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  *
  */
 
-public interface Recording {
+interface Recording {
 
     DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("yyyy M d");
 
