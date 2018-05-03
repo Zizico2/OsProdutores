@@ -338,7 +338,7 @@ public class TheProducersClass implements TheProducers {
         while(recordings.hasNext()){
 
             Recording recording2reschedule = recordings.next();
-            LocalDateTime tempStartDate = LocalDateTime.of(date[0], date[1], date[2],date[3], date[4]).plusMinutes(recording2reschedule.getDuration());
+            LocalDateTime tempStartDate = LocalDateTime.of(date[0], date[1], date[2],date[3], date[4]).plusMinutes(date[5]);
             LocalDateTime tempEndDate = tempStartDate.plusMinutes(recording2reschedule.getDuration());
             plannedRecordings.initialize();
 
