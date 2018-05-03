@@ -16,6 +16,7 @@ public class Main {
     private static final int MAIN_STAFF_NUMBER = 3;
 
     /**
+     *
      * Metodo main.
      */
     public static void main(String[] args){
