@@ -250,8 +250,8 @@ public class Main {
         }
 
         else{
-                tP.scheduleRecording(scenery, localDateTime, names, false);
-                System.out.println(Message.SCHEDULE_COMPLETE.msg);
+            tP.scheduleRecording(scenery, localDateTime, names, false);
+            System.out.println(Message.SCHEDULE_COMPLETE.msg);
             }
         }
 

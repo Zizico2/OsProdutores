@@ -313,6 +313,7 @@ public class TheProducersClass implements TheProducers {
         StaffType recordingProducerType = checkType(getStaffMembersByName(recordingProducer)[0]);
         if(recordingProducerType.equals(StaffType.JUNIOR_PRODUCER))
             return false;
+        recordings.initialize();
         for (int i = 0; i < recordings.length() ; i++) {
             Recording recording = recordings.next();
             StaffType plannedRecordingProducerType = checkType(recording.getProducer());
@@ -338,37 +339,29 @@ public class TheProducersClass implements TheProducers {
         while(recordings.hasNext()){
 
             Recording recording2reschedule = recordings.next();
-            LocalDateTime tempStartDate = LocalDateTime.of(date[0], date[1], date[2],date[3], date[4]).plusMinutes(date[5]);
+            LocalDateTime tempStartDate = LocalDateTime.of(date[0], date[1], date[2],date[3], date[4]).plusDays(1);
             LocalDateTime tempEndDate = tempStartDate.plusMinutes(recording2reschedule.getDuration());
             plannedRecordings.initialize();
-
-            while(plannedRecordings.hasNext()){
-
+            boolean rescheduled = false;
+            while(plannedRecordings.hasNext() && !rescheduled) {
                 Recording recording = plannedRecordings.next();
-
                 if (isDateConflicted(tempStartDate, tempEndDate, recording) &&
                     (isThereStaffIntersection(recording, recording2reschedule.getStaff(), tempStartDate, tempEndDate) ||
                     isThereSceneryIntersection(recording, recording2reschedule.getScenery()))){
 
-                    tempStartDate = recording.getEndDate();
-                    tempEndDate = tempStartDate.plusMinutes(recording2reschedule.getDuration());
-
+                    tempStartDate = tempStartDate.plusDays(1);
+                    tempEndDate = tempEndDate.plusDays(1);
                 }
                 else {
-
                     int index = getChronologicalPos(tempStartDate);
                     recording2reschedule.changeDate(tempStartDate);
                     plannedRecordings.add(recording2reschedule, index);
+                    rescheduled = true;
 
                 }
 
             }
         }
-
-
-
-
-
     }
 
 
@@ -518,7 +511,8 @@ public class TheProducersClass implements TheProducers {
 
     public boolean isReschuleNeeded(String scenery, int[] date, String[] names){
         Array<Recording> recordings = conflictedRecordings(scenery,date,names);
-        return isRecordingRescheduable(recordings,names[0]);
+        recordings.initialize();
+        return recordings.hasNext();
     }
 
     private int getChronologicalPos(LocalDateTime date){
