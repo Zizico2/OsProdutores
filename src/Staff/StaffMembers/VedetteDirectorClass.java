@@ -9,8 +9,13 @@ import Staff.VedetteAbstract;
  *
  */
 
+/**
+ * Representa um Diretor Vedeta.
+ */
+
 public class VedetteDirectorClass extends VedetteAbstract implements Director {
 
+    // Construtor
     public VedetteDirectorClass(String Name, int moneyPerHour) {
         super(Name, moneyPerHour);
     }

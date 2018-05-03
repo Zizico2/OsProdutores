@@ -6,11 +6,16 @@ package Staff;
  *
  */
 
+/**
+ * Implementa um Colaborador
+ */
 public abstract class StaffMemberAbstract implements StaffMember {
 
+    // Variáveis de Instância
     private final int moneyPerHour;
     private final String Name;
 
+    // Construtor
     protected StaffMemberAbstract(String Name, int moneyPerHour){
         this.moneyPerHour = moneyPerHour;
         this.Name = Name;

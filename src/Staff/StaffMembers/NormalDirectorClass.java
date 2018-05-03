@@ -9,8 +9,13 @@ import Staff.Tags.Director;
  *
  */
 
+
+/**
+ * Representa um Diretor Normal.
+ */
 public class NormalDirectorClass extends StaffMemberAbstract implements Director {
 
+    // Costrutor
     public NormalDirectorClass(String Name, int moneyPerHour) {
         super(Name, moneyPerHour);
     }

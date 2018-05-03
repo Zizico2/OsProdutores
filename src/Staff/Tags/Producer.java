@@ -6,5 +6,8 @@ package Staff.Tags;
  *
  */
 
+/**
+ * Representa um Produtor.
+ */
 public interface Producer {
 }

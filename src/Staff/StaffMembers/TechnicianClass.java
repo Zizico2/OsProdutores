@@ -8,6 +8,9 @@ import Staff.StaffMemberAbstract;
  *
  */
 
+/**
+ * Representa um Tecnico.
+ */
 public class TechnicianClass extends StaffMemberAbstract {
 
     public TechnicianClass(String Name, int moneyPerHour) {

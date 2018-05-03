@@ -6,10 +6,24 @@ package Staff;
  *
  */
 
+/**
+ * Representa um Colaborador.
+ */
 public interface StaffMember {
 
+    /**
+     * Devolve o nome.
+     *
+     * @return name.
+     */
     String getName();
 
+
+    /**
+     * devolve o salário por hora.
+     *
+     * @return moneyPerHour.
+     */
     int getMoneyPerHour();
 }
 

@@ -8,10 +8,11 @@ package Scenery;
 
 public class SceneryClass implements Scenery {
 
+    // Variaveis de instancia
     private final String name;
     private final int pricePerHour;
 
-
+    // Construtor
     public SceneryClass(String name, int pricePerHour){
         this.name = name;
         this.pricePerHour = pricePerHour;

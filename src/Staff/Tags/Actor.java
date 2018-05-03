@@ -6,5 +6,8 @@ package Staff.Tags;
  *
  */
 
+/**
+ * Representa um Ator.
+ */
 public interface Actor {
 }

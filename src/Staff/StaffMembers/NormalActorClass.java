@@ -9,8 +9,12 @@ import Staff.Tags.Actor;
  *
  */
 
+/**
+ * Representa um Ator Normal.
+ */
 public class NormalActorClass extends StaffMemberAbstract implements Actor {
 
+    // Construtor
     public NormalActorClass(String Name, int moneyPerHour) {
         super(Name, moneyPerHour);
     }
