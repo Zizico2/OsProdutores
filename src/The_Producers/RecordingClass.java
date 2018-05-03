@@ -12,8 +12,12 @@ import Staff.Vedette;
  *
  */
 
+/**
+ * Implementa Recording
+ */
 public class RecordingClass implements Recording{
 
+    //Variaveis
     private final Scenery scenery;
     private LocalDateTime start;
     private final int duration;
@@ -21,9 +25,9 @@ public class RecordingClass implements Recording{
     private boolean suspended;
 
 
+    //Construtor - populateStaff() : Preenche o objeto staff com colaboradores guardados num vetor dado.
     RecordingClass(Scenery scenery,LocalDateTime date, int duration, StaffMember[] staff, boolean suspended) {
         start = date;
-        //end = start.plusMinutes(duration);
         this.duration = duration;
         this.scenery = scenery;
         this.staff = new ArrayClass<StaffMember>();
@@ -31,8 +35,7 @@ public class RecordingClass implements Recording{
         this.suspended = suspended;
     }
 
-
-
+    @Override
     public String toStringExtra() {
         String s = "";
         staff.initialize();
@@ -42,6 +45,7 @@ public class RecordingClass implements Recording{
                 + staff.next().getName() + "." + s;
     }
 
+    @Override
     public String getScenery(){
         return scenery.getName();
     }
@@ -112,11 +116,17 @@ public class RecordingClass implements Recording{
         return (int)((total + scenery.getPricePerHour()) * Math.ceil(duration/60.0));
     }
 
+    /**
+     * Preenche o objeto staff com colaboradores do vetor dado.
+     *
+     * @param staff - Vetor de colaboradores
+     */
     private void populateStaff(StaffMember[] staff){
         for (StaffMember sM: staff)
             this.staff.add(sM);
     }
 
+    @Override
     public String[] getStaff(){
         String[] staffArray = new String[staff.length()];
         staff.initialize();
@@ -130,11 +140,4 @@ public class RecordingClass implements Recording{
     public void changeDate(LocalDateTime tempStartDate) {
         start = tempStartDate;
     }
-
-    //Formatacao com a classe DateTimeFormatter
-    //DateTimeFormatter format_date = DateTimeFormatter.ofPattern("yyyy M d");
-    //DateTimeFormatter format_date_time = DateTimeFormatter.ofPattern("yyyy M d h m");
-	//	System.out.println(start.format(format_date));
-	//	System.out.println(start.format(format_date_time));
-
 }
