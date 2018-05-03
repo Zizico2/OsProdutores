@@ -99,6 +99,11 @@ public class RecordingClass implements Recording{
     }
 
     @Override
+    public int getDuration() {
+        return duration;
+    }
+
+    @Override
     public int getCost(){
         int total = 0;
         staff.initialize();
@@ -112,8 +117,18 @@ public class RecordingClass implements Recording{
             this.staff.add(sM);
     }
 
-    public Array<StaffMember> getStaff(){
-        return staff;
+    public String[] getStaff(){
+        String[] staffArray = new String[staff.length()];
+        staff.initialize();
+        for(int i = 0; staff.hasNext(); i++)
+            staffArray[i] = staff.next().getName();
+
+        return staffArray;
+    }
+
+    @Override
+    public void changeDate(LocalDateTime tempStartDate) {
+        start = tempStartDate;
     }
 
     //Formatacao com a classe DateTimeFormatter

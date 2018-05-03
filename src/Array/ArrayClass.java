@@ -73,7 +73,16 @@ public class ArrayClass<Elem> implements Array<Elem> {
     public void remove(int i){
         if(i == counter)
             counter--;
+        else
         System.arraycopy(array,i+1,array,i,counter--);
+    }
+
+    public void remove(Elem e){
+        for (int i = 0; i < counter; i++)
+            if (array[i].equals(e)) {
+                remove(i);
+                return;
+            }
     }
 
     @Override

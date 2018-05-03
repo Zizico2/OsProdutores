@@ -36,7 +36,7 @@ public class Main {
         SCHEDULE_COMPLETE               ("Gravacao agendada com sucesso!"),
         SCHEDULED_RECORDING_SUSPENDED   ("Gravacao pendente de uma birra."),
         RECORDING_WITH_CONFLICTED_DATES ("Gravacao nao agendada por conflito de datas."),
-        RECORDINGS_RESCHEDULED           ("Gravacao prioritaria agendada provocou mudancas noutra(s) gravacao(oes)."),
+        RECORDINGS_RESCHEDULED          ("Gravacao prioritaria agendada provocou mudancas noutra(s) gravacao(oes)."),
         NO_GRUDGE_BETWEEN               ("Nao existe zanga com "),
         UNKNOWN_PRODUCER                ("Produtor desconhecido."),
         UNKNOWN_DIRECTOR                ("Realizador desconhecido."),
@@ -246,7 +246,7 @@ public class Main {
 
         else if(tP.isReschuleNeeded(scenery,localDateTime,names)){
             System.out.println(Message.RECORDINGS_RESCHEDULED.msg);
-            // reschedule starts here!!
+            tP.reschedule(scenery,localDateTime,names);
         }
 
         else{

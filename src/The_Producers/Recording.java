@@ -35,4 +35,10 @@ public interface Recording {
     LocalDateTime getEndDate();
 
     StaffMember getProducer();
+
+    int getDuration();
+
+    String[] getStaff();
+
+    void changeDate(LocalDateTime tempStartDate);
 }

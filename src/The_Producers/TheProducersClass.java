@@ -144,7 +144,6 @@ public class TheProducersClass implements TheProducers {
         return msg;
     }
 
-    @Override
     public String staffMember(String name){
         String msg = "";
         int totalCost = 0;
@@ -317,11 +316,68 @@ public class TheProducersClass implements TheProducers {
         for (int i = 0; i < recordings.length() ; i++) {
             Recording recording = recordings.next();
             StaffType plannedRecordingProducerType = checkType(recording.getProducer());
-            if(plannedRecordingProducerType.equals(StaffType.JUNIOR_PRODUCER))
-                return true;
+            if(!plannedRecordingProducerType.equals(StaffType.JUNIOR_PRODUCER)) {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
+
+    public void reschedule(String sceneryName, int[] date, String[] names) {
+
+        Array<Recording> recordings = conflictedRecordings(sceneryName, date, names);
+        recordings.initialize();
+
+        while (recordings.hasNext())
+            plannedRecordings.remove(recordings.next());
+
+        scheduleRecording(sceneryName, date, names, false);
+
+        recordings.initialize();
+
+        while(recordings.hasNext()){
+
+            Recording recording2reschedule = recordings.next();
+            LocalDateTime tempStartDate = LocalDateTime.of(date[0], date[1], date[2],date[3], date[4]).plusMinutes(recording2reschedule.getDuration());
+            LocalDateTime tempEndDate = tempStartDate.plusMinutes(recording2reschedule.getDuration());
+            plannedRecordings.initialize();
+
+            while(plannedRecordings.hasNext()){
+
+                Recording recording = plannedRecordings.next();
+
+                if (isDateConflicted(tempStartDate, tempEndDate, recording) &&
+                    (isThereStaffIntersection(recording, recording2reschedule.getStaff(), tempStartDate, tempEndDate) ||
+                    isThereSceneryIntersection(recording, recording2reschedule.getScenery()))){
+
+                    tempStartDate = recording.getEndDate();
+                    tempEndDate = tempStartDate.plusMinutes(recording2reschedule.getDuration());
+
+                }
+                else {
+
+                    int index = getChronologicalPos(tempStartDate);
+                    recording2reschedule.changeDate(tempStartDate);
+                    plannedRecordings.add(recording2reschedule, index);
+
+                }
+
+            }
+        }
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
 
     private Array<Recording> conflictedRecordings(String sceneryName, int[] date, String[] names){
         Array<Recording> recordings = new ArrayClass<Recording>();

@@ -72,4 +72,6 @@ public interface TheProducers {
     boolean isThereDatesConflict(String scenery, int[] date, String[] names);
 
     boolean isReschuleNeeded(String scenery, int[] date, String[] names);
+
+    void reschedule(String sceneryName, int[] date, String[] names);
 }

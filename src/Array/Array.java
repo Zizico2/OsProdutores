@@ -44,6 +44,8 @@ public interface Array<Elem> {
 
     void remove(int i);
 
+    void remove(Elem e);
+
     int getCurrentElem();
 
     int length();
