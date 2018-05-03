@@ -1,5 +1,6 @@
 import The_Producers.TheProducers;
 import The_Producers.TheProducersClass;
+
 import java.util.Scanner;
 
 /**
@@ -345,6 +346,10 @@ public class Main {
             System.out.println(Message.NO_SITES.msg);
     }
 
+    /**
+     * @param in scanner a ser usado para receber informaçoes do utilizador
+     * @param tP produtora
+     */
     private static void scenery(Scanner in, TheProducers tP) {
         String name = in.nextLine();
         int cost = in.nextInt();
@@ -360,6 +365,12 @@ public class Main {
         }
     }
 
+    /**
+     * regista um utilizador de acoroo com os parametros definidos pelo utilizador.
+     *
+     * @param in scanner a ser usado para receber informaçoes do utilizador
+     * @param tP produtora
+     */
     private static void register(Scanner in, TheProducers tP) {
         String type = in.next();
         String subType = "";
@@ -389,7 +400,12 @@ public class Main {
 
     }
 
-    private static void staff( TheProducers tP) {
+    /**
+     * Imprime informacoes relativas aos colaboradores da produtora tP
+     *
+     * @param tP produtora.
+     */
+    private static void staff(TheProducers tP) {
         String msg = tP.staff();
         if(!msg.equals(Message.VOID_MESSAGE.msg))
             System.out.print(msg);
@@ -397,6 +413,10 @@ public class Main {
             System.out.println(Message.NO_STAFF_MEMBERS.msg);
     }
 
+
+    /**
+     * Imprime informacoes relativas aos comandos disponiveis ao utilizador
+     */
     private static void help(){
         for(Command C : Command.values())
             if(C  != Command.UNKNOWN)
